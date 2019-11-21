@@ -1,0 +1,199 @@
+import 'package:flutter/material.dart';
+import 'package:appgo/dashboard/ui/widget/btnLIsto.dart';
+import 'package:appgo/dashboard/ui/widget/btnCloseSesion.dart';
+import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
+
+class OrdenarPorAlfabeto extends StatefulWidget {
+  String vendedor;
+  String fecha = "7 días";
+  String alfabeto = "Nombre A-Z";
+  @override
+  State<StatefulWidget> createState() {
+    return _OrdenarPorAlfabeto();
+  }
+}
+
+class _OrdenarPorAlfabeto extends State<OrdenarPorAlfabeto> {
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double elevation = screenHeight * 0.0357;
+
+    final ordenar = Container(
+      margin: EdgeInsets.only(left: 0.0),
+      child: Text(
+        "ORDENAR POR",
+        style: TextStyle(
+            letterSpacing: 0.2,
+            fontFamily: "DIN",
+            color: Colors.white,
+            fontWeight: FontWeight.w900,
+            fontSize: 20),
+      ),
+    );
+
+    final ordenarAscendente = Container(
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Nombre",
+            style: TextStyle(
+                fontFamily: "DIN",
+                letterSpacing: 0.1,
+                wordSpacing: 0.2,
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w900),
+          ),
+          Text("A-Z",
+              style: TextStyle(
+                  fontFamily: "DIN",
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900))
+        ],
+      ),
+    );
+    final ordenarPorTiempo = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "DESDE HACE",
+            style: TextStyle(
+                fontFamily: "DIN",
+                letterSpacing: 0.1,
+                wordSpacing: 0.2,
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w900),
+          ),
+          Text(widget.fecha,
+              style: TextStyle(
+                  fontFamily: "DIN",
+                  color: Colors.black54,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w900))
+        ],
+      ),
+    );
+
+    final ordenarPorVendedor = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "VENDEDOR",
+            style: TextStyle(
+                fontFamily: "DIN",
+                letterSpacing: 0.1,
+                wordSpacing: 0.2,
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w900),
+          ),
+          Text("${widget.vendedor}",
+              style: TextStyle(
+                  fontFamily: "DIN",
+                  color: Colors.black54,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w900))
+        ],
+      ),
+    );
+
+    return Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          colors: [Colors.lightBlueAccent[400], Colors.lightBlue[600]],
+          begin: FractionalOffset(0.0, 0.0),
+          end: FractionalOffset(0.0, 0.6),
+          stops: [0.0, 0.0],
+          tileMode: TileMode.clamp,
+        )),
+        margin: EdgeInsets.only(top: elevation),
+        width: screenWidth * 0.76,
+        height: screenHeight - elevation,
+        child: Drawer(
+            elevation: 0.0,
+            child: Column(children: <Widget>[
+              ListTile(
+                  contentPadding: EdgeInsets.only(
+                      top: screenHeight * 0.041, left: 10.0, right: 16.0),
+                  onTap: () {},
+                  title: ordenar,
+                  leading: Icon(
+                    Icons.chevron_left,
+                    color: Colors.white60,
+                  ),
+                  trailing: BtnListo()),
+              Divider(
+                color: Colors.white60,
+              ),
+              ListTile(
+                onTap: () {},
+                leading: Container(
+                  width: screenWidth * 0.76,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Nombre",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontFamily: "DIN",
+                            letterSpacing: 0.1,
+                            wordSpacing: 0.2,
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900),
+                      ),
+                      Text("A-Z",
+                          style: TextStyle(
+                              fontFamily: "DIN",
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900))
+                    ],
+                  ),
+                ),
+              ),
+              Divider(
+                color: Colors.white60,
+              ),
+              // ListTile(
+              //     onTap: () {
+              //       Navigator.pop(context);
+              //     },
+              //     leading: Container(child: ordenarPorTiempo),
+              //     trailing: new Icon(
+              //       Icons.chevron_right,
+              //       color: Colors.white60,
+              //     )),
+              // Divider(
+              //   color: Colors.white60,
+              // ),
+              // ListTile(
+              //     onTap: () {
+              //       Navigator.pop(context);
+              //     },
+              //     leading: Container(child: ordenarPorVendedor),
+              //     trailing: new Icon(
+              //       Icons.chevron_right,
+              //       color: Colors.white60,
+              //     )),
+              // Divider(
+              //   color: Colors.white60,
+              // ),
+              // Expanded(flex: 1, child: Text("")),
+              // Expanded(
+              //   flex: 0,
+              //   child: BtnCloseSesion("Limpiar Filtros"),
+              // ),
+            ])));
+  }
+}
