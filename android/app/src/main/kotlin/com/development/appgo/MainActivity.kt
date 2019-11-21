@@ -9,6 +9,6 @@ class MainActivity: FlutterActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     GeneratedPluginRegistrant.registerWith(this)
-    this.getWindow().setStatusBarColor(android.graphics.Color.TRANSPARENT);
+    this.getWindow().setStatusBarColor(android.graphics.Color.TRANSPARENT);  // cambia el color de la barra de estado de android
   }
 }
