@@ -42,10 +42,14 @@ final CONNECTION_ERROR = "Verifica tu conexión a internet.";
 final REQUEST_TIMEOUT_ERROR = "Tiempo de espera superado.";
 
 Future<User> generateToken() async {
-  var response = await http.get(STAGE_SERVICES, headers: {
-    "Content-Type": "application/json",
-    "__RequestVerificationToken": "",
-  });
+  var response = await http.get(
+    GENERATE_TOKEN_URL,
+    headers: {
+      "Content-Type": "application/json",
+      "__RequestVerificationToken": "verificationToken",
+    },
+  );
+
   if (response.statusCode == 200) {
     return User.fromJson(json.decode(response.body));
   } else {
@@ -58,7 +62,9 @@ Future<User> fetch() async {
     GENERATE_TOKEN_URL,
     headers: {
       "Content-Type": "application/json",
+      "__RequestVerificationToken": "verificationToken",
     },
+    //body: ()
   );
 
   if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
@@ -77,7 +83,7 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    user = generateToken();
+    user = fetch();
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
@@ -96,7 +102,7 @@ class Service extends StatelessWidget {
               );
             } else if (snapshot.hasError) {
               print(snapshot.error);
-              return Text("${snapshot.error}");
+              return Text("Error: ${snapshot.error}");
             }
             return CircularProgressIndicator(
               backgroundColor: Colors.lightBlue,
