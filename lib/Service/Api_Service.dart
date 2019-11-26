@@ -41,49 +41,61 @@ final CONVERSION_STATUS_APPLICATIONS_URL =
 final CONNECTION_ERROR = "Verifica tu conexión a internet.";
 final REQUEST_TIMEOUT_ERROR = "Tiempo de espera superado.";
 
-Future<User> generateToken() async {
+String token;
+Future<User> getVerificationToken() async {
   var response = await http.get(
-    GENERATE_TOKEN_URL,
-    headers: {
-      "Content-Type": "application/json",
-      "__RequestVerificationToken": "verificationToken",
-    },
-  );
-
-  if (response.statusCode == 200) {
-    return User.fromJson(json.decode(response.body));
-  } else {
-    throw Exception("Failed to load data");
-  }
+    API_URL,
+    headers: {"Content-Type": "text/html; charsest=utf-8"},
+  ).then((r) {
+    return r.body;
+  }).then((response) {
+    var reg = new RegExp('value="([A-Za-z0-9_-]*)"');
+    var res = reg.stringMatch(response);
+    token = res.substring(6);
+    print("this is a: $token");
+    return token;
+  });
 }
 
-Future<User> fetch() async {
-  final response = await http.post(
-    GENERATE_TOKEN_URL,
-    headers: {
-      "Content-Type": "application/json",
-      "__RequestVerificationToken": "verificationToken",
-    },
-    //body: ()
-  );
-
-  if (response.statusCode < 200 || response.statusCode > 400 || json == null) {
-    // Si la llamada al servidor no fue exitosa
-    throw Exception('Failed to load data');
-  } else {
-    // Si la llamada fue exitosa
-    return User.fromJson(json.decode(response.body));
-  }
+Future<User> singIn() async {
+  User user;
+  user = User();
+  final response = await http
+      .post(SIGIN_URL,
+          headers: {
+            "Content-Type": "application/json",
+            "__RequestVerificationToken": token
+          },
+          body: json.encode({
+            'sPassword': user.sPassword,
+            'sDealerNumber': user.sDealerNumber,
+            'sSalesManInfo': user.sSalesManInfo,
+            'sIMEI': user.sIMEI,
+          }))
+      .then((r) {
+    return r.body;
+  }).then((result) {
+    var response = json.decode(result);
+    if (response['Autenticacion'] == null) {
+      print("Autentication is Empty");
+      return response['Error']['Description'];
+    }
+    var isValid = response["Autenticacion"]["Valido"];
+    if (isValid) {
+      print(result);
+      return (result);
+    }
+    return (response["Autenticacion"]["Razon"]);
+  });
 }
 
 class Service extends StatelessWidget {
   Future<User> user;
-
   Service({Key key, this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    user = fetch();
+    user = singIn();
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
@@ -94,7 +106,7 @@ class Service extends StatelessWidget {
           future: user,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print("conexion con datos ${snapshot.data}");
+              print(snapshot.data);
               return ListView(
                 children: <Widget>[
                   Text(snapshot.data.toString()),

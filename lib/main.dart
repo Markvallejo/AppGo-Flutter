@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, // delete debug from view
       title: 'Flutter Demo',
 
-      home: SingIn(),
-      //home: Service(),
+      //home: SingIn(),
+      home: Service(),
 
       theme: ThemeData(
         //Se indica que el tema tiene un brillo luminoso/claro
