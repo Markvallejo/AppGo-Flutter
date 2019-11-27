@@ -49,7 +49,7 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    user = remoteConfig();
+    user = salesmanListRequest(user);
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
@@ -60,10 +60,9 @@ class Service extends StatelessWidget {
           future: user,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print(snapshot.data);
               return ListView(
                 children: <Widget>[
-                  Text(snapshot.data.toString()),
+                  Text(""),
                 ],
               );
             } else if (snapshot.hasError) {

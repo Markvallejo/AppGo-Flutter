@@ -5,7 +5,7 @@ import 'package:appgo/user/model/user.dart';
 import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
 
-Future<User> generateToken() async {
+Future<User> generateToken(user) async {
   User user;
   user = User();
 
@@ -21,10 +21,10 @@ Future<User> generateToken() async {
             'sIMEI': user.sIMEI,
           }))
       .then((r) {
-    return r.body;
-  }).then((response) {
-    var token = json.decode(response);
-    // print(token);
-    return token;
+    return r;
+  }).then((result) {
+    var token = json.decode(result.body);
+    //print(token["TokenValor"]);
+    return token["TokenValor"];
   });
 }
