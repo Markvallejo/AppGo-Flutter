@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:appgo/user/model/user.dart';
-import 'package:http/http.dart' as http;
+import 'package:appgo/Service/singIn.dart';
+import 'package:appgo/Service/generate_token.dart';
+import 'package:appgo/Service/salesman_list_request.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -41,61 +42,13 @@ final CONVERSION_STATUS_APPLICATIONS_URL =
 final CONNECTION_ERROR = "Verifica tu conexión a internet.";
 final REQUEST_TIMEOUT_ERROR = "Tiempo de espera superado.";
 
-String token;
-Future<User> getVerificationToken() async {
-  var response = await http.get(
-    API_URL,
-    headers: {"Content-Type": "text/html; charsest=utf-8"},
-  ).then((r) {
-    return r.body;
-  }).then((response) {
-    var reg = new RegExp('value="([A-Za-z0-9_-]*)"');
-    var res = reg.stringMatch(response);
-    token = res.substring(6);
-    print("this is a: $token");
-    return token;
-  });
-}
-
-Future<User> singIn() async {
-  User user;
-  user = User();
-  final response = await http
-      .post(SIGIN_URL,
-          headers: {
-            "Content-Type": "application/json",
-            "__RequestVerificationToken": token
-          },
-          body: json.encode({
-            'sPassword': user.sPassword,
-            'sDealerNumber': user.sDealerNumber,
-            'sSalesManInfo': user.sSalesManInfo,
-            'sIMEI': user.sIMEI,
-          }))
-      .then((r) {
-    return r.body;
-  }).then((result) {
-    var response = json.decode(result);
-    if (response['Autenticacion'] == null) {
-      print("Autentication is Empty");
-      return response['Error']['Description'];
-    }
-    var isValid = response["Autenticacion"]["Valido"];
-    if (isValid) {
-      print(result);
-      return (result);
-    }
-    return (response["Autenticacion"]["Razon"]);
-  });
-}
-
 class Service extends StatelessWidget {
   Future<User> user;
   Service({Key key, this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    user = singIn();
+    user = salesmanListRequest();
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
