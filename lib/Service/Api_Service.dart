@@ -50,7 +50,7 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    user = dashboardData();
+    user = salesmanListRequest();
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),

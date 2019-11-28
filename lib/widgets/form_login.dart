@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/user/ui/widget/input_label.dart';
 import 'package:appgo/widgets/button_cancelar.dart';
-import 'package:appgo/widgets/button_Login.dart';
 import 'package:appgo/user/ui/widget/card_Image_Logo.dart';
-import 'package:appgo/dashboard/ui/screen/dashboard.dart';
 
 class FormLogin extends StatefulWidget {
   final String sesion = "INICIAR SESIÓN";
@@ -21,13 +19,6 @@ class _FormLogin extends State<FormLogin> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double margin = 30.0;
-    String login = "ENTRAR";
-    bool enter = true;
-
-    void onPress() {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
-    }
 
     final textSesion = Container(
       width: screenWidth * 0.70,
@@ -55,11 +46,6 @@ class _FormLogin extends State<FormLogin> {
               CardImageLogo(margin),
               textSesion,
               InputLabel(),
-              ButtonLogin(
-                enter: enter,
-                textLogin: login,
-                onPress: onPress,
-              ),
               ButtonCancel()
             ],
           ),

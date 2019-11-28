@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/user/model/user.dart';
 import 'package:appgo/user/ui/screen/login_screen_presenter.dart';
+import 'package:appgo/dashboard/ui/screen/dashboard.dart';
+import 'package:appgo/widgets/button_Login.dart';
 
 class InputLabel extends StatefulWidget {
   @override
@@ -8,6 +10,7 @@ class InputLabel extends StatefulWidget {
 }
 
 class _InputLabel extends State<InputLabel> {
+  User user = new User();
   int maxLines = 1;
 
   FocusNode _focusNodeDistribuidor = new FocusNode();
@@ -32,13 +35,6 @@ class _InputLabel extends State<InputLabel> {
     super.dispose();
   }
 
-  valited(String val, String id) {
-    if (val.length < 6)
-      return "Invalid $id";
-    else
-      return null;
-  }
-
   final TextEditingController _controllerDistribuidor =
       new TextEditingController();
   final TextEditingController _controllerIdVendedor =
@@ -48,6 +44,43 @@ class _InputLabel extends State<InputLabel> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    void _showAlertDialog() {
+      showDialog(
+          context: context,
+          builder: (buildcontext) {
+            return AlertDialog(
+              title: Center(child: Text("ERROR")),
+              content: Text(
+                "Los datos ingresados no son correctos. Intenta nuevamente",
+                style: TextStyle(fontFamily: "DIN"),
+              ),
+              actions: <Widget>[
+                RaisedButton(
+                  child: Center(
+                    child: Text(
+                      "CERRAR",
+                      style: TextStyle(color: Colors.white, fontFamily: "DIN"),
+                    ),
+                  ),
+                  colorBrightness: Brightness.light,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    }
+
+    Future onPress() async {
+      if (_controllerDistribuidor.text != user.sSalesManInfo ||
+          _controllerIdVendedor.text != user.sDealerNumber ||
+          _controllerPass.text != user.sPassword) {
+        _showAlertDialog();
+      } else
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
+    }
 
     final labelDistribuidor = Container(
       margin: EdgeInsets.only(top: screenHeight * 0.070),
@@ -60,8 +93,11 @@ class _InputLabel extends State<InputLabel> {
         validator: (val) {
           if (val.isEmpty) {
             return "Username Empty";
-          } else
-            return valited(val, "Username");
+          }
+          if (val.toString() != user.sSalesManInfo) {
+            return "Invalid Username";
+          }
+          return null;
         },
         autovalidate: _controllerDistribuidor.text.isEmpty ? false : true,
         autofocus: false,
@@ -85,10 +121,7 @@ class _InputLabel extends State<InputLabel> {
             borderRadius: BorderRadius.all(Radius.circular(0.0)),
           ),
         ),
-        onEditingComplete: () {
-          print(_controllerDistribuidor.text);
-          //  valited(_controllerDistribuidor.text);
-        },
+        onEditingComplete: () {},
       ),
     );
 
@@ -104,9 +137,12 @@ class _InputLabel extends State<InputLabel> {
         onSaved: (val) => _controllerIdVendedor.text = val,
         validator: (val) {
           if (val.isEmpty) {
-            return "ID Empty";
-          } else
-            return valited(val, "ID");
+            return "ID is Empty";
+          }
+          if (val.toString() != user.sDealerNumber) {
+            return "Invalid ID";
+          }
+          return null;
         },
         autovalidate: _controllerIdVendedor.text.isEmpty ? false : true,
         onFieldSubmitted: (v) {
@@ -127,9 +163,7 @@ class _InputLabel extends State<InputLabel> {
             borderRadius: BorderRadius.all(Radius.circular(0.0)),
           ),
         ),
-        onEditingComplete: () {
-          print(_controllerIdVendedor.text);
-        },
+        onEditingComplete: () {},
       ),
     );
     final labelPass = Container(
@@ -142,12 +176,12 @@ class _InputLabel extends State<InputLabel> {
         onSaved: (val) => _controllerPass.text = val,
         validator: (val) {
           if (val.isEmpty) {
-            return "Password Empty";
+            return "Password is Empty";
           }
-          if (val.length < 8)
+          if (val.toString() != user.sPassword) {
             return "Invalid Password";
-          else
-            return null;
+          }
+          return null;
         },
         autovalidate: _controllerPass.text.isEmpty ? false : true,
         autofocus: false,
@@ -171,9 +205,20 @@ class _InputLabel extends State<InputLabel> {
       ),
     );
 
+    String login = "ENTRAR";
+    bool enter = true;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[labelDistribuidor, labelId, labelPass],
+      children: <Widget>[
+        labelDistribuidor,
+        labelId,
+        labelPass,
+        ButtonLogin(
+          enter: enter,
+          textLogin: login,
+          onPress: onPress,
+        ),
+      ],
     );
   }
 }

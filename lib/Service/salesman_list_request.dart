@@ -5,7 +5,7 @@ import 'package:appgo/user/model/user.dart';
 import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
 
-Future<User> salesmanListRequest(user) async {
+Future<User> salesmanListRequest() async {
   User user;
   user = new User();
 
