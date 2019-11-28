@@ -5,6 +5,7 @@ import 'package:appgo/Service/singIn.dart';
 import 'package:appgo/Service/generate_token.dart';
 import 'package:appgo/Service/salesman_list_request.dart';
 import 'package:appgo/Service/remote_config-request.dart';
+import 'package:appgo/Service/dashboard_request.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -49,7 +50,7 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    user = salesmanListRequest(user);
+    user = dashboardData();
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
