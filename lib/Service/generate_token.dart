@@ -5,7 +5,7 @@ import 'package:appgo/user/model/user.dart';
 import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
 
-Future generateToken(user) async {
+Future generateToken() async {
   User user = new User();
 
   var response = await http
