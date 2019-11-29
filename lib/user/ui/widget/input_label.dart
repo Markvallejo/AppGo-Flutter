@@ -105,7 +105,6 @@ class _InputLabel extends State<InputLabel> {
           }
           return null;
         },
-        // autovalidate: _controllerDistribuidor.text.isEmpty ? false : true,
         autovalidate: val ? true : false,
         autofocus: false,
         keyboardType: TextInputType.numberWithOptions(signed: true),
@@ -128,7 +127,6 @@ class _InputLabel extends State<InputLabel> {
             borderRadius: BorderRadius.all(Radius.circular(0.0)),
           ),
         ),
-        onEditingComplete: () {},
       ),
     );
 
@@ -151,7 +149,6 @@ class _InputLabel extends State<InputLabel> {
           }
           return null;
         },
-        // autovalidate: _controllerIdVendedor.text.isEmpty ? false : true,
         autovalidate: val ? true : false,
         onFieldSubmitted: (v) {
           FocusScope.of(context).requestFocus(_focusNodePass);
@@ -171,7 +168,6 @@ class _InputLabel extends State<InputLabel> {
             borderRadius: BorderRadius.all(Radius.circular(0.0)),
           ),
         ),
-        onEditingComplete: () {},
       ),
     );
     final labelPass = Container(
@@ -191,7 +187,6 @@ class _InputLabel extends State<InputLabel> {
           }
           return null;
         },
-        // autovalidate: _controllerPass.text.isEmpty ? false : true,
         autovalidate: val ? true : false,
         autofocus: false,
         maxLines: maxLines,
