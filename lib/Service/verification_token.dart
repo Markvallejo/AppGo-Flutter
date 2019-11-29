@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:appgo/Service/Api_Service.dart';
-import 'package:appgo/user/model/user.dart';
 
-Future<User> getVerificationToken() async {
+Future getVerificationToken() async {
   String token;
   var response = await http.get(
     API_URL,

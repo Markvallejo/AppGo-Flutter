@@ -5,9 +5,8 @@ import 'package:appgo/user/model/user.dart';
 import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
 
-Future<User> remoteConfig() async {
-  User user;
-  user = new User();
+Future remoteConfig() async {
+  User user = new User();
 
   var data = await http
       .post(

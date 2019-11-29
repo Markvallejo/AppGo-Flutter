@@ -5,9 +5,8 @@ import 'package:appgo/user/model/user.dart';
 import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
 
-Future<User> singIn() async {
-  User user;
-  user = User();
+Future singIn() async {
+  User user = new User();
   final response = await http
       .post(SIGIN_URL,
           headers: {

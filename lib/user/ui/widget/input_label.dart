@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/user/model/user.dart';
-import 'package:appgo/user/ui/screen/login_screen_presenter.dart';
 import 'package:appgo/dashboard/ui/screen/dashboard.dart';
 import 'package:appgo/widgets/button_Login.dart';
+import 'package:appgo/Service/salesman_list_request.dart';
 
 class InputLabel extends StatefulWidget {
   @override
@@ -11,12 +11,11 @@ class InputLabel extends StatefulWidget {
 
 class _InputLabel extends State<InputLabel> {
   User user = new User();
+  var salesman = salesmanListRequest();
   int maxLines = 1;
-
   FocusNode _focusNodeDistribuidor = new FocusNode();
   FocusNode _focusNodeIdVendedor = new FocusNode();
   FocusNode _focusNodePass = new FocusNode();
-  LoginScreenPresenter _presenter;
 
   @override
   void iniState() {
@@ -31,7 +30,6 @@ class _InputLabel extends State<InputLabel> {
     _focusNodeDistribuidor.dispose();
     _focusNodeIdVendedor.dispose();
     _focusNodePass.dispose();
-
     super.dispose();
   }
 
@@ -44,18 +42,19 @@ class _InputLabel extends State<InputLabel> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    void _showAlertDialog() {
+    void _showAlertDialog(text) {
       showDialog(
           context: context,
           builder: (buildcontext) {
             return AlertDialog(
               title: Center(child: Text("ERROR")),
               content: Text(
-                "Los datos ingresados no son correctos. Intenta nuevamente",
+                text,
                 style: TextStyle(fontFamily: "DIN"),
               ),
               actions: <Widget>[
                 RaisedButton(
+                  color: Colors.lightBlue,
                   child: Center(
                     child: Text(
                       "CERRAR",
@@ -73,10 +72,15 @@ class _InputLabel extends State<InputLabel> {
     }
 
     Future onPress() async {
-      if (_controllerDistribuidor.text != user.sSalesManInfo ||
+      if (_controllerDistribuidor.text.isEmpty ||
+          _controllerIdVendedor.text.isEmpty ||
+          _controllerPass.text.isEmpty) {
+        _showAlertDialog("Debes llenar todos los campos");
+      } else if (_controllerDistribuidor.text != user.sSalesManInfo ||
           _controllerIdVendedor.text != user.sDealerNumber ||
           _controllerPass.text != user.sPassword) {
-        _showAlertDialog();
+        _showAlertDialog(
+            "Los datos ingresados no son correctos. Intenta nuevamente");
       } else
         Navigator.push(context,
             MaterialPageRoute(builder: (BuildContext context) => DashBoard()));

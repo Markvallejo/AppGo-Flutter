@@ -15,9 +15,8 @@ class DashboardDataRequest {
       this.sDealerNumber, this.sSalesManInfo, this.sIMEI, this.days);
 }
 
-Future<User> dashboardData() async {
-  User user;
-  user = new User();
+Future dashboardData() async {
+  User user = new User();
 
   DashboardDataRequest data;
   var resp = await http
