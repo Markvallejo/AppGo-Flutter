@@ -13,6 +13,7 @@ class _InputLabel extends State<InputLabel> {
   User user = new User();
   var salesman = salesmanListRequest();
   int maxLines = 1;
+  bool val = false;
   FocusNode _focusNodeDistribuidor = new FocusNode();
   FocusNode _focusNodeIdVendedor = new FocusNode();
   FocusNode _focusNodePass = new FocusNode();
@@ -71,7 +72,7 @@ class _InputLabel extends State<InputLabel> {
           });
     }
 
-    Future onPress() async {
+    void onPress() {
       if (_controllerDistribuidor.text.isEmpty ||
           _controllerIdVendedor.text.isEmpty ||
           _controllerPass.text.isEmpty) {
@@ -81,6 +82,7 @@ class _InputLabel extends State<InputLabel> {
           _controllerPass.text != user.sPassword) {
         _showAlertDialog(
             "Los datos ingresados no son correctos. Intenta nuevamente");
+        val = true;
       } else
         Navigator.push(context,
             MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
@@ -96,14 +98,15 @@ class _InputLabel extends State<InputLabel> {
         onSaved: (val) => _controllerDistribuidor.text = val,
         validator: (val) {
           if (val.isEmpty) {
-            return "Username Empty";
+            return null;
           }
           if (val.toString() != user.sSalesManInfo) {
             return "Invalid Username";
           }
           return null;
         },
-        autovalidate: _controllerDistribuidor.text.isEmpty ? false : true,
+        // autovalidate: _controllerDistribuidor.text.isEmpty ? false : true,
+        autovalidate: val ? true : false,
         autofocus: false,
         keyboardType: TextInputType.numberWithOptions(signed: true),
         focusNode: _focusNodeDistribuidor,
@@ -141,14 +144,15 @@ class _InputLabel extends State<InputLabel> {
         onSaved: (val) => _controllerIdVendedor.text = val,
         validator: (val) {
           if (val.isEmpty) {
-            return "ID is Empty";
+            return null;
           }
           if (val.toString() != user.sDealerNumber) {
             return "Invalid ID";
           }
           return null;
         },
-        autovalidate: _controllerIdVendedor.text.isEmpty ? false : true,
+        // autovalidate: _controllerIdVendedor.text.isEmpty ? false : true,
+        autovalidate: val ? true : false,
         onFieldSubmitted: (v) {
           FocusScope.of(context).requestFocus(_focusNodePass);
         },
@@ -180,14 +184,15 @@ class _InputLabel extends State<InputLabel> {
         onSaved: (val) => _controllerPass.text = val,
         validator: (val) {
           if (val.isEmpty) {
-            return "Password is Empty";
+            return null;
           }
           if (val.toString() != user.sPassword) {
             return "Invalid Password";
           }
           return null;
         },
-        autovalidate: _controllerPass.text.isEmpty ? false : true,
+        // autovalidate: _controllerPass.text.isEmpty ? false : true,
+        autovalidate: val ? true : false,
         autofocus: false,
         maxLines: maxLines,
         obscureText: true,
