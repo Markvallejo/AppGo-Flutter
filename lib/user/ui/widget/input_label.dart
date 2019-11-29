@@ -13,7 +13,7 @@ class _InputLabel extends State<InputLabel> {
   User user = new User();
   var salesman = salesmanListRequest();
   int maxLines = 1;
-  bool val = false;
+  bool validate = false;
   FocusNode _focusNodeDistribuidor = new FocusNode();
   FocusNode _focusNodeIdVendedor = new FocusNode();
   FocusNode _focusNodePass = new FocusNode();
@@ -82,7 +82,7 @@ class _InputLabel extends State<InputLabel> {
           _controllerPass.text != user.sPassword) {
         _showAlertDialog(
             "Los datos ingresados no son correctos. Intenta nuevamente");
-        val = true;
+        validate = true;
       } else
         Navigator.push(context,
             MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
@@ -105,7 +105,7 @@ class _InputLabel extends State<InputLabel> {
           }
           return null;
         },
-        autovalidate: val ? true : false,
+        autovalidate: validate ? true : false,
         autofocus: false,
         keyboardType: TextInputType.numberWithOptions(signed: true),
         focusNode: _focusNodeDistribuidor,
@@ -149,7 +149,7 @@ class _InputLabel extends State<InputLabel> {
           }
           return null;
         },
-        autovalidate: val ? true : false,
+        autovalidate: validate ? true : false,
         onFieldSubmitted: (v) {
           FocusScope.of(context).requestFocus(_focusNodePass);
         },
@@ -187,7 +187,7 @@ class _InputLabel extends State<InputLabel> {
           }
           return null;
         },
-        autovalidate: val ? true : false,
+        autovalidate: validate ? true : false,
         autofocus: false,
         maxLines: maxLines,
         obscureText: true,
