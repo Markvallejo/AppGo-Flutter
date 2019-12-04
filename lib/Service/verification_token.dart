@@ -11,9 +11,9 @@ Future getVerificationToken() async {
     return r.body;
   }).then((response) {
     var reg = new RegExp('value="([A-Za-z0-9_-]*)"');
-    var res = reg.stringMatch(response);
-    token = res.substring(6);
-    // print("this is a Token: $token");
+    var res = reg.firstMatch(response);
+    token = res.group(1);
+    //print("this is a Token: $token");
     return token;
   });
 }

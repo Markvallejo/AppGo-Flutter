@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
 import 'package:appgo/dashboard/ui/widget/app_bar_solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/list_all_solicitudes.dart';
+import 'package:appgo/user/model/user.dart';
 
 class Solicitud extends StatelessWidget {
+  User user = new User();
   String title;
   int numSolicitudes;
 
@@ -124,6 +126,7 @@ class Solicitud extends StatelessWidget {
             children: <Widget>[
               AppBarSolicitudes(
                 numSolicitudes: numSolicitudes,
+                idVendedor: user.sSalesManInfo,
               ),
             ],
           ),

@@ -22,7 +22,7 @@ class AppBarSolicitudes extends StatelessWidget {
         children: <Widget>[
           numSolicitudes == null
               ? Text(
-                  "Solicitudes de ${idVendedor}",
+                  "Solicitudes de $idVendedor",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "DIN",
@@ -32,7 +32,7 @@ class AppBarSolicitudes extends StatelessWidget {
                   ),
                 )
               : Text(
-                  "${numSolicitudes} Solicitudes de ${idVendedor}",
+                  "$numSolicitudes Solicitudes de $idVendedor",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "DIN",

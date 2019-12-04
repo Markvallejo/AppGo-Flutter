@@ -3,6 +3,24 @@ import 'package:appgo/dashboard/ui/widget/card_solicitudes.dart';
 import 'package:appgo/dashboard/ui/screen/solicitud.dart';
 
 class ListCardSolicitudes extends StatefulWidget {
+  int numRecibidas;
+  int numCompradas;
+  int numPendientes;
+  int numRechazadas;
+  int numActivas;
+  int numHeld;
+  int numCalificadas;
+  int numAprobadas;
+
+  ListCardSolicitudes(
+      {this.numActivas,
+      this.numAprobadas,
+      this.numCalificadas,
+      this.numCompradas,
+      this.numHeld,
+      this.numPendientes,
+      this.numRechazadas,
+      this.numRecibidas});
   @override
   State<StatefulWidget> createState() {
     return _ListCardSolicitudes();
@@ -11,48 +29,40 @@ class ListCardSolicitudes extends StatefulWidget {
 
 class _ListCardSolicitudes extends State<ListCardSolicitudes> {
   String solicitudesRecibidas = "RECIBIDAS";
-  int numRecibidas = 0438;
   String imgRecibidas =
       "assets/images/images_for_dashboard/recibidas_white.png";
   String imgRecibidasblue =
       "assets/images/images_for_dashboard/recibidas_blue.png";
 
   String solicitudesPendientes = "PENDIENTES";
-  int numPendientes = 0193;
   String imgPendientes = "assets/images/images_for_dashboard/pendientes.png";
   String imgPendientesBlue =
       "assets/images/images_for_dashboard/pendientes_blue.png";
 
   String solicitudesCalificadas = "CALIFICADAS";
-  int numCalficadas = 0009;
   String imgCalifiacadas = "assets/images/images_for_dashboard/calificadas.png";
   String imgCalificadasBlue =
       "assets/images/images_for_dashboard/calificadas_blue.png";
 
   String solicitudesAprobadas = "APROBADAS";
-  int numAprobadas = 0180;
   String imgAprobadas = "assets/images/images_for_dashboard/aprobadas.png";
   String imgAprobadasBlue =
       "assets/images/images_for_dashboard/aprobadas_blue.png";
 
   String solicitudesActivas = "ACTIVAS";
-  int numActivas = 0048;
   String imgActivas = "assets/images/images_for_dashboard/activas.png";
   String imgActivasBlue = "assets/images/images_for_dashboard/activas_blue.png";
 
   String solicitudesHeld = "HELD OFFERING";
-  int numHeld = 0002;
   String imgHeld = "assets/images/images_for_dashboard/held.png";
   String imgHeldBlue = "assets/images/images_for_dashboard/held_blue.png";
 
   String solicitudesRechazadas = "RECHAZADAS";
-  int numRechazadas = 0006;
   String imgRechazadas = "assets/images/images_for_dashboard/rechazadas.png";
   String imgRechazadasBlue =
       "assets/images/images_for_dashboard/rechazadas_blue.png";
 
   String solicitudesCompradas = "COMPRADAS";
-  int numCompradas = 0000;
   String imgCompradas = "assets/images/images_for_dashboard/compradas.png";
   String imgCompradasBlue =
       "assets/images/images_for_dashboard/compradas_blue.png";
@@ -63,8 +73,8 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  Solicitud(title: "Recibidas", numSolicitudes: numRecibidas)));
+              builder: (BuildContext context) => Solicitud(
+                  title: "Recibidas", numSolicitudes: widget.numRecibidas)));
     }
 
     void onPressedPendientes() {
@@ -72,7 +82,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Pendientes", numSolicitudes: numPendientes)));
+                  title: "Pendientes", numSolicitudes: widget.numPendientes)));
     }
 
     void onPressedCalificadas() {
@@ -80,31 +90,32 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Calificadas", numSolicitudes: numCalficadas)));
+                  title: "Calificadas",
+                  numSolicitudes: widget.numCalificadas)));
     }
 
     void onPressedAprobadas() {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  Solicitud(title: "Aprobadas", numSolicitudes: numAprobadas)));
+              builder: (BuildContext context) => Solicitud(
+                  title: "Aprobadas", numSolicitudes: widget.numAprobadas)));
     }
 
     void onPressedActivas() {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  Solicitud(title: "Activas", numSolicitudes: numActivas)));
+              builder: (BuildContext context) => Solicitud(
+                  title: "Activas", numSolicitudes: widget.numActivas)));
     }
 
     void onPressedHeld() {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  Solicitud(title: "Held Offering", numSolicitudes: numHeld)));
+              builder: (BuildContext context) => Solicitud(
+                  title: "Held Offering", numSolicitudes: widget.numHeld)));
     }
 
     void onPressedRechazadas() {
@@ -112,61 +123,61 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Rechazadas", numSolicitudes: numRechazadas)));
+                  title: "Rechazadas", numSolicitudes: widget.numRechazadas)));
     }
 
     void onPressedCompradas() {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  Solicitud(title: "Compradas", numSolicitudes: numCompradas)));
+              builder: (BuildContext context) => Solicitud(
+                  title: "Compradas", numSolicitudes: widget.numCompradas)));
     }
 
     final recibidas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 40),
-      child: CardSolicitudes(numRecibidas, solicitudesRecibidas, imgRecibidas,
-          imgRecibidasblue, onPressedRecibidas),
+      child: CardSolicitudes(widget.numRecibidas, solicitudesRecibidas,
+          imgRecibidas, imgRecibidasblue, onPressedRecibidas),
     );
     final pendientes = Container(
       margin: EdgeInsets.only(top: 30.0, left: 25),
-      child: CardSolicitudes(numPendientes, solicitudesPendientes,
+      child: CardSolicitudes(widget.numPendientes, solicitudesPendientes,
           imgPendientes, imgPendientesBlue, onPressedPendientes),
     );
 
     final calificadas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 40),
-      child: CardSolicitudes(numCalficadas, solicitudesCalificadas,
+      child: CardSolicitudes(widget.numCalificadas, solicitudesCalificadas,
           imgCalifiacadas, imgCalificadasBlue, onPressedCalificadas),
     );
     final aprobadas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 25),
-      child: CardSolicitudes(numAprobadas, solicitudesAprobadas, imgAprobadas,
-          imgAprobadasBlue, onPressedAprobadas),
+      child: CardSolicitudes(widget.numAprobadas, solicitudesAprobadas,
+          imgAprobadas, imgAprobadasBlue, onPressedAprobadas),
     );
 
     final activas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 40),
-      child: CardSolicitudes(numActivas, solicitudesActivas, imgActivas,
+      child: CardSolicitudes(widget.numActivas, solicitudesActivas, imgActivas,
           imgActivasBlue, onPressedActivas),
     );
 
     final held = Container(
       margin: EdgeInsets.only(top: 30.0, left: 25),
       child: CardSolicitudes(
-          numHeld, solicitudesHeld, imgHeld, imgHeldBlue, onPressedHeld),
+          widget.numHeld, solicitudesHeld, imgHeld, imgHeldBlue, onPressedHeld),
     );
 
     final rechazadas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 40),
-      child: CardSolicitudes(numRechazadas, solicitudesRechazadas,
+      child: CardSolicitudes(widget.numRechazadas, solicitudesRechazadas,
           imgRechazadas, imgRechazadasBlue, onPressedRechazadas),
     );
 
     final compradas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 25),
-      child: CardSolicitudes(numCompradas, solicitudesCompradas, imgCompradas,
-          imgCompradasBlue, onPressedCompradas),
+      child: CardSolicitudes(widget.numCompradas, solicitudesCompradas,
+          imgCompradas, imgCompradasBlue, onPressedCompradas),
     );
 
     final row1 = Row(

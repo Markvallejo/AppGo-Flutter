@@ -4,8 +4,13 @@ import 'package:appgo/dashboard/ui/widget/List_card_Solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_left.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
 import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
+import 'package:appgo/user/model/user.dart';
+import 'package:appgo/Service/dashboard_request.dart';
 
 class DashBoard extends StatelessWidget {
+  User user = new User();
+  var dashboardSolicitudes = dashboardData();
+
   String title = "Dashboard";
   String imgSeparador = "assets/images/images_for_dashboard/separator@3x.png";
   String imgFiltrar = "assets/images/images_for_dashboard/icono_filtrar@3x.png";
@@ -123,8 +128,43 @@ class DashBoard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              AppBarSolicitudes(),
-              ListCardSolicitudes(),
+              AppBarSolicitudes(idVendedor: user.sSalesManInfo),
+              FutureBuilder(
+                  future: dashboardSolicitudes,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      num activas = snapshot.data['SolicitudesActivas'];
+                      num compradas = snapshot.data['ContratosComprados'];
+                      num aprobadas = snapshot.data['SolicitudesAprobadas'];
+                      num calificadas = snapshot.data['SolicitudesCalificadas'];
+                      num hOffering = snapshot.data['SolicitudesHO'];
+                      num pendientes = snapshot.data['SolicitudesPendientes'];
+                      num rechazadas = snapshot.data['SolicitudesRechazadas'];
+                      num recibidas = snapshot.data['SolicitudesRecibidas'];
+
+                      return ListCardSolicitudes(
+                        numRecibidas: recibidas,
+                        numActivas: activas,
+                        numAprobadas: aprobadas,
+                        numCalificadas: calificadas,
+                        numCompradas: compradas,
+                        numHeld: hOffering,
+                        numPendientes: pendientes,
+                        numRechazadas: rechazadas,
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.none) {
+                      return Container(
+                        child: Text("Error, Revisa tu conexion a Internet"),
+                      );
+                    }
+                    return Container(
+                      margin: EdgeInsets.only(top: 30.0),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlue,
+                      ),
+                    );
+                  }),
             ],
           ),
         ],
