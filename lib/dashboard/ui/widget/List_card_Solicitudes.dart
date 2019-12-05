@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/card_solicitudes.dart';
 import 'package:appgo/dashboard/ui/screen/solicitud.dart';
+import 'package:appgo/Service/active_application-request.dart';
 
 class ListCardSolicitudes extends StatefulWidget {
   int numRecibidas;
@@ -28,6 +29,8 @@ class ListCardSolicitudes extends StatefulWidget {
 }
 
 class _ListCardSolicitudes extends State<ListCardSolicitudes> {
+  var activasList = activeApplication();
+
   String solicitudesRecibidas = "RECIBIDAS";
   String imgRecibidas =
       "assets/images/images_for_dashboard/recibidas_white.png";
@@ -107,7 +110,10 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Activas", numSolicitudes: widget.numActivas)));
+                    title: "Activas",
+                    numSolicitudes: widget.numActivas,
+                    categoria: activasList,
+                  )));
     }
 
     void onPressedHeld() {

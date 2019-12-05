@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:appgo/dashboard/ui/screen/details_solicitud.dart';
 
 class Solicitudes extends StatefulWidget {
   String nameSolicitud;
@@ -66,7 +67,7 @@ class _Solicitudes extends State<Solicitudes> {
           ),
           Container(
             child: Text(
-              " ${widget.numSolicitud}",
+              widget.numSolicitud.toString(),
               style: TextStyle(
                 fontFamily: "DIN",
                 fontSize: 16,
@@ -128,23 +129,37 @@ class _Solicitudes extends State<Solicitudes> {
       ),
     );
 
-    return Container(
-      width: screenWidth,
-      height: screenHeight * 0.175,
-      margin: EdgeInsets.only(top: screenHeight * 0.068),
-      color: Colors.grey[200],
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          solicitud,
-          Icon(
-            Icons.chevron_right,
-            color: Colors.lightBlue[600],
-            size: 26.0,
-          )
-        ],
-      ),
+    return ListView(
+      scrollDirection: Axis.vertical,
+      children: <Widget>[
+        Container(
+          width: screenWidth,
+          height: screenHeight * 0.175,
+          margin: EdgeInsets.only(top: screenHeight * 0.068),
+          color: Colors.grey[200],
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          DetailsSolicitud(numSolicitud: widget.numSolicitud)));
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                solicitud,
+                Icon(
+                  Icons.chevron_right,
+                  color: Colors.lightBlue[600],
+                  size: 26.0,
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -46,7 +46,7 @@ Future salesmanListRequest() async {
         print("Salesman Empty: $response");
         return response["Error"]["Descripcion"];
       }
-      print("Salesman List: $response");
+      // print("Salesman List: $response");
       return response["Vendedores"];
     });
   });

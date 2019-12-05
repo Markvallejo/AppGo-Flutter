@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:appgo/user/model/user.dart';
 import 'package:appgo/Service/singIn.dart';
@@ -52,31 +53,45 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var dashboard = activeApplication();
+    var dashboard = activeApplication();
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
         backgroundColor: Colors.lightBlue,
       ),
-      body: Center(
-        child: FutureBuilder<User>(
-          future: user,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
+      body: FutureBuilder(
+        future: dashboard,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            List sol = snapshot.data;
+
+            for (int i = 0; i < sol.length; i++) {
+              print(sol[i]["NombreCompleto"]);
+              String nombre = sol[i]["NombreCompleto"];
+              String modelo = sol[i]["Modelo"];
+              String fecha = sol[i]["FechaCreacion"];
+              int numSolicitud = sol[i]["NumeroSolicitud"];
+
               return ListView(
                 children: <Widget>[
-                  Text(""),
+                  Text(nombre),
+                  Text(modelo),
+                  Text(fecha),
+                  Text(numSolicitud.toString()),
                 ],
               );
-            } else if (snapshot.hasError) {
-              print(snapshot.error);
-              return Text("Error: ${snapshot.error}");
             }
-            return CircularProgressIndicator(
-              backgroundColor: Colors.lightBlue,
-            );
-          },
-        ),
+
+            //  var solicitud = snapshot.data[1];
+
+          } else if (snapshot.hasError) {
+            print(snapshot.error);
+            return Text("Error: ${snapshot.error}");
+          }
+          return CircularProgressIndicator(
+            backgroundColor: Colors.lightBlue,
+          );
+        },
       ),
     );
   }

@@ -8,8 +8,9 @@ class Solicitud extends StatelessWidget {
   User user = new User();
   String title;
   int numSolicitudes;
+  var categoria;
 
-  Solicitud({Key key, this.title, this.numSolicitudes});
+  Solicitud({Key key, this.title, this.numSolicitudes, this.categoria});
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -121,7 +122,7 @@ class Solicitud extends StatelessWidget {
       ),
       body: Stack(
         children: <Widget>[
-          ListAllSolicitudes(),
+          ListAllSolicitudes(categoria: categoria),
           Column(
             children: <Widget>[
               AppBarSolicitudes(

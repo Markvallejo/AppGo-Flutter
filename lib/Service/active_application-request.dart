@@ -9,6 +9,7 @@ import 'package:appgo/filtros/list_item.dart';
 Future activeApplication() async {
   final user = new User();
   final data = new ListItemDate();
+
   var resp = await http
       .post(
     GENERATE_TOKEN_URL,
@@ -45,11 +46,16 @@ Future activeApplication() async {
     }).then((result) {
       var response = json.decode(result);
       var applications = response["SolicitudesActivas"];
+
       if (applications == null) {
+        print("No hay solicitudes");
         applications = [];
       }
-      print(applications);
+
+      // print("Solicitudes activas: ${applications[1]}");
       return applications;
     });
   });
+  // print(resp);
+  return resp;
 }
