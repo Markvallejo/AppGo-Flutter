@@ -14,24 +14,25 @@ class ListAllSolicitudes extends StatefulWidget {
 class _ListAllSolicitudes extends State<ListAllSolicitudes> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return FutureBuilder(
       future: widget.categoria,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          List sol = snapshot.data;
-          for (int i = 0; i < sol.length; i++) {
-            String nombre = sol[i]["NombreCompleto"];
-            String modelo = sol[i]["Modelo"];
-            String fecha = sol[i]["FechaCreacion"];
-            num numSolicitud = sol[i]["NumeroSolicitud"];
-
-            return Solicitudes(
-              nameSolicitud: nombre,
-              modelo: modelo,
-              numSolicitud: numSolicitud,
-              fechaSolicitud: fecha,
-            );
-          }
+          List solicitud = snapshot.data;
+          return Container(
+            margin: EdgeInsets.only(top: screenHeight * 0.070),
+            child: ListView(
+              children: solicitud
+                  .map((solicitud) => Solicitudes(
+                        nameSolicitud: solicitud['NombreCompleto'],
+                        modelo: solicitud['Modelo'],
+                        numSolicitud: solicitud['NumeroSolicitud'],
+                        fechaSolicitud: solicitud['FechaCreacion'],
+                      ))
+                  .toList(),
+            ),
+          );
         }
         if (snapshot.connectionState == ConnectionState.none) {
           return Container(

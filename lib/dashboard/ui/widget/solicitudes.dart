@@ -27,6 +27,7 @@ class _Solicitudes extends State<Solicitudes> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     final name = Container(
+      margin: EdgeInsets.only(top: 5.0),
       child: Text(
         widget.nameSolicitud,
         style: TextStyle(
@@ -117,6 +118,7 @@ class _Solicitudes extends State<Solicitudes> {
     );
 
     final solicitud = Container(
+      width: screenWidth * 0.8,
       margin: EdgeInsets.only(left: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,35 +131,39 @@ class _Solicitudes extends State<Solicitudes> {
       ),
     );
 
-    return ListView(
-      scrollDirection: Axis.vertical,
+    final all_Request = Container(
+      width: screenWidth,
+      height: screenHeight * 0.175,
+      color: Colors.grey[200],
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      DetailsSolicitud(numSolicitud: widget.numSolicitud)));
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            solicitud,
+            Icon(
+              Icons.chevron_right,
+              color: Colors.lightBlue[600],
+              size: 26.0,
+            )
+          ],
+        ),
+      ),
+    );
+
+    return Column(
       children: <Widget>[
-        Container(
-          width: screenWidth,
-          height: screenHeight * 0.175,
-          margin: EdgeInsets.only(top: screenHeight * 0.068),
-          color: Colors.grey[200],
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          DetailsSolicitud(numSolicitud: widget.numSolicitud)));
-            },
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                solicitud,
-                Icon(
-                  Icons.chevron_right,
-                  color: Colors.lightBlue[600],
-                  size: 26.0,
-                )
-              ],
-            ),
-          ),
+        all_Request,
+        Divider(
+          color: Colors.transparent,
+          height: 5.0,
         ),
       ],
     );

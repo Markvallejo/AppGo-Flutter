@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/card_solicitudes.dart';
 import 'package:appgo/dashboard/ui/screen/solicitud.dart';
 import 'package:appgo/Service/active_application-request.dart';
+import 'package:appgo/Service/pendientes_application-request.dart';
+import 'package:appgo/Service/compradas_application-request.dart';
+import 'package:appgo/Service/rechazadas_applications_request.dart';
+import 'package:appgo/Service/calificadas_applications_request.dart';
+import 'package:appgo/Service/h_Offering_request.dart';
+import 'package:appgo/Service/aprobadas_applications-request.dart';
 
 class ListCardSolicitudes extends StatefulWidget {
   int numRecibidas;
@@ -30,6 +36,13 @@ class ListCardSolicitudes extends StatefulWidget {
 
 class _ListCardSolicitudes extends State<ListCardSolicitudes> {
   var activasList = activeApplication();
+  var pendientesList = pendientesApplication();
+  var compradasList = compradasApplication();
+  var calificadasList; // = calificadasApplication();
+  var hOfferingList = heldOfferingApplication();
+  var recibidasList;
+  var aprobadasList; //= aprobadasApplication();
+  var rechazadasList; // = rechazadasApplication();
 
   String solicitudesRecibidas = "RECIBIDAS";
   String imgRecibidas =
@@ -77,7 +90,10 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Recibidas", numSolicitudes: widget.numRecibidas)));
+                    title: "Recibidas",
+                    numSolicitudes: widget.numRecibidas,
+                    categoria: recibidasList,
+                  )));
     }
 
     void onPressedPendientes() {
@@ -85,7 +101,10 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Pendientes", numSolicitudes: widget.numPendientes)));
+                    title: "Pendientes",
+                    numSolicitudes: widget.numPendientes,
+                    categoria: pendientesList,
+                  )));
     }
 
     void onPressedCalificadas() {
@@ -93,8 +112,10 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Calificadas",
-                  numSolicitudes: widget.numCalificadas)));
+                    title: "Calificadas",
+                    numSolicitudes: widget.numCalificadas,
+                    categoria: calificadasList,
+                  )));
     }
 
     void onPressedAprobadas() {
@@ -102,7 +123,10 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Aprobadas", numSolicitudes: widget.numAprobadas)));
+                    title: "Aprobadas",
+                    numSolicitudes: widget.numAprobadas,
+                    categoria: aprobadasList,
+                  )));
     }
 
     void onPressedActivas() {
@@ -121,7 +145,10 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Held Offering", numSolicitudes: widget.numHeld)));
+                    title: "Held Offering",
+                    numSolicitudes: widget.numHeld,
+                    categoria: hOfferingList,
+                  )));
     }
 
     void onPressedRechazadas() {
@@ -129,7 +156,10 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Rechazadas", numSolicitudes: widget.numRechazadas)));
+                    title: "Rechazadas",
+                    numSolicitudes: widget.numRechazadas,
+                    categoria: rechazadasList,
+                  )));
     }
 
     void onPressedCompradas() {
@@ -137,7 +167,10 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => Solicitud(
-                  title: "Compradas", numSolicitudes: widget.numCompradas)));
+                    title: "Compradas",
+                    numSolicitudes: widget.numCompradas,
+                    categoria: compradasList,
+                  )));
     }
 
     final recibidas = Container(

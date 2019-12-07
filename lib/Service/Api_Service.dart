@@ -63,27 +63,20 @@ class Service extends StatelessWidget {
         future: dashboard,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            List sol = snapshot.data;
-
-            for (int i = 0; i < sol.length; i++) {
-              print(sol[i]["NombreCompleto"]);
-              String nombre = sol[i]["NombreCompleto"];
-              String modelo = sol[i]["Modelo"];
-              String fecha = sol[i]["FechaCreacion"];
-              int numSolicitud = sol[i]["NumeroSolicitud"];
-
-              return ListView(
-                children: <Widget>[
-                  Text(nombre),
-                  Text(modelo),
-                  Text(fecha),
-                  Text(numSolicitud.toString()),
-                ],
-              );
-            }
-
-            //  var solicitud = snapshot.data[1];
-
+            List solicitud = snapshot.data;
+            return ListView(
+                children: solicitud
+                    .map((solicitud) => Container(
+                          child: Column(
+                            children: <Widget>[
+                              Text(solicitud['NombreCompleto']),
+                              Text(solicitud['Modelo']),
+                              Text(solicitud['FechaCreacion']),
+                              Text(solicitud['NumeroSolicitud'].toString()),
+                            ],
+                          ),
+                        ))
+                    .toList());
           } else if (snapshot.hasError) {
             print(snapshot.error);
             return Text("Error: ${snapshot.error}");
