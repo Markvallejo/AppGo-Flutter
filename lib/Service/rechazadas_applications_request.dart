@@ -48,8 +48,7 @@ Future rechazadasApplication() async {
       var applications = response["SolicitudesRechazadas"];
 
       if (applications == null) {
-        print("No hay solicitudes");
-        applications = [];
+        return null;
       }
 
       // print("Solicitudes activas: ${applications[1]}");

@@ -48,8 +48,7 @@ Future activeApplication() async {
       var applications = response["SolicitudesActivas"];
 
       if (applications == null) {
-        print("No hay solicitudes");
-        applications = [];
+        return null;
       }
 
       // print("Solicitudes activas: ${applications[1]}");

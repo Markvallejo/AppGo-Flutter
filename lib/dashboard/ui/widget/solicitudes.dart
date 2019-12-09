@@ -130,9 +130,9 @@ class _Solicitudes extends State<Solicitudes> {
       ),
     );
 
-    final all_Request = Container(
+    final allRequest = Container(
       width: screenWidth,
-      height: screenHeight * 0.192,
+      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
       color: Colors.grey[200],
       child: GestureDetector(
         onTap: () {
@@ -159,7 +159,7 @@ class _Solicitudes extends State<Solicitudes> {
 
     return Column(
       children: <Widget>[
-        all_Request,
+        allRequest,
         Divider(
           color: Colors.transparent,
           height: 1.0,

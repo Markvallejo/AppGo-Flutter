@@ -48,8 +48,8 @@ Future compradasApplication() async {
       var applications = response["ContratosComprados"];
 
       if (applications == null) {
-        print("No hay solicitudes");
-        applications = [];
+        // print("No hay solicitudes");
+        return null;
       }
 
       // print("Solicitudes activas: ${applications[1]}");

@@ -40,7 +40,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
   var compradasList = compradasApplication();
   var calificadasList = calificadasApplication();
   var hOfferingList = heldOfferingApplication();
-  var recibidasList;
   var aprobadasList = aprobadasApplication();
   var rechazadasList = rechazadasApplication();
 
@@ -85,16 +84,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
 
   @override
   Widget build(BuildContext context) {
-    void onPressedRecibidas() {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => Solicitud(
-                    title: "Recibidas",
-                    numSolicitudes: widget.numRecibidas,
-                    categoria: recibidasList,
-                  )));
-    }
+    void onPressedRecibidas() {}
 
     void onPressedPendientes() {
       Navigator.push(
@@ -175,48 +165,94 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
 
     final recibidas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 40),
-      child: CardSolicitudes(widget.numRecibidas, solicitudesRecibidas,
-          imgRecibidas, imgRecibidasblue, onPressedRecibidas),
+      child: CardSolicitudes(
+          numSolicitudes: widget.numRecibidas,
+          nameSolicitud: solicitudesRecibidas,
+          imgRecibidasWhite: imgRecibidas,
+          imgRecibidasBlue: imgRecibidasblue,
+          onPressed: onPressedRecibidas,
+          col: true),
     );
     final pendientes = Container(
       margin: EdgeInsets.only(top: 30.0, left: 25),
-      child: CardSolicitudes(widget.numPendientes, solicitudesPendientes,
-          imgPendientes, imgPendientesBlue, onPressedPendientes),
+      child: CardSolicitudes(
+        numSolicitudes: widget.numPendientes,
+        nameSolicitud: solicitudesPendientes,
+        imgRecibidasWhite: imgPendientes,
+        imgRecibidasBlue: imgPendientesBlue,
+        onPressed: onPressedPendientes,
+        col: false,
+      ),
     );
 
     final calificadas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 40),
-      child: CardSolicitudes(widget.numCalificadas, solicitudesCalificadas,
-          imgCalifiacadas, imgCalificadasBlue, onPressedCalificadas),
+      child: CardSolicitudes(
+        numSolicitudes: widget.numCalificadas,
+        nameSolicitud: solicitudesCalificadas,
+        imgRecibidasWhite: imgCalifiacadas,
+        imgRecibidasBlue: imgCalificadasBlue,
+        onPressed: onPressedCalificadas,
+        col: false,
+      ),
     );
     final aprobadas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 25),
-      child: CardSolicitudes(widget.numAprobadas, solicitudesAprobadas,
-          imgAprobadas, imgAprobadasBlue, onPressedAprobadas),
+      child: CardSolicitudes(
+        numSolicitudes: widget.numAprobadas,
+        nameSolicitud: solicitudesAprobadas,
+        imgRecibidasWhite: imgAprobadas,
+        imgRecibidasBlue: imgAprobadasBlue,
+        onPressed: onPressedAprobadas,
+        col: false,
+      ),
     );
 
     final activas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 40),
-      child: CardSolicitudes(widget.numActivas, solicitudesActivas, imgActivas,
-          imgActivasBlue, onPressedActivas),
+      child: CardSolicitudes(
+        numSolicitudes: widget.numActivas,
+        nameSolicitud: solicitudesActivas,
+        imgRecibidasWhite: imgActivas,
+        imgRecibidasBlue: imgActivasBlue,
+        onPressed: onPressedActivas,
+        col: false,
+      ),
     );
 
     final held = Container(
       margin: EdgeInsets.only(top: 30.0, left: 25),
       child: CardSolicitudes(
-          widget.numHeld, solicitudesHeld, imgHeld, imgHeldBlue, onPressedHeld),
+        numSolicitudes: widget.numHeld,
+        nameSolicitud: solicitudesHeld,
+        imgRecibidasWhite: imgHeld,
+        imgRecibidasBlue: imgHeldBlue,
+        onPressed: onPressedHeld,
+        col: false,
+      ),
     );
 
     final rechazadas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 40),
-      child: CardSolicitudes(widget.numRechazadas, solicitudesRechazadas,
-          imgRechazadas, imgRechazadasBlue, onPressedRechazadas),
+      child: CardSolicitudes(
+        numSolicitudes: widget.numRechazadas,
+        nameSolicitud: solicitudesRechazadas,
+        imgRecibidasWhite: imgRechazadas,
+        imgRecibidasBlue: imgRechazadasBlue,
+        onPressed: onPressedRechazadas,
+        col: false,
+      ),
     );
 
     final compradas = Container(
       margin: EdgeInsets.only(top: 30.0, left: 25),
-      child: CardSolicitudes(widget.numCompradas, solicitudesCompradas,
-          imgCompradas, imgCompradasBlue, onPressedCompradas),
+      child: CardSolicitudes(
+          numSolicitudes: widget.numCompradas,
+          nameSolicitud: solicitudesCompradas,
+          imgRecibidasWhite: imgCompradas,
+          imgRecibidasBlue: imgCompradasBlue,
+          onPressed: onPressedCompradas,
+          col: false),
     );
 
     final row1 = Row(

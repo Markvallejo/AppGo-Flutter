@@ -48,8 +48,7 @@ Future heldOfferingApplication() async {
       var applications = response["SolicitudesHO"];
 
       if (applications == null) {
-        print("No hay solicitudes");
-        applications = [];
+        return null;
       }
 
       // print("Solicitudes activas: ${applications[1]}");

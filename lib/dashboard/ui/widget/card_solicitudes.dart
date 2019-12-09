@@ -6,9 +6,14 @@ class CardSolicitudes extends StatefulWidget {
   String imgRecibidasWhite;
   String imgRecibidasBlue;
   final VoidCallback onPressed;
-  bool col = false;
-  CardSolicitudes(this.numSolicitudes, this.nameSolicitud,
-      this.imgRecibidasWhite, this.imgRecibidasBlue, this.onPressed);
+  bool col;
+  CardSolicitudes(
+      {this.numSolicitudes,
+      this.nameSolicitud,
+      this.imgRecibidasWhite,
+      this.imgRecibidasBlue,
+      this.onPressed,
+      this.col});
 
   @override
   State<StatefulWidget> createState() {
@@ -24,11 +29,11 @@ class _CardSolicitudes extends State<CardSolicitudes> {
 
     void onPresse() {
       setState(() {
-        widget.col = !widget.col;
+        //   widget.col = !widget.col;
       });
     }
 
-    final cardRecibidas = Container(
+    final card = Container(
       height: screenHeight * 0.14,
       width: screenWith * 0.37,
       child: Card(
@@ -83,6 +88,6 @@ class _CardSolicitudes extends State<CardSolicitudes> {
       ),
     );
 
-    return cardRecibidas;
+    return card;
   }
 }
