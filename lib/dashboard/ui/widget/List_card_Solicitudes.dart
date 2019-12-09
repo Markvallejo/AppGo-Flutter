@@ -38,11 +38,11 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
   var activasList = activeApplication();
   var pendientesList = pendientesApplication();
   var compradasList = compradasApplication();
-  var calificadasList; // = calificadasApplication();
+  var calificadasList = calificadasApplication();
   var hOfferingList = heldOfferingApplication();
   var recibidasList;
-  var aprobadasList; //= aprobadasApplication();
-  var rechazadasList; // = rechazadasApplication();
+  var aprobadasList = aprobadasApplication();
+  var rechazadasList = rechazadasApplication();
 
   String solicitudesRecibidas = "RECIBIDAS";
   String imgRecibidas =

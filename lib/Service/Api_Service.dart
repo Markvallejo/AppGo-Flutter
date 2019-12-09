@@ -2,13 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:appgo/user/model/user.dart';
-import 'package:appgo/Service/singIn.dart';
-import 'package:appgo/Service/generate_token.dart';
-import 'package:appgo/Service/salesman_list_request.dart';
-import 'package:appgo/Service/remote_config-request.dart';
 import 'package:appgo/Service/dashboard_request.dart';
-import 'package:appgo/Service/verification_token.dart';
 import 'package:appgo/Service/active_application-request.dart';
+import 'package:appgo/Service/detail_request.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -53,7 +49,7 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dashboard = activeApplication();
+    var dashboard = detailRequest();
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
@@ -63,20 +59,21 @@ class Service extends StatelessWidget {
         future: dashboard,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            List solicitud = snapshot.data;
-            return ListView(
-                children: solicitud
-                    .map((solicitud) => Container(
-                          child: Column(
-                            children: <Widget>[
-                              Text(solicitud['NombreCompleto']),
-                              Text(solicitud['Modelo']),
-                              Text(solicitud['FechaCreacion']),
-                              Text(solicitud['NumeroSolicitud'].toString()),
-                            ],
-                          ),
-                        ))
-                    .toList());
+            var solicitud = snapshot.data;
+            // print(solicitud);
+            // return ListView(
+            //     children: solicitud
+            //         .map((solicitud) => Container(
+            //               child: Column(
+            //                 children: <Widget>[
+            //                   Text(solicitud['NombreCompleto']),
+            //                   Text(solicitud['Modelo']),
+            //                   Text(solicitud['FechaCreacion']),
+            //                   Text(solicitud['NumeroSolicitud'].toString()),
+            //                 ],
+            //               ),
+            //             ))
+            //         .toList());
           } else if (snapshot.hasError) {
             print(snapshot.error);
             return Text("Error: ${snapshot.error}");

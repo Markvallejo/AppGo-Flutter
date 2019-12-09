@@ -39,6 +39,7 @@ class _InputLabel extends State<InputLabel> {
   final TextEditingController _controllerIdVendedor =
       new TextEditingController();
   final TextEditingController _controllerPass = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -73,6 +74,10 @@ class _InputLabel extends State<InputLabel> {
     }
 
     void onPress() {
+      _controllerDistribuidor.text = 'TEST003';
+      _controllerIdVendedor.text = '99998';
+      _controllerPass.text = 'Password00';
+
       if (_controllerDistribuidor.text.isEmpty ||
           _controllerIdVendedor.text.isEmpty ||
           _controllerPass.text.isEmpty) {
@@ -107,7 +112,6 @@ class _InputLabel extends State<InputLabel> {
         },
         autovalidate: validate ? true : false,
         autofocus: false,
-        keyboardType: TextInputType.numberWithOptions(signed: true),
         focusNode: _focusNodeDistribuidor,
         onFieldSubmitted: (v) {
           FocusScope.of(context).requestFocus(_focusNodeIdVendedor);
@@ -121,7 +125,7 @@ class _InputLabel extends State<InputLabel> {
           filled: true,
           fillColor: Color(0xFFe5e5e5),
           border: InputBorder.none,
-          hintText: 'Distribuidor',
+          hintText: 'TEST003',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFe5e5e5)),
             borderRadius: BorderRadius.all(Radius.circular(0.0)),
@@ -162,7 +166,7 @@ class _InputLabel extends State<InputLabel> {
           filled: true,
           fillColor: Color(0xFFe5e5e5),
           border: InputBorder.none,
-          hintText: "ID del Vendedor",
+          hintText: "99998",
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFe5e5e5), width: 10.0),
             borderRadius: BorderRadius.all(Radius.circular(0.0)),
@@ -183,7 +187,7 @@ class _InputLabel extends State<InputLabel> {
             return null;
           }
           if (val.toString() != user.sPassword) {
-            return "Invalid Password";
+            return "Password00";
           }
           return null;
         },

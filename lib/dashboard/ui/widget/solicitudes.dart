@@ -27,7 +27,6 @@ class _Solicitudes extends State<Solicitudes> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     final name = Container(
-      margin: EdgeInsets.only(top: 5.0),
       child: Text(
         widget.nameSolicitud,
         style: TextStyle(
@@ -118,8 +117,8 @@ class _Solicitudes extends State<Solicitudes> {
     );
 
     final solicitud = Container(
-      width: screenWidth * 0.8,
       margin: EdgeInsets.only(left: 16.0),
+      width: screenWidth * 0.8,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -133,7 +132,7 @@ class _Solicitudes extends State<Solicitudes> {
 
     final all_Request = Container(
       width: screenWidth,
-      height: screenHeight * 0.175,
+      height: screenHeight * 0.192,
       color: Colors.grey[200],
       child: GestureDetector(
         onTap: () {
@@ -163,7 +162,7 @@ class _Solicitudes extends State<Solicitudes> {
         all_Request,
         Divider(
           color: Colors.transparent,
-          height: 5.0,
+          height: 1.0,
         ),
       ],
     );

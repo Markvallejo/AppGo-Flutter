@@ -54,7 +54,7 @@ class AppBarSolicitudes extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            "Solicitud No. ${numSolicitudes}",
+            "Solicitud No. $numSolicitudes",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: "DIN",

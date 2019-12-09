@@ -21,7 +21,7 @@ class _ListAllSolicitudes extends State<ListAllSolicitudes> {
         if (snapshot.connectionState == ConnectionState.done) {
           List solicitud = snapshot.data;
           return Container(
-            margin: EdgeInsets.only(top: screenHeight * 0.070),
+            margin: EdgeInsets.only(top: screenHeight * 0.060),
             child: ListView(
               children: solicitud
                   .map((solicitud) => Solicitudes(
