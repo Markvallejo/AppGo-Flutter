@@ -158,10 +158,12 @@ class DashBoard extends StatelessWidget {
                         child: Text("Error, Revisa tu conexion a Internet"),
                       );
                     }
+
                     return Container(
-                      margin: EdgeInsets.only(top: 30.0),
+                      margin: EdgeInsets.only(top: screenHeight * 0.30),
                       child: CircularProgressIndicator(
-                        backgroundColor: Colors.lightBlue,
+                        backgroundColor: Colors.white,
+                        valueColor: AlwaysStoppedAnimation(Colors.lightBlue),
                       ),
                     );
                   }),

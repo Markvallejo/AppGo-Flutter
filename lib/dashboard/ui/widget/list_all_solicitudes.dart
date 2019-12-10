@@ -76,10 +76,13 @@ class _ListAllRequest extends State<ListAllRequest> {
             ),
           );
         }
-        return Container(
-          margin: EdgeInsets.only(top: 30.0),
-          child: CircularProgressIndicator(
-            backgroundColor: Colors.lightBlue,
+        return Center(
+          child: Container(
+            margin: EdgeInsets.only(top: screenHeight * 0.030),
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.white,
+              valueColor: AlwaysStoppedAnimation(Colors.lightBlue),
+            ),
           ),
         );
       },
