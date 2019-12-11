@@ -316,7 +316,7 @@ class _Details extends State<Details> {
       padding: EdgeInsets.only(bottom: 10.0, top: 10.0, left: 16.0),
       child: InkWell(
         onTap: () {
-          print(screenHeight);
+          print(screenWidth);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

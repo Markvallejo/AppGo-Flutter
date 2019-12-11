@@ -80,7 +80,7 @@ class _ListAllRequest extends State<ListAllRequest> {
           child: Container(
             margin: EdgeInsets.only(top: screenHeight * 0.030),
             child: CircularProgressIndicator(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.white12,
               valueColor: AlwaysStoppedAnimation(Colors.lightBlue),
             ),
           ),

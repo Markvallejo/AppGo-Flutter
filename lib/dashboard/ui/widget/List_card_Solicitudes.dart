@@ -84,6 +84,9 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screeHeight = MediaQuery.of(context).size.height;
+
     void onPressedRecibidas() {}
 
     void onPressedPendientes() {
@@ -164,7 +167,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
     }
 
     final recibidas = Container(
-      margin: EdgeInsets.only(top: 30.0, left: 40),
       child: CardSolicitudes(
           numSolicitudes: widget.numRecibidas,
           nameSolicitud: solicitudesRecibidas,
@@ -174,7 +176,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           col: true),
     );
     final pendientes = Container(
-      margin: EdgeInsets.only(top: 30.0, left: 25),
       child: CardSolicitudes(
         numSolicitudes: widget.numPendientes,
         nameSolicitud: solicitudesPendientes,
@@ -186,7 +187,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
     );
 
     final calificadas = Container(
-      margin: EdgeInsets.only(top: 30.0, left: 40),
       child: CardSolicitudes(
         numSolicitudes: widget.numCalificadas,
         nameSolicitud: solicitudesCalificadas,
@@ -197,7 +197,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
       ),
     );
     final aprobadas = Container(
-      margin: EdgeInsets.only(top: 30.0, left: 25),
       child: CardSolicitudes(
         numSolicitudes: widget.numAprobadas,
         nameSolicitud: solicitudesAprobadas,
@@ -209,7 +208,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
     );
 
     final activas = Container(
-      margin: EdgeInsets.only(top: 30.0, left: 40),
       child: CardSolicitudes(
         numSolicitudes: widget.numActivas,
         nameSolicitud: solicitudesActivas,
@@ -221,7 +219,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
     );
 
     final held = Container(
-      margin: EdgeInsets.only(top: 30.0, left: 25),
       child: CardSolicitudes(
         numSolicitudes: widget.numHeld,
         nameSolicitud: solicitudesHeld,
@@ -233,7 +230,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
     );
 
     final rechazadas = Container(
-      margin: EdgeInsets.only(top: 30.0, left: 40),
       child: CardSolicitudes(
         numSolicitudes: widget.numRechazadas,
         nameSolicitud: solicitudesRechazadas,
@@ -245,7 +241,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
     );
 
     final compradas = Container(
-      margin: EdgeInsets.only(top: 30.0, left: 25),
       child: CardSolicitudes(
           numSolicitudes: widget.numCompradas,
           nameSolicitud: solicitudesCompradas,
@@ -255,24 +250,40 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           col: false),
     );
 
-    final row1 = Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[recibidas, pendientes],
+    final row1 = Container(
+      margin: EdgeInsets.only(top: screeHeight * 0.044),
+      width: screenWidth * 0.864,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[recibidas, pendientes],
+      ),
     );
 
-    final row2 = Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[calificadas, aprobadas],
+    final row2 = Container(
+      margin: EdgeInsets.only(top: screeHeight * 0.044),
+      width: screenWidth * 0.864,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[calificadas, aprobadas],
+      ),
     );
 
-    final row3 = Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[activas, held],
+    final row3 = Container(
+      margin: EdgeInsets.only(top: screeHeight * 0.044),
+      width: screenWidth * 0.864,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[activas, held],
+      ),
     );
 
-    final row4 = Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[rechazadas, compradas],
+    final row4 = Container(
+      margin: EdgeInsets.only(top: screeHeight * 0.044),
+      width: screenWidth * 0.864,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[rechazadas, compradas],
+      ),
     );
 
     return Column(

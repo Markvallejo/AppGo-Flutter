@@ -204,7 +204,7 @@ class _InputLabel extends State<InputLabel> {
           filled: true,
           fillColor: Color(0xFFe5e5e5),
           border: InputBorder.none,
-          hintText: 'Contraseña',
+          hintText: 'Password00',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFe5e5e5)),
             borderRadius: BorderRadius.all(Radius.circular(0.0)),

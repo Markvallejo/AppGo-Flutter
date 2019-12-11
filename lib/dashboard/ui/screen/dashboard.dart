@@ -162,7 +162,7 @@ class DashBoard extends StatelessWidget {
                     return Container(
                       margin: EdgeInsets.only(top: screenHeight * 0.30),
                       child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
+                        backgroundColor: Colors.white12,
                         valueColor: AlwaysStoppedAnimation(Colors.lightBlue),
                       ),
                     );
