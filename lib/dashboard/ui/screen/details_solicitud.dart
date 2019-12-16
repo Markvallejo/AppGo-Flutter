@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/app_bar_solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/details.dart';
 import 'package:appgo/dashboard/ui/screen/documents.dart';
+import 'package:appgo/Service/detail_request.dart';
 
 class DetailsSolicitud extends StatefulWidget {
   String imgDoc = "assets/images/images_for_dashboard/document@3x.png";
 
   int numSolicitud;
+  String name;
 
-  DetailsSolicitud({Key key, this.numSolicitud});
+  DetailsSolicitud({Key key, this.numSolicitud, this.name});
   @override
   State<StatefulWidget> createState() {
     return _DetailsSolicitud();
@@ -18,8 +20,10 @@ class DetailsSolicitud extends StatefulWidget {
 class _DetailsSolicitud extends State<DetailsSolicitud> {
   String title = "Detalle";
   bool details = true;
+
   @override
   Widget build(BuildContext context) {
+    var detailsRequest = detailRequest(widget.numSolicitud);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     final doc = Container(
@@ -101,8 +105,46 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
             height: screenHeight,
             color: Colors.grey[200],
             child: SingleChildScrollView(
-              child: Details(),
-            ),
+                child: FutureBuilder(
+              future: detailsRequest,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  String year = snapshot.data['Anno'];
+                  String modelo = snapshot.data['Modelo'];
+                  String celular = snapshot.data['Celular'];
+                  String telefono = snapshot.data['Telefono'];
+                  String estadoProceso = snapshot.data['EstadoEnProceso'];
+                  String respuesta = snapshot.data['Respuesta'];
+                  String horaRespuesta = snapshot.data['HoraRespuesta'];
+
+                  return Details(
+                    nameSolicitud: widget.name,
+                    numSolicitud: widget.numSolicitud,
+                    year: year,
+                    modelo: modelo,
+                    numCelular: celular,
+                    numTelefono: telefono,
+                    faseProceso: estadoProceso,
+                    respuesta: respuesta,
+                    fechaSolicitud: horaRespuesta,
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.none) {
+                  return Container(
+                    child: Text("Error, ${snapshot.error}"),
+                  );
+                }
+                return Container(
+                  margin: EdgeInsets.only(top: screenHeight * 0.30),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white12,
+                      valueColor: AlwaysStoppedAnimation(Colors.lightBlue),
+                    ),
+                  ),
+                );
+              },
+            )),
           ),
           Column(
             children: <Widget>[

@@ -139,8 +139,9 @@ class _Solicitudes extends State<Solicitudes> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      DetailsSolicitud(numSolicitud: widget.numSolicitud)));
+                  builder: (BuildContext context) => DetailsSolicitud(
+                      numSolicitud: widget.numSolicitud,
+                      name: widget.nameSolicitud)));
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

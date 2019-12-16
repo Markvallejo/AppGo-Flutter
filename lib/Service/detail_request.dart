@@ -5,10 +5,9 @@ import 'package:appgo/user/model/user.dart';
 import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
 
-Future detailRequest() async {
+Future detailRequest(applicationId) async {
   final user = new User();
-  final data = '2 ';
-
+  int appId = 20;
   var resp = await http
       .post(GENERATE_TOKEN_URL,
           headers: {
@@ -32,7 +31,7 @@ Future detailRequest() async {
               "__RequestVerificationToken": getVerificationToken().toString(),
             },
             body: json.encode({
-              'ApplicationId': data,
+              'ApplicationId': appId,
               'sDealerNumber': user.sDealerNumber,
               'sSalesManInfo': user.sSalesManInfo,
               'sIMEI': user.sIMEI,
@@ -42,19 +41,18 @@ Future detailRequest() async {
       return r.body;
     }).then((result) {
       var response = json.decode(result);
-
       if (response["DetalleSolicitud"] != null) {
         var output = response["DetalleSolicitud"];
         if (output["Comentario"][0] == "") {
           output["Comentario"] = [];
         }
-        print("Detalles de solicitud $output");
+        //  print("Detalles de solicitud $output");
         return output;
       }
       print(response['Description']['Error']);
       return response['Description']['Error'];
     });
   });
-  //print("Detalles: $resp");
+//   print("Detalles: $resp");
   return resp;
 }

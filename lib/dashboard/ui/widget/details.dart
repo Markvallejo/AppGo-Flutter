@@ -2,6 +2,27 @@ import 'package:flutter/material.dart';
 
 class Details extends StatefulWidget {
   bool status;
+  String nameSolicitud;
+  String modelo;
+  int numSolicitud;
+  String fechaSolicitud;
+  String year;
+  String numTelefono;
+  String numCelular;
+  String faseProceso;
+  String respuesta;
+
+  Details(
+      {Key key,
+      this.nameSolicitud,
+      this.modelo,
+      this.numSolicitud,
+      this.fechaSolicitud,
+      this.year,
+      this.numTelefono,
+      this.numCelular,
+      this.faseProceso,
+      this.respuesta});
   @override
   State<StatefulWidget> createState() {
     return _Details();
@@ -9,15 +30,15 @@ class Details extends StatefulWidget {
 }
 
 class _Details extends State<Details> {
-  String nameSolicitud = "ACO***** ZUÑ***** LA***** KAR*****";
-  String modelo = "1XS26 - D EQUINOX D";
-  int numSolicitud = 22064447;
-  String fechaSolicitud = "2019-06-20    10:20 AM";
+  // String nameSolicitud = "ACO***** ZUÑ***** LA***** KAR*****";
+  // String modelo = "1XS26 - D EQUINOX D";
+  // int numSolicitud = 22064447;
+  // String fechaSolicitud = "2019-06-20    10:20 AM";
 
-  String numTelefono = "8183999761";
-  String numCelular = "8183999761";
-  String faseProceso = "Análisis de Documentos";
-  String respuesta = "Activa";
+  // String numTelefono = "8183999761";
+  // String numCelular = "8183999761";
+  // String faseProceso = "Análisis de Documentos";
+  // String respuesta = "Activa";
   String coments =
       "Activa: Ver reconsideracion en nueva solicitud nro. 22064450";
   String statusConvertion = "Estatus de Conversión:";
@@ -45,7 +66,7 @@ class _Details extends State<Details> {
 
     final name = Container(
       child: Text(
-        nameSolicitud,
+        widget.nameSolicitud,
         style: TextStyle(
           fontFamily: "DIN",
           fontSize: 17,
@@ -75,14 +96,27 @@ class _Details extends State<Details> {
     );
 
     final idModelo = Container(
-      child: Text(
-        "2019 ${modelo}",
-        style: TextStyle(
-          fontFamily: "DIN",
-          fontSize: 17,
-          fontWeight: FontWeight.w500,
-          color: Colors.black54,
-        ),
+      child: Row(
+        children: <Widget>[
+          Text(
+            widget.year,
+            style: TextStyle(
+              fontFamily: "DIN",
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
+              color: Colors.black54,
+            ),
+          ),
+          Text(
+            widget.modelo,
+            style: TextStyle(
+              fontFamily: "DIN",
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
+              color: Colors.black54,
+            ),
+          ),
+        ],
       ),
     );
 
@@ -108,7 +142,7 @@ class _Details extends State<Details> {
     final telefono = Container(
       margin: EdgeInsets.only(left: 5.0),
       child: Text(
-        numTelefono,
+        widget.numTelefono,
         style: TextStyle(
           fontFamily: "DIN",
           fontSize: 17,
@@ -147,7 +181,7 @@ class _Details extends State<Details> {
     final celular = Container(
       margin: EdgeInsets.only(left: 5.0),
       child: Text(
-        numCelular,
+        widget.numCelular,
         style: TextStyle(
           fontFamily: "DIN",
           fontSize: 17,
@@ -196,7 +230,7 @@ class _Details extends State<Details> {
     final date = Container(
       margin: EdgeInsets.only(left: 5.0),
       child: Text(
-        fechaSolicitud,
+        widget.fechaSolicitud,
         style: TextStyle(
           fontFamily: "DIN",
           fontSize: 16,
@@ -227,7 +261,7 @@ class _Details extends State<Details> {
     final fase = Container(
       margin: EdgeInsets.only(left: 5.0),
       child: Text(
-        faseProceso,
+        widget.faseProceso,
         style: TextStyle(
           fontFamily: "DIN",
           fontSize: 16,
@@ -257,7 +291,7 @@ class _Details extends State<Details> {
     final resp = Container(
       margin: EdgeInsets.only(left: 5.0),
       child: Text(
-        respuesta,
+        widget.respuesta,
         style: TextStyle(
           fontFamily: "DIN",
           fontSize: 16,

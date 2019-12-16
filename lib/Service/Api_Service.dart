@@ -49,7 +49,7 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dashboard = detailRequest();
+    var dashboard = detailRequest(1);
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
@@ -59,21 +59,8 @@ class Service extends StatelessWidget {
         future: dashboard,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            var solicitud = snapshot.data;
-            // print(solicitud);
-            // return ListView(
-            //     children: solicitud
-            //         .map((solicitud) => Container(
-            //               child: Column(
-            //                 children: <Widget>[
-            //                   Text(solicitud['NombreCompleto']),
-            //                   Text(solicitud['Modelo']),
-            //                   Text(solicitud['FechaCreacion']),
-            //                   Text(solicitud['NumeroSolicitud'].toString()),
-            //                 ],
-            //               ),
-            //             ))
-            //         .toList());
+            var solicitud = snapshot.data['Anno'];
+            print(solicitud);
           } else if (snapshot.hasError) {
             print(snapshot.error);
             return Text("Error: ${snapshot.error}");
