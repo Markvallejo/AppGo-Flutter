@@ -1,28 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/document.dart';
+import 'package:appgo/Service/documents_request.dart';
+import 'package:appgo/dashboard/ui/widget/document_empty.dart';
 
 class DocumentsList extends StatelessWidget {
+  int idDocument;
+  DocumentsList(this.idDocument);
+
   @override
   Widget build(BuildContext context) {
-    String documentTitle = "Calendario Pagos(Copia GMF)-Detalle de Op.";
-    String subTitle = "Acreditado - Version 1";
-    String status = "Accepted";
-    String date = "2019-06-20    16:38 PM";
+    var documents = documentsRequest(idDocument);
 
-    return ListView(
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              print(documentTitle);
-            },
-            child: Document(
-              documentTitle: documentTitle,
-              subTitle: subTitle,
-              status: status,
-              date: date,
+    String emptyRequest = "assets/images/images_for_dashboard/warning@3x.png";
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return FutureBuilder(
+        future: documents,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            List documentsList = snapshot.data;
+            if (documentsList.isEmpty) {
+              return Container(
+                child: DocumentEmpty(),
+              );
+            } else {
+              return Container(
+                child: Scrollbar(
+                  child: ListView(
+                      children: documentsList
+                          .map((documentsList) => Document(
+                                documentTitle: documentsList['TipoDocumento'],
+                                subTitle: documentsList['RoleSolicitud'],
+                                version: documentsList['VersionDocumento'],
+                                status: documentsList['Status'],
+                                date: documentsList['FechaCreacion'],
+                              ))
+                          .toList()),
+                ),
+              );
+            }
+          }
+          if (snapshot.connectionState == ConnectionState.none) {
+            return Container(
+              margin: EdgeInsets.only(top: 30.0),
+              child: Center(
+                child: Text("No se encontro Resultados"),
+              ),
+            );
+          }
+          return Center(
+            child: Container(
+              margin: EdgeInsets.only(top: screenHeight * 0.030),
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.white12,
+                valueColor: AlwaysStoppedAnimation(Colors.lightBlue),
+              ),
             ),
-          ),
-        ].toList());
+          );
+        });
   }
 }

@@ -5,6 +5,7 @@ import 'package:appgo/user/model/user.dart';
 import 'package:appgo/Service/dashboard_request.dart';
 import 'package:appgo/Service/active_application-request.dart';
 import 'package:appgo/Service/detail_request.dart';
+import 'package:appgo/Service/documents_request.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -49,7 +50,7 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dashboard = detailRequest(1);
+    var dashboard = documentsRequest(1);
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
@@ -59,8 +60,7 @@ class Service extends StatelessWidget {
         future: dashboard,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            var solicitud = snapshot.data['Anno'];
-            print(solicitud);
+            return Text("Documento: ${snapshot.data}");
           } else if (snapshot.hasError) {
             print(snapshot.error);
             return Text("Error: ${snapshot.error}");

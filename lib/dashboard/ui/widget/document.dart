@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 
 class Document extends StatefulWidget {
   String documentTitle;
+  int version;
   String subTitle;
   String status;
   String date;
   var color;
 
   Document(
-      {Key key, this.documentTitle, this.subTitle, this.status, this.date});
+      {Key key,
+      this.documentTitle,
+      this.subTitle,
+      this.status,
+      this.date,
+      this.version});
 
   @override
   State<StatefulWidget> createState() {
@@ -23,10 +29,10 @@ class _Document extends State<Document> {
       if (widget.status == "Accepted") {
         widget.color = Colors.grey;
       }
-      if (widget.status == "Rechazado") {
+      if (widget.status == "Pending verification") {
         widget.color = Colors.red[200];
       }
-      if (widget.status == "Held Offering") {
+      if (widget.status == "Pending verification") {
         widget.color = Colors.lightBlue;
       }
     });
@@ -47,13 +53,28 @@ class _Document extends State<Document> {
     );
     final subtitle = Container(
       margin: EdgeInsets.only(left: 16.0),
-      child: Text(
-        widget.subTitle,
-        style: TextStyle(
-            fontFamily: "DIN",
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-            color: Colors.black26),
+      child: Row(
+        children: <Widget>[
+          Text(
+            widget.subTitle,
+            style: TextStyle(
+                fontFamily: "DIN",
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Colors.black26),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 5.0),
+            child: Text(
+              "- Version ${widget.version}",
+              style: TextStyle(
+                  fontFamily: "DIN",
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black26),
+            ),
+          ),
+        ],
       ),
     );
 
@@ -103,7 +124,7 @@ class _Document extends State<Document> {
       ),
     );
 
-    return Container(
+    final document = Container(
       width: screenWidth,
       padding: EdgeInsets.only(bottom: 16.0),
       color: Colors.grey[200],
@@ -115,6 +136,16 @@ class _Document extends State<Document> {
           stateDate,
         ],
       ),
+    );
+
+    return Column(
+      children: <Widget>[
+        document,
+        Divider(
+          height: 1.0,
+          color: Colors.transparent,
+        )
+      ],
     );
   }
 }

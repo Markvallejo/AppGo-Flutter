@@ -3,6 +3,8 @@ import 'package:appgo/dashboard/ui/widget/document_empty.dart';
 import 'package:appgo/dashboard/ui/widget/documents_list.dart';
 
 class Documents extends StatelessWidget {
+  int idDocument;
+  Documents(this.idDocument);
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -57,7 +59,7 @@ class Documents extends StatelessWidget {
       ),
       body: Stack(
         children: <Widget>[
-          DocumentsList(),
+          DocumentsList(idDocument),
         ],
       ),
     );

@@ -89,7 +89,7 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    Documents()));
+                                    Documents(widget.numSolicitud)));
                       },
                     ),
                   );

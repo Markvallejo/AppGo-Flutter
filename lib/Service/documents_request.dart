@@ -5,9 +5,9 @@ import 'package:appgo/user/model/user.dart';
 import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
 
-Future detailRequest(applicationId) async {
-  final user = new User();
-  int appId = 22;
+Future documentsRequest(applicationId) async {
+  User user = new User();
+  // int applicationId = 2;
   var resp = await http
       .post(GENERATE_TOKEN_URL,
           headers: {
@@ -23,35 +23,30 @@ Future detailRequest(applicationId) async {
     return r;
   }).then((result) async {
     var token = json.decode(result.body);
-
     return await http
-        .post(APPLICATION_DETAIL_URL,
+        .post(APPLICATION_DOCUMENTS_URL,
             headers: {
               "Content-Type": "application/json",
               "__RequestVerificationToken": getVerificationToken().toString(),
             },
             body: json.encode({
-              'ApplicationId': appId,
+              'ApplicationId': applicationId,
               'sDealerNumber': user.sDealerNumber,
               'sSalesManInfo': user.sSalesManInfo,
               'sIMEI': user.sIMEI,
               'token': token["TokenValor"],
             }))
         .then((r) {
-      return r.body;
+      return r;
     }).then((result) {
-      var response = json.decode(result);
-      if (response["DetalleSolicitud"] != null) {
-        var output = response["DetalleSolicitud"];
-        if (output["Comentario"][0] == "") {
-          output["Comentario"] = [];
-        }
-        return output;
+      var response = json.decode(result.body);
+      var documents = response["Documentos"];
+      if (documents == null) {
+        return null;
       }
-      print(response['Description']['Error']);
-      return response['Description']['Error'];
+      return documents;
     });
   });
-//   print("Detalles: $resp");
+  print("Documentos $resp");
   return resp;
 }
