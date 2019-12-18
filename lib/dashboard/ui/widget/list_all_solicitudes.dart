@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/solicitudes.dart';
+import 'package:appgo/dashboard/ui/widget/document_empty.dart';
 
 class ListAllRequest extends StatefulWidget {
   var categoria;
@@ -14,9 +15,7 @@ class ListAllRequest extends StatefulWidget {
 class _ListAllRequest extends State<ListAllRequest> {
   @override
   Widget build(BuildContext context) {
-    String emptyRequest = "assets/images/images_for_dashboard/warning@3x.png";
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
 
     return FutureBuilder(
       future: widget.categoria,
@@ -41,30 +40,7 @@ class _ListAllRequest extends State<ListAllRequest> {
             );
           } else {
             return Container(
-              width: screenWidth,
-              height: screenHeight * 0.877,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    height: screenHeight * 0.10,
-                    decoration: BoxDecoration(
-                        image:
-                            DecorationImage(image: AssetImage(emptyRequest))),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      "No hay Solicitudes",
-                      style: TextStyle(
-                        fontFamily: "DIN",
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              child: DocumentEmpty("No hay Solicitudes"),
             );
           }
         }

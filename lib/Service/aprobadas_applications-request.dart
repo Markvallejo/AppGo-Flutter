@@ -51,10 +51,9 @@ Future aprobadasApplication() async {
         return null;
       }
 
-      // print("Solicitudes activas: ${applications[1]}");
       return applications;
     });
   });
-  // print(resp);
+  print(resp);
   return resp;
 }

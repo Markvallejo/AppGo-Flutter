@@ -46,12 +46,13 @@ Future detailRequest(applicationId) async {
         if (output["Comentario"][0] == "") {
           output["Comentario"] = [];
         }
+
         return output;
       }
       print(response['Description']['Error']);
       return response['Description']['Error'];
     });
   });
-//   print("Detalles: $resp");
+  print("Detalles: $resp");
   return resp;
 }

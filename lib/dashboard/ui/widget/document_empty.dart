@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class DocumentEmpty extends StatelessWidget {
   String documentEmpty = "assets/images/images_for_dashboard/warning@3x.png";
+  String title;
+  DocumentEmpty(this.title);
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -22,7 +24,7 @@ class DocumentEmpty extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 10.0),
             child: Text(
-              "No hay Documentos",
+              title,
               style: TextStyle(
                 fontFamily: "DIN",
                 fontWeight: FontWeight.w900,

@@ -10,10 +10,7 @@ class DocumentsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var documents = documentsRequest(idDocument);
-
-    String emptyRequest = "assets/images/images_for_dashboard/warning@3x.png";
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
 
     return FutureBuilder(
         future: documents,
@@ -22,7 +19,7 @@ class DocumentsList extends StatelessWidget {
             List documentsList = snapshot.data;
             if (documentsList.isEmpty) {
               return Container(
-                child: DocumentEmpty(),
+                child: DocumentEmpty("No hay Documentos"),
               );
             } else {
               return Container(
