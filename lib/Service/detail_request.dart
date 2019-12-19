@@ -53,6 +53,6 @@ Future detailRequest(applicationId) async {
       return response['Description']['Error'];
     });
   });
-  print("Detalles: $resp");
+  // print("Detalles: $resp");
   return resp;
 }

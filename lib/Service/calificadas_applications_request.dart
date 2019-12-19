@@ -55,6 +55,6 @@ Future calificadasApplication() async {
       return applications;
     });
   });
-  // print(resp);
+  print(resp);
   return resp;
 }

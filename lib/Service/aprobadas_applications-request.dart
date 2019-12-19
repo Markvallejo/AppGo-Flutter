@@ -54,6 +54,6 @@ Future aprobadasApplication() async {
       return applications;
     });
   });
-  print(resp);
+  //print(resp);
   return resp;
 }
