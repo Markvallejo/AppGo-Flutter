@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/document_empty.dart';
+import 'package:appgo/Service/Api_Service.dart';
 
 class ListAllRequest extends StatefulWidget {
   var categoria;
@@ -21,27 +22,36 @@ class _ListAllRequest extends State<ListAllRequest> {
       future: widget.categoria,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          List solicitud = snapshot.data;
-          if (solicitud != null) {
+          if (snapshot.data == CONNECTION_ERROR) {
             return Container(
-              margin: EdgeInsets.only(top: screenHeight * 0.070),
-              child: Scrollbar(
-                child: ListView(
-                  children: solicitud
-                      .map((solicitud) => Solicitudes(
-                            nameSolicitud: solicitud['NombreCompleto'],
-                            modelo: solicitud['Modelo'],
-                            numSolicitud: solicitud['NumeroSolicitud'],
-                            fechaSolicitud: solicitud['FechaCreacion'],
-                          ))
-                      .toList(),
-                ),
+              // margin: EdgeInsets.only(top: 30.0),
+              child: Center(
+                child: Text(snapshot.data),
               ),
             );
           } else {
-            return Container(
-              child: DocumentEmpty("No hay Solicitudes"),
-            );
+            List solicitud = snapshot.data;
+            if (solicitud != null) {
+              return Container(
+                margin: EdgeInsets.only(top: screenHeight * 0.070),
+                child: Scrollbar(
+                  child: ListView(
+                    children: solicitud
+                        .map((solicitud) => Solicitudes(
+                              nameSolicitud: solicitud['NombreCompleto'],
+                              modelo: solicitud['Modelo'],
+                              numSolicitud: solicitud['NumeroSolicitud'],
+                              fechaSolicitud: solicitud['FechaCreacion'],
+                            ))
+                        .toList(),
+                  ),
+                ),
+              );
+            } else {
+              return Container(
+                child: DocumentEmpty("No hay Solicitudes"),
+              );
+            }
           }
         }
         if (snapshot.connectionState == ConnectionState.none) {

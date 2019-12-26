@@ -30,15 +30,6 @@ class Details extends StatefulWidget {
 }
 
 class _Details extends State<Details> {
-  // String nameSolicitud = "ACO***** ZUÑ***** LA***** KAR*****";
-  // String modelo = "1XS26 - D EQUINOX D";
-  // int numSolicitud = 22064447;
-  // String fechaSolicitud = "2019-06-20    10:20 AM";
-
-  // String numTelefono = "8183999761";
-  // String numCelular = "8183999761";
-  // String faseProceso = "Análisis de Documentos";
-  // String respuesta = "Activa";
   String coments =
       "Activa: Ver reconsideracion en nueva solicitud nro. 22064450";
   String statusConvertion = "Estatus de Conversión:";

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/document.dart';
 import 'package:appgo/Service/documents_request.dart';
 import 'package:appgo/dashboard/ui/widget/document_empty.dart';
+import 'package:appgo/Service/Api_Service.dart';
 
 class DocumentsList extends StatelessWidget {
   int idDocument;
@@ -16,26 +17,34 @@ class DocumentsList extends StatelessWidget {
         future: documents,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            List documentsList = snapshot.data;
-            if (documentsList.isEmpty) {
+            if (snapshot.data == CONNECTION_ERROR) {
               return Container(
-                child: DocumentEmpty("No hay Documentos"),
-              );
-            } else {
-              return Container(
-                child: Scrollbar(
-                  child: ListView(
-                      children: documentsList
-                          .map((documentsList) => Document(
-                                documentTitle: documentsList['TipoDocumento'],
-                                subTitle: documentsList['RoleSolicitud'],
-                                version: documentsList['VersionDocumento'],
-                                status: documentsList['Status'],
-                                date: documentsList['FechaCreacion'],
-                              ))
-                          .toList()),
+                child: Center(
+                  child: Text(snapshot.data),
                 ),
               );
+            } else {
+              List documentsList = snapshot.data;
+              if (documentsList.isEmpty) {
+                return Container(
+                  child: DocumentEmpty("No hay Documentos"),
+                );
+              } else {
+                return Container(
+                  child: Scrollbar(
+                    child: ListView(
+                        children: documentsList
+                            .map((documentsList) => Document(
+                                  documentTitle: documentsList['TipoDocumento'],
+                                  subTitle: documentsList['RoleSolicitud'],
+                                  version: documentsList['VersionDocumento'],
+                                  status: documentsList['Status'],
+                                  date: documentsList['FechaCreacion'],
+                                ))
+                            .toList()),
+                  ),
+                );
+              }
             }
           }
           if (snapshot.connectionState == ConnectionState.none) {

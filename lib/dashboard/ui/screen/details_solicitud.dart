@@ -3,6 +3,7 @@ import 'package:appgo/dashboard/ui/widget/app_bar_solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/details.dart';
 import 'package:appgo/dashboard/ui/screen/documents.dart';
 import 'package:appgo/Service/detail_request.dart';
+import 'package:appgo/Service/Api_Service.dart';
 
 class DetailsSolicitud extends StatefulWidget {
   String imgDoc = "assets/images/images_for_dashboard/document@3x.png";
@@ -104,30 +105,37 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
           Container(
             height: screenHeight,
             color: Colors.grey[200],
-            child: SingleChildScrollView(
-                child: FutureBuilder(
+            child: FutureBuilder(
               future: detailsRequest,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  String year = snapshot.data['Anno'];
-                  String modelo = snapshot.data['Modelo'];
-                  String celular = snapshot.data['Celular'];
-                  String telefono = snapshot.data['Telefono'];
-                  String estadoProceso = snapshot.data['EstadoEnProceso'];
-                  String respuesta = snapshot.data['Respuesta'];
-                  String horaRespuesta = snapshot.data['HoraRespuesta'];
+                  if (snapshot.data == CONNECTION_ERROR) {
+                    return Container(
+                      child: Center(
+                        child: Text(snapshot.data),
+                      ),
+                    );
+                  } else {
+                    String year = snapshot.data['Anno'];
+                    String modelo = snapshot.data['Modelo'];
+                    String celular = snapshot.data['Celular'];
+                    String telefono = snapshot.data['Telefono'];
+                    String estadoProceso = snapshot.data['EstadoEnProceso'];
+                    String respuesta = snapshot.data['Respuesta'];
+                    String horaRespuesta = snapshot.data['HoraRespuesta'];
 
-                  return Details(
-                    nameSolicitud: widget.name,
-                    numSolicitud: widget.numSolicitud,
-                    year: year,
-                    modelo: modelo,
-                    numCelular: celular,
-                    numTelefono: telefono,
-                    faseProceso: estadoProceso,
-                    respuesta: respuesta,
-                    fechaSolicitud: horaRespuesta,
-                  );
+                    return Details(
+                      nameSolicitud: widget.name,
+                      numSolicitud: widget.numSolicitud,
+                      year: year,
+                      modelo: modelo,
+                      numCelular: celular,
+                      numTelefono: telefono,
+                      faseProceso: estadoProceso,
+                      respuesta: respuesta,
+                      fechaSolicitud: horaRespuesta,
+                    );
+                  }
                 }
                 if (snapshot.connectionState == ConnectionState.none) {
                   return Container(
@@ -144,7 +152,7 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
                   ),
                 );
               },
-            )),
+            ),
           ),
           Column(
             children: <Widget>[

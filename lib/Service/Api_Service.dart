@@ -5,6 +5,8 @@ import 'package:appgo/Service/aprobadas_applications-request.dart';
 import 'package:appgo/Service/detail_request.dart';
 import 'package:appgo/Service/documents_request.dart';
 import 'package:appgo/Service/active_application-request.dart';
+import 'package:appgo/Service/dashboard_request.dart';
+import 'package:appgo/Service/verification_token.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -49,7 +51,7 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dashboard = detailRequest(22065637);
+    var dashboard = aprobadasApplication();
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
