@@ -7,6 +7,7 @@ import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
 import 'package:appgo/user/model/user.dart';
 import 'package:appgo/Service/dashboard_request.dart';
 import 'package:appgo/Service/Api_Service.dart';
+import 'package:appgo/dashboard/ui/widget/search.dart';
 
 class DashBoard extends StatelessWidget {
   User user = new User();
@@ -20,6 +21,7 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    TextEditingController _controller = TextEditingController();
 
     final filter = Container(
       width: 18.0,
@@ -28,6 +30,68 @@ class DashBoard extends StatelessWidget {
             DecorationImage(fit: BoxFit.contain, image: AssetImage(imgFiltrar)),
       ),
     );
+    void dispose() {
+      _controller.dispose();
+    }
+
+    var solicitud;
+    void search() {
+      solicitud = _controller.text;
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => Search(solicitud)));
+    }
+
+    _showModalSheet() {
+      showModalBottomSheet(
+          context: context,
+          builder: (builder) {
+            return Container(
+              height: screenHeight * 0.45,
+              margin: EdgeInsets.only(
+                  bottom: 25.0,
+                  top: 10.0,
+                  right: screenWidth * 0.05,
+                  left: screenWidth * 0.05),
+              child: TextField(
+                autofocus: true,
+                textInputAction: TextInputAction.search,
+                maxLines: 1,
+                style: TextStyle(
+                    fontSize: 12.0,
+                    fontFamily: "DIN",
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color(0xFFe5e5e5),
+                  border: InputBorder.none,
+                  hintText: "#Solicitud",
+                  suffixIcon: new IconButton(
+                    icon: new Icon(
+                      Icons.search,
+                      color: Colors.lightBlue,
+                      size: 30.0,
+                    ),
+                    onPressed: () {
+                      search();
+                    },
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFFe5e5e5)),
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                ),
+                controller: _controller,
+                enableInteractiveSelection: true,
+                onSubmitted: (_controller) {
+                  search();
+                },
+              ),
+            );
+          });
+    }
 
     return Scaffold(
       drawerScrimColor: Colors.transparent,
@@ -90,7 +154,7 @@ class DashBoard extends StatelessWidget {
                 builder: (context) => IconButton(
                     icon: new Icon(Icons.search),
                     onPressed: () {
-                      Scaffold.of(context).openEndDrawer();
+                      _showModalSheet();
                     }),
               ),
             ),
@@ -166,7 +230,7 @@ class DashBoard extends StatelessWidget {
                     }
                     if (snapshot.connectionState == ConnectionState.none) {
                       return Container(
-                        child: Text("Error, Revisa tu conexion a Internet"),
+                        child: Text(CONNECTION_ERROR),
                       );
                     }
 

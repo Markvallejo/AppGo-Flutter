@@ -6,14 +6,17 @@ class Solicitudes extends StatefulWidget {
   String modelo;
   int numSolicitud;
   String fechaSolicitud;
+  int year;
+  String status;
 
-  Solicitudes({
-    Key key,
-    this.nameSolicitud,
-    this.modelo,
-    this.numSolicitud,
-    this.fechaSolicitud,
-  });
+  Solicitudes(
+      {Key key,
+      this.nameSolicitud,
+      this.modelo,
+      this.numSolicitud,
+      this.fechaSolicitud,
+      this.status,
+      this.year});
   @override
   State<StatefulWidget> createState() {
     return _Solicitudes();

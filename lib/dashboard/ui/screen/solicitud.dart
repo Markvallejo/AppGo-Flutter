@@ -3,6 +3,7 @@ import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
 import 'package:appgo/dashboard/ui/widget/app_bar_solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/list_all_solicitudes.dart';
 import 'package:appgo/user/model/user.dart';
+import 'package:appgo/dashboard/ui/widget/search.dart';
 
 class Solicitud extends StatelessWidget {
   User user = new User();
@@ -14,6 +15,8 @@ class Solicitud extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    TextEditingController _controller = TextEditingController();
 
     String imgSeparador = "assets/images/images_for_dashboard/separator@3x.png";
     String imgFiltrar =
@@ -26,6 +29,68 @@ class Solicitud extends StatelessWidget {
             DecorationImage(fit: BoxFit.contain, image: AssetImage(imgFiltrar)),
       ),
     );
+    void dispose() {
+      _controller.dispose();
+    }
+
+    var solicitud;
+    void search() {
+      solicitud = _controller.text;
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => Search(solicitud)));
+    }
+
+    _showModalSheet() {
+      showModalBottomSheet(
+          context: context,
+          builder: (builder) {
+            return Container(
+              height: screenHeight * 0.45,
+              margin: EdgeInsets.only(
+                  bottom: 25.0,
+                  top: 10.0,
+                  right: screenWidth * 0.05,
+                  left: screenWidth * 0.05),
+              child: TextField(
+                autofocus: true,
+                textInputAction: TextInputAction.search,
+                maxLines: 1,
+                style: TextStyle(
+                    fontSize: 12.0,
+                    fontFamily: "DIN",
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color(0xFFe5e5e5),
+                  border: InputBorder.none,
+                  hintText: "#Solicitud",
+                  suffixIcon: new IconButton(
+                    icon: new Icon(
+                      Icons.search,
+                      color: Colors.lightBlue,
+                      size: 30.0,
+                    ),
+                    onPressed: () {
+                      search();
+                    },
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFFe5e5e5)),
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                ),
+                controller: _controller,
+                enableInteractiveSelection: true,
+                onSubmitted: (_controller) {
+                  search();
+                },
+              ),
+            );
+          });
+    }
 
     return Scaffold(
       drawerScrimColor: Colors.transparent,
@@ -86,7 +151,7 @@ class Solicitud extends StatelessWidget {
                 builder: (context) => IconButton(
                     icon: new Icon(Icons.search),
                     onPressed: () {
-                      Scaffold.of(context).openEndDrawer();
+                      _showModalSheet();
                     }),
               ),
             ),

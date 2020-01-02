@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:appgo/user/ui/screen/singIn.dart';
 import 'package:appgo/Service/Api_Service.dart';
+import 'package:appgo/dashboard/ui/screen/search.dart';
 
 void main() => runApp(MyApp());
 
