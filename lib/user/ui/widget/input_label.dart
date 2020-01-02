@@ -11,6 +11,7 @@ class InputLabel extends StatefulWidget {
 
 class _InputLabel extends State<InputLabel> {
   User user = new User();
+  String dashboard = 'package:appgo/dashboard/ui/screen/dashboard.dart';
   var salesman = salesmanListRequest();
   int maxLines = 1;
   bool validate = false;
@@ -89,8 +90,8 @@ class _InputLabel extends State<InputLabel> {
             "Los datos ingresados no son correctos. Intenta nuevamente");
         validate = true;
       } else
-        Navigator.push(context,
-            MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            '/DashBoard', (Route<dynamic> route) => false);
     }
 
     final labelDistribuidor = Container(

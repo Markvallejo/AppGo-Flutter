@@ -162,7 +162,7 @@ class _DrawerLeft extends State<DrawerLeft> {
             Expanded(flex: 1, child: Text("")),
             Expanded(
               flex: 0,
-              child: BtnCloseSesion("Cerrar Sesion"),
+              child: BtnCloseSesion("Cerrar Sesion", true),
             ),
           ],
         ),

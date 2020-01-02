@@ -167,7 +167,7 @@ class _DrawerRight extends State<DrawerRight> {
               Expanded(flex: 1, child: Text("")),
               Expanded(
                 flex: 0,
-                child: BtnCloseSesion("Limpiar Filtros"),
+                child: BtnCloseSesion("Limpiar Filtros", false),
               ),
             ])));
   }

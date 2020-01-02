@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:appgo/user/ui/screen/singIn.dart';
 import 'package:appgo/Service/Api_Service.dart';
-import 'package:appgo/dashboard/ui/screen/search.dart';
+import 'package:appgo/dashboard/ui/widget/search.dart';
+import 'package:appgo/dashboard/ui/screen/dashboard.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,6 +19,10 @@ class MyApp extends StatelessWidget {
 
       home: SingIn(),
       //home: Service(),
+      routes: <String, WidgetBuilder>{
+        '/home': (BuildContext context) => new SingIn(),
+        '/DashBoard': (BuildContext context) => new DashBoard(),
+      },
 
       theme: ThemeData(
         //Se indica que el tema tiene un brillo luminoso/claro

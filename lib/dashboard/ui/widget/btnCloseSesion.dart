@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BtnCloseSesion extends StatefulWidget {
+  bool sesion;
   String btnText;
-  BtnCloseSesion(this.btnText);
+  BtnCloseSesion(this.btnText, this.sesion);
   @override
   State<StatefulWidget> createState() {
     return _BtnCloseSesion();
@@ -31,8 +32,11 @@ class _BtnCloseSesion extends State<BtnCloseSesion> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white)),
           onPressed: () {
-            Navigator.pop(context);
-            print(screenHeight);
+            if (widget.sesion == true) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/home', (Route<dynamic> route) => false);
+            } else
+              Navigator.pop(context);
           },
         ));
   }

@@ -12,7 +12,6 @@ import 'package:appgo/dashboard/ui/widget/search.dart';
 class DashBoard extends StatelessWidget {
   User user = new User();
   var dashboardSolicitudes = dashboardData();
-
   String title = "Dashboard";
   String imgSeparador = "assets/images/images_for_dashboard/separator@3x.png";
   String imgFiltrar = "assets/images/images_for_dashboard/icono_filtrar@3x.png";
