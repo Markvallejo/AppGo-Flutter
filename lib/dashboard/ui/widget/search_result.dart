@@ -16,6 +16,8 @@ class SearchResult extends StatefulWidget {
 class _SearchResult extends State<SearchResult> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     var request = searchRequest(widget.numSolicitud);
     return FutureBuilder(
       future: request,
@@ -51,12 +53,14 @@ class _SearchResult extends State<SearchResult> {
           return Container(
             margin: EdgeInsets.only(top: 30.0),
             child: Center(
-              child: Text("No se encontro Resultados"),
+              child: Text(REQUEST_TIMEOUT_ERROR),
             ),
           );
         }
-        return Center(
-          child: Container(
+
+        return Container(
+          margin: EdgeInsets.only(top: screenHeight * 0.37),
+          child: Center(
             child: CircularProgressIndicator(
               backgroundColor: Colors.white12,
               valueColor: AlwaysStoppedAnimation(Colors.lightBlue),

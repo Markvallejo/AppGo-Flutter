@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:appgo/dashboard/ui/widget/search_result.dart';
+import 'package:appgo/dashboard/ui/widget/input_search.dart';
 
 class Search extends StatelessWidget {
-  var request;
-  Search(this.request);
   @override
   Widget build(BuildContext context) {
-    String title = "Resultado";
+    String title = "Busqueda";
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -56,7 +54,7 @@ class Search extends StatelessWidget {
       ),
       body: Stack(
         children: <Widget>[
-          SearchResult(request),
+          InputSearch(),
         ],
       ),
     );

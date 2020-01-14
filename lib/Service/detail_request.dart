@@ -9,7 +9,6 @@ import 'package:appgo/utils/connetivity.dart';
 
 Future detailRequest(applicationId) async {
   final user = new User();
-  int appId = 22;
 
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
@@ -30,7 +29,6 @@ Future detailRequest(applicationId) async {
         return r;
       }).then((result) async {
         var token = json.decode(result.body);
-
         return await http
             .post(APPLICATION_DETAIL_URL,
                 headers: {
@@ -39,7 +37,7 @@ Future detailRequest(applicationId) async {
                       getVerificationToken().toString(),
                 },
                 body: json.encode({
-                  'ApplicationId': appId,
+                  'ApplicationId': applicationId * 2,
                   'sDealerNumber': user.sDealerNumber,
                   'sSalesManInfo': user.sSalesManInfo,
                   'sIMEI': user.sIMEI,
@@ -64,5 +62,6 @@ Future detailRequest(applicationId) async {
       return resp;
     }
   });
+  print(connection);
   return connection;
 }

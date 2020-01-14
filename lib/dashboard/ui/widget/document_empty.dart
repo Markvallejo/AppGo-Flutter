@@ -11,7 +11,7 @@ class DocumentEmpty extends StatelessWidget {
 
     return Container(
       width: screenWidth,
-      height: screenHeight * 0.877,
+      height: screenHeight * 0.75,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

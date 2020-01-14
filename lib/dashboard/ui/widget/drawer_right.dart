@@ -7,6 +7,8 @@ class DrawerRight extends StatefulWidget {
   String vendedor;
   String fecha = "7 días";
   String alfabeto = "Nombre A-Z";
+  bool resp;
+  DrawerRight(this.resp);
   @override
   State<StatefulWidget> createState() {
     return _DrawerRight();
@@ -106,69 +108,81 @@ class _DrawerRight extends State<DrawerRight> {
       ),
     );
 
-    return Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          colors: [Colors.lightBlueAccent[400], Colors.lightBlue[600]],
-          begin: FractionalOffset(0.0, 0.0),
-          end: FractionalOffset(0.0, 0.6),
-          stops: [0.0, 0.0],
-          tileMode: TileMode.clamp,
-        )),
-        margin: EdgeInsets.only(top: elevation),
-        width: screenWidth * 0.76,
-        height: screenHeight - elevation,
-        child: Drawer(
-            elevation: 0.0,
-            child: Column(children: <Widget>[
-              ListTile(
-                  contentPadding: EdgeInsets.only(
-                      top: screenHeight * 0.041, left: 16.0, right: 16.0),
-                  onTap: () {},
-                  leading: Container(child: filtros),
-                  trailing: BtnListo()),
-              Divider(
-                color: Colors.white60,
-              ),
-              ListTile(
-                  onTap: () {},
-                  leading: Container(child: ordenarAlfabeto),
-                  trailing: new Icon(
-                    Icons.chevron_right,
-                    color: Colors.white60,
-                  )),
-              Divider(
-                color: Colors.white60,
-              ),
-              ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  leading: Container(child: ordenarPorTiempo),
-                  trailing: new Icon(
-                    Icons.chevron_right,
-                    color: Colors.white60,
-                  )),
-              Divider(
-                color: Colors.white60,
-              ),
-              ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  leading: Container(child: ordenarPorVendedor),
-                  trailing: new Icon(
-                    Icons.chevron_right,
-                    color: Colors.white60,
-                  )),
-              Divider(
-                color: Colors.white60,
-              ),
-              Expanded(flex: 1, child: Text("")),
-              Expanded(
-                flex: 0,
-                child: BtnCloseSesion("Limpiar Filtros", false),
-              ),
-            ])));
+    final filter = Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+        colors: [Colors.lightBlueAccent[400], Colors.lightBlue[600]],
+        begin: FractionalOffset(0.0, 0.0),
+        end: FractionalOffset(0.0, 0.6),
+        stops: [0.0, 0.0],
+        tileMode: TileMode.clamp,
+      )),
+      margin: EdgeInsets.only(top: elevation),
+      width: screenWidth * 0.76,
+      height: screenHeight - elevation,
+      child: Drawer(
+          elevation: 0.0,
+          child: Column(children: <Widget>[
+            ListTile(
+                contentPadding: EdgeInsets.only(
+                    top: screenHeight * 0.041, left: 16.0, right: 16.0),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                leading: Container(child: filtros),
+                trailing: BtnListo()),
+            Divider(
+              color: Colors.white60,
+            ),
+            ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  widget.resp = false;
+                },
+                leading: Container(child: ordenarAlfabeto),
+                trailing: new Icon(
+                  Icons.chevron_right,
+                  color: Colors.white60,
+                )),
+            Divider(
+              color: Colors.white60,
+            ),
+            ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                leading: Container(child: ordenarPorTiempo),
+                trailing: new Icon(
+                  Icons.chevron_right,
+                  color: Colors.white60,
+                )),
+            Divider(
+              color: Colors.white60,
+            ),
+            ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                leading: Container(child: ordenarPorVendedor),
+                trailing: new Icon(
+                  Icons.chevron_right,
+                  color: Colors.white60,
+                )),
+            Divider(
+              color: Colors.white60,
+            ),
+            Expanded(flex: 1, child: Text("")),
+            Expanded(
+              flex: 0,
+              child: BtnCloseSesion("Limpiar Filtros", false),
+            ),
+          ])),
+    );
+
+    if (widget.resp == false) {
+      return OrdenarPorAlfabeto();
+    } else {
+      return filter;
+    }
   }
 }

@@ -3,13 +3,20 @@ import 'package:appgo/dashboard/ui/widget/app_bar_solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/List_card_Solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_left.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
-import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
 import 'package:appgo/user/model/user.dart';
 import 'package:appgo/Service/dashboard_request.dart';
 import 'package:appgo/Service/Api_Service.dart';
 import 'package:appgo/dashboard/ui/widget/search.dart';
+import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
 
-class DashBoard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _DashBoard();
+  }
+}
+
+class _DashBoard extends State<Dashboard> {
   User user = new User();
   var dashboardSolicitudes = dashboardData();
   String title = "Dashboard";
@@ -29,68 +36,6 @@ class DashBoard extends StatelessWidget {
             DecorationImage(fit: BoxFit.contain, image: AssetImage(imgFiltrar)),
       ),
     );
-    void dispose() {
-      _controller.dispose();
-    }
-
-    var solicitud;
-    void search() {
-      solicitud = _controller.text;
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => Search(solicitud)));
-    }
-
-    _showModalSheet() {
-      showModalBottomSheet(
-          context: context,
-          builder: (builder) {
-            return Container(
-              height: screenHeight * 0.45,
-              margin: EdgeInsets.only(
-                  bottom: 25.0,
-                  top: 10.0,
-                  right: screenWidth * 0.05,
-                  left: screenWidth * 0.05),
-              child: TextField(
-                autofocus: true,
-                textInputAction: TextInputAction.search,
-                maxLines: 1,
-                style: TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: "DIN",
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueGrey),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color(0xFFe5e5e5),
-                  border: InputBorder.none,
-                  hintText: "#Solicitud",
-                  suffixIcon: new IconButton(
-                    icon: new Icon(
-                      Icons.search,
-                      color: Colors.lightBlue,
-                      size: 30.0,
-                    ),
-                    onPressed: () {
-                      search();
-                    },
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFe5e5e5)),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
-                ),
-                controller: _controller,
-                enableInteractiveSelection: true,
-                onSubmitted: (_controller) {
-                  search();
-                },
-              ),
-            );
-          });
-    }
 
     return Scaffold(
       drawerScrimColor: Colors.transparent,
@@ -100,12 +45,10 @@ class DashBoard extends StatelessWidget {
           ),
           child: DrawerLeft()),
       endDrawer: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.transparent,
-        ),
-        //child: OrdenarPorAlfabeto()
-        child: DrawerRight(),
-      ),
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.transparent,
+          ),
+          child: OrdenarPorAlfabeto()),
       appBar: PreferredSize(
         preferredSize:
             Size(double.infinity, 60), // width is infinity and 64 is the height
@@ -153,7 +96,10 @@ class DashBoard extends StatelessWidget {
                 builder: (context) => IconButton(
                     icon: new Icon(Icons.search),
                     onPressed: () {
-                      _showModalSheet();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => Search()));
                     }),
               ),
             ),

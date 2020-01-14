@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:appgo/dashboard/ui/widget/search.dart';
+import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:appgo/dashboard/ui/widget/search_result.dart';
 
 class InputSearch extends StatefulWidget {
   @override
@@ -8,66 +9,63 @@ class InputSearch extends StatefulWidget {
   }
 }
 
+class Post {
+  var request;
+  Post(this.request);
+}
+
 class _InputSearch extends State<InputSearch> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController _controller = TextEditingController();
-
-    var solicitud;
-
-    void dispose() {
-      _controller.dispose();
+    Future<List<Post>> search(String search) async {
+      await Future.delayed(Duration(seconds: 2));
+      var cad = new RegExp('value="([A-Za-z0-9_-]*)"');
+      if (search == cad.toString()) {
+        throw Error();
+      }
+      return List.generate(1, (int index) {
+        return Post(search);
+      });
     }
 
-    void search() {
-      solicitud = _controller.text;
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => Search(solicitud)));
-    }
-
-    final inputBusquda = Container(
-      width: screenWidth * 0.80,
-      child: TextField(
-        textInputAction: TextInputAction.search,
-        controller: _controller,
-        maxLines: 1,
-        autofocus: false,
-        style: TextStyle(
-            fontSize: 12.0,
+    final searchBar = Container(
+      margin: EdgeInsets.only(left: 20.0, right: 20.0),
+      child: Center(
+        child: SearchBar<Post>(
+          textStyle: TextStyle(
             fontFamily: "DIN",
+            fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.blueGrey),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color(0xFFe5e5e5),
-          border: InputBorder.none,
-          hintText: '#Solicitud',
-          suffixIcon: new IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.lightBlue,
-              size: 30.0,
+            color: Colors.black38,
+          ),
+          hintText: "Solicitud",
+          icon: new Icon(
+            Icons.search,
+            color: Colors.lightBlue,
+          ),
+          cancellationText: Text("Cancelar"),
+          minimumChars: 6,
+          loader: Container(
+            child: Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.white12,
+                valueColor: AlwaysStoppedAnimation(Colors.lightBlue),
+              ),
             ),
-            onPressed: () {
-              search();
-            },
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFe5e5e5)),
-            borderRadius: BorderRadius.all(Radius.circular(0.0)),
-          ),
+          onSearch: search,
+          onItemFound: (Post post, int index) {
+            return SearchResult(post.request);
+          },
+          onError: (error) {
+            return Center(
+              child: Text("Error, solo se admite numeros"),
+            );
+          },
         ),
-        onSubmitted: (_controller) {
-          search();
-        },
       ),
     );
 
-    return Column(
-      children: <Widget>[inputBusquda],
-    );
+    return searchBar;
   }
 }

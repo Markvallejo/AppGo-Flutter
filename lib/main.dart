@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       //home: Service(),
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => new SingIn(),
-        '/DashBoard': (BuildContext context) => new DashBoard(),
+        '/DashBoard': (BuildContext context) => new Dashboard(),
       },
 
       theme: ThemeData(

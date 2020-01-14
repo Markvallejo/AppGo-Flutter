@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:appgo/user/model/user.dart';
-import 'package:appgo/Service/aprobadas_applications-request.dart';
 import 'package:appgo/Service/search_request.dart';
+import 'package:appgo/Service/aprobadas_applications-request.dart';
+import 'package:appgo/Service/detail_request.dart';
+import 'package:appgo/Service/documents_request.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -47,7 +49,8 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dashboard = searchRequest(22066671);
+    int aplicationId = 22066671;
+    var dashboard = detailRequest(aplicationId);
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
