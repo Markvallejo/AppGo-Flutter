@@ -27,7 +27,6 @@ class _DashBoard extends State<Dashboard> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    TextEditingController _controller = TextEditingController();
 
     final filter = Container(
       width: 18.0,

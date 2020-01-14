@@ -29,9 +29,10 @@ class _InputSearch extends State<InputSearch> {
     }
 
     final searchBar = Container(
-      margin: EdgeInsets.only(left: 20.0, right: 20.0),
+      width: MediaQuery.of(context).size.width,
       child: Center(
         child: SearchBar<Post>(
+          searchBarPadding: EdgeInsets.only(left: 20.0, right: 20.0),
           textStyle: TextStyle(
             fontFamily: "DIN",
             fontSize: 16,
