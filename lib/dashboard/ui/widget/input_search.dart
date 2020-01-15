@@ -19,13 +19,14 @@ class _InputSearch extends State<InputSearch> {
   Widget build(BuildContext context) {
     Future<List<Post>> search(String search) async {
       await Future.delayed(Duration(seconds: 2));
-      var cad = new RegExp('value="([A-Za-z0-9_-]*)"');
-      if (search == cad.toString()) {
+      var cad = new RegExp('[a-zA-Z_*+@#\/\-]', caseSensitive: false);
+      var resp = cad.hasMatch(search);
+      if (resp == true) {
         throw Error();
-      }
-      return List.generate(1, (int index) {
-        return Post(search);
-      });
+      } else
+        return List.generate(1, (int index) {
+          return Post(search);
+        });
     }
 
     final searchBar = Container(
@@ -59,8 +60,10 @@ class _InputSearch extends State<InputSearch> {
             return SearchResult(post.request);
           },
           onError: (error) {
-            return Center(
-              child: Text("Error, solo se admite numeros"),
+            return Container(
+              child: Center(
+                child: Text("Error, solo se admiten numeros"),
+              ),
             );
           },
         ),
