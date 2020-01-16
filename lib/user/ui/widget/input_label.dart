@@ -127,6 +127,10 @@ class _InputLabel extends State<InputLabel> {
           fillColor: Color(0xFFe5e5e5),
           border: InputBorder.none,
           hintText: 'TEST003',
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFe5e5e5)),
+            borderRadius: BorderRadius.all(Radius.circular(0.0)),
+          ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFe5e5e5)),
             borderRadius: BorderRadius.all(Radius.circular(0.0)),
@@ -168,6 +172,10 @@ class _InputLabel extends State<InputLabel> {
           fillColor: Color(0xFFe5e5e5),
           border: InputBorder.none,
           hintText: "99998",
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFe5e5e5)),
+            borderRadius: BorderRadius.all(Radius.circular(0.0)),
+          ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFe5e5e5), width: 10.0),
             borderRadius: BorderRadius.all(Radius.circular(0.0)),
@@ -206,6 +214,10 @@ class _InputLabel extends State<InputLabel> {
           fillColor: Color(0xFFe5e5e5),
           border: InputBorder.none,
           hintText: 'Password00',
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFe5e5e5)),
+            borderRadius: BorderRadius.all(Radius.circular(0.0)),
+          ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFe5e5e5)),
             borderRadius: BorderRadius.all(Radius.circular(0.0)),

@@ -13,7 +13,7 @@ Future connectionType() async {
   try {
     result = await _connectivity.checkConnectivity();
   } on PlatformException catch (e) {
-    print(e.toString());
+    // print(e.toString());
   }
 
   _updateConnectionStatus(result);
@@ -43,7 +43,7 @@ Future _updateConnectionStatus(ConnectivityResult result) async {
           wifiName = await _connectivity.getWifiName();
         }
       } on PlatformException catch (e) {
-        print(e.toString());
+        // print(e.toString());
         wifiName = "Failed to get Wifi Name";
       }
 
@@ -64,14 +64,14 @@ Future _updateConnectionStatus(ConnectivityResult result) async {
           wifiBSSID = await _connectivity.getWifiBSSID();
         }
       } on PlatformException catch (e) {
-        print(e.toString());
+        // print(e.toString());
         wifiBSSID = "Failed to get Wifi BSSID";
       }
 
       try {
         wifiIP = await _connectivity.getWifiIP();
       } on PlatformException catch (e) {
-        print(e.toString());
+        // print(e.toString());
         wifiIP = "Failed to get Wifi IP";
       }
       break;
