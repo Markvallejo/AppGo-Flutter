@@ -7,6 +7,12 @@ import 'package:appgo/Service/verification_token.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:appgo/utils/connetivity.dart';
 
+class RemoteCongigRequest {
+  String sDealerNumber;
+  String sSalesManInfo;
+  String sIMEI;
+}
+
 Future remoteConfig() async {
   User user = new User();
   var connection = await connectionType().then((res) {

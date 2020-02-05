@@ -109,6 +109,13 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
               future: detailsRequest,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return Container(
+                      child: Center(
+                        child: Text("Error, ${snapshot.error}"),
+                      ),
+                    );
+                  }
                   if (snapshot.data == CONNECTION_ERROR) {
                     return Container(
                       child: Center(
@@ -137,13 +144,9 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
                     );
                   }
                 }
-                if (snapshot.connectionState == ConnectionState.none) {
-                  return Container(
-                    child: Text("Error, ${snapshot.error}"),
-                  );
-                }
+
                 return Container(
-                  margin: EdgeInsets.only(top: screenHeight * 0.30),
+                  //margin: EdgeInsets.only(top: screenHeight * 0.20),
                   child: Center(
                     child: CircularProgressIndicator(
                       backgroundColor: Colors.white12,

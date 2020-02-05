@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/btnLIsto.dart';
 import 'package:appgo/dashboard/ui/widget/btnCloseSesion.dart';
 import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
+import 'package:appgo/dashboard/ui/widget/ordenar_por_fecha.dart';
 
 class DrawerRight extends StatefulWidget {
   String vendedor;
   String fecha = "7 días";
   String alfabeto = "Nombre A-Z";
   bool resp;
-  DrawerRight(this.resp);
+
+  DrawerRight(
+    this.resp,
+  );
   @override
   State<StatefulWidget> createState() {
     return _DrawerRight();
@@ -180,7 +184,8 @@ class _DrawerRight extends State<DrawerRight> {
     );
 
     if (widget.resp == false) {
-      return OrdenarPorAlfabeto();
+      //  return OrdenarPorAlfabeto();
+      return OrdenarPorFecha();
     } else {
       return filter;
     }

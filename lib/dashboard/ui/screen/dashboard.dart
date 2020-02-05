@@ -18,7 +18,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashBoard extends State<Dashboard> {
   User user = new User();
-  var dashboardSolicitudes = dashboardData();
+
   String title = "Dashboard";
   String imgSeparador = "assets/images/images_for_dashboard/separator@3x.png";
   String imgFiltrar = "assets/images/images_for_dashboard/icono_filtrar@3x.png";
@@ -27,6 +27,10 @@ class _DashBoard extends State<Dashboard> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
+    IGetDashboardDataRequest date_start = new IGetDashboardDataRequest();
+    date_start.days = (90).toString();
+    var dashboardSolicitudes = dashboardData(date_start);
 
     final filter = Container(
       width: 18.0,
@@ -177,7 +181,6 @@ class _DashBoard extends State<Dashboard> {
                         child: Text(CONNECTION_ERROR),
                       );
                     }
-
                     return Container(
                       margin: EdgeInsets.only(top: screenHeight * 0.30),
                       child: CircularProgressIndicator(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/btnLIsto.dart';
 import 'package:appgo/dashboard/ui/widget/btnCloseSesion.dart';
 import 'package:appgo/dashboard/ui/widget/filters.dart';
+import 'package:appgo/filtros/filters_model.dart';
 
 class OrdenarPorAlfabeto extends StatefulWidget {
   @override
@@ -13,15 +14,10 @@ class OrdenarPorAlfabeto extends StatefulWidget {
 class _OrdenarPorAlfabeto extends State<OrdenarPorAlfabeto> {
   @override
   Widget build(BuildContext context) {
+    FiltersModel filter = new FiltersModel();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double elevation = screenHeight * 0.0357;
-    bool isSelect = true;
-    void onPress() {
-      setState(() {
-        isSelect = !isSelect;
-      });
-    }
 
     final ordenar = Container(
       margin: EdgeInsets.only(left: 0.0),
@@ -61,69 +57,39 @@ class _OrdenarPorAlfabeto extends State<OrdenarPorAlfabeto> {
                     color: Colors.white60,
                   ),
                   trailing: BtnListo()),
-              Divider(
-                color: Colors.white60,
-              ),
-              ListTile(
-                selected: false,
-                onTap: () {
-                  onPress();
-                  Navigator.pop(context);
-                },
-                leading: Filters("Nombre", "A-Z", isSelect),
-              ),
-              Divider(
-                color: Colors.white60,
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                leading: Filters("Nombre", "Z-A", !isSelect),
-              ),
-              Divider(
-                color: Colors.white60,
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                leading: Filters("No Solicitud", "0-9", !isSelect),
-              ),
-              Divider(
-                color: Colors.white60,
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                leading: Filters("No Solicitud", "9-0", !isSelect),
-              ),
-              Divider(
-                color: Colors.white60,
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                leading: Filters("Fecha", "- +", !isSelect),
-              ),
-              Divider(
-                color: Colors.white60,
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                leading: Filters("Fecha", "+ -", !isSelect),
-              ),
-              Divider(
-                color: Colors.white60,
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxHeight: screenHeight * 0.70,
+                    maxWidth: screenWidth * 0.76),
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: filter.sortByItems.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: <Widget>[
+                        ListTile(
+                          onTap: () {
+                            print("filter result:");
+                            filter.setSelectedDateByItemAtIndex(index);
+                          },
+                          title: Filters(
+                              filterName: filter.sortByItems[index].name,
+                              filterDescription:
+                                  filter.sortByItems[index].description,
+                              isSelect: filter.sortByItems[index].selected),
+                        ),
+                        Divider(
+                          color: Colors.white60,
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
               Expanded(flex: 1, child: Text("")),
               Expanded(
                 flex: 0,
-                child: BtnCloseSesion("Limpiar Filtros", !isSelect),
+                child: BtnCloseSesion("Limpiar Filtros", false),
               ),
             ])));
   }

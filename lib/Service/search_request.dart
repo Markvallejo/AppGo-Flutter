@@ -7,6 +7,13 @@ import 'package:appgo/Service/verification_token.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:appgo/utils/connetivity.dart';
 
+class ISearchApplicationRequest {
+  String sDealerNumber;
+  String sSalesManInfo;
+  String sIMEI;
+  String applicationId;
+}
+
 Future searchRequest(applicationId) async {
   User user = User();
   var connection = await connectionType().then((res) {

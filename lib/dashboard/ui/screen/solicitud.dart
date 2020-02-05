@@ -15,7 +15,6 @@ class Solicitud extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController _controller = TextEditingController();
 
     String imgSeparador = "assets/images/images_for_dashboard/separator@3x.png";
     String imgFiltrar =
@@ -36,7 +35,7 @@ class Solicitud extends StatelessWidget {
           canvasColor: Colors.transparent,
         ),
         //child: OrdenarPorAlfabeto()
-        child: DrawerRight(true),
+        child: DrawerRight(false),
       ),
       appBar: PreferredSize(
         preferredSize:

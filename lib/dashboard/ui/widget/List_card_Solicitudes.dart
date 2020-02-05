@@ -19,15 +19,16 @@ class ListCardSolicitudes extends StatefulWidget {
   int numCalificadas;
   int numAprobadas;
 
-  ListCardSolicitudes(
-      {this.numActivas,
-      this.numAprobadas,
-      this.numCalificadas,
-      this.numCompradas,
-      this.numHeld,
-      this.numPendientes,
-      this.numRechazadas,
-      this.numRecibidas});
+  ListCardSolicitudes({
+    this.numActivas,
+    this.numAprobadas,
+    this.numCalificadas,
+    this.numCompradas,
+    this.numHeld,
+    this.numPendientes,
+    this.numRechazadas,
+    this.numRecibidas,
+  });
   @override
   State<StatefulWidget> createState() {
     return _ListCardSolicitudes();
@@ -35,14 +36,6 @@ class ListCardSolicitudes extends StatefulWidget {
 }
 
 class _ListCardSolicitudes extends State<ListCardSolicitudes> {
-  var activasList = activeApplication();
-  var pendientesList = pendientesApplication();
-  var compradasList = compradasApplication();
-  var calificadasList = calificadasApplication();
-  var hOfferingList = heldOfferingApplication();
-  var aprobadasList = aprobadasApplication();
-  var rechazadasList = rechazadasApplication();
-
   String solicitudesRecibidas = "RECIBIDAS";
   String imgRecibidas =
       "assets/images/images_for_dashboard/recibidas_white.png";
@@ -86,8 +79,32 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screeHeight = MediaQuery.of(context).size.height;
+    var date_start = 90;
 
-    void onPressedRecibidas() {}
+    IActiveApplicationsRequest iActive = new IActiveApplicationsRequest();
+    iActive.days = date_start.toString();
+    IPendingApplicationsRequest iPending = new IPendingApplicationsRequest();
+    iPending.days = date_start.toString();
+    IPurchasedApplicationsRequest iPurshased =
+        new IPurchasedApplicationsRequest();
+    iPurshased.days = date_start.toString();
+    IQualifiedApplicationsRequest iQualified =
+        new IQualifiedApplicationsRequest();
+    iQualified.days = date_start.toString();
+    IHOApplicationsRequest iHO = IHOApplicationsRequest();
+    iHO.days = date_start.toString();
+    IApprovedApplicationsRequest iApproved = new IApprovedApplicationsRequest();
+    iApproved.days = date_start.toString();
+    IRejectedApplicationsRequest iRejected = IRejectedApplicationsRequest();
+    iRejected.days = date_start.toString();
+
+    var activasList = activeApplication(iActive);
+    var pendientesList = pendientesApplication(iPending);
+    var compradasList = compradasApplication(iPurshased);
+    var calificadasList = calificadasApplication(iQualified);
+    var hOfferingList = heldOfferingApplication(iHO);
+    var aprobadasList = aprobadasApplication(iApproved);
+    var rechazadasList = rechazadasApplication(iRejected);
 
     void onPressedPendientes() {
       Navigator.push(
@@ -172,7 +189,6 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
           nameSolicitud: solicitudesRecibidas,
           imgRecibidasWhite: imgRecibidas,
           imgRecibidasBlue: imgRecibidasblue,
-          onPressed: onPressedRecibidas,
           col: true),
     );
     final pendientes = Container(

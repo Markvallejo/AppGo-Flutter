@@ -7,6 +7,12 @@ import 'package:appgo/Service/verification_token.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:appgo/utils/connetivity.dart';
 
+class ISalesmanListRequest {
+  String sDealerNumber;
+  String sSalesManInfo;
+  String sIMEI;
+}
+
 Future salesmanListRequest() async {
   User user = new User();
   var connection = await connectionType().then((res) {

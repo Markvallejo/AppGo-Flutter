@@ -7,6 +7,13 @@ import 'package:appgo/Service/verification_token.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:appgo/utils/connetivity.dart';
 
+class ISignInRequest {
+  String sDealerNumber;
+  String sSalesManInfo;
+  String sIMEI;
+  String sPassword;
+}
+
 Future singIn() async {
   User user = new User();
   var connection = await connectionType().then((res) {

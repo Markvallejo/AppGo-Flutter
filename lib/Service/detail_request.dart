@@ -7,8 +7,15 @@ import 'package:appgo/Service/verification_token.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:appgo/utils/connetivity.dart';
 
+class IApplicationDetailRequest {
+  String sDealerNumber;
+  String sSalesManInfo;
+  String sIMEI;
+  String applicatinId;
+}
+
 Future detailRequest(applicationId) async {
-  final user = new User();
+  User user = new User();
 
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
@@ -29,7 +36,7 @@ Future detailRequest(applicationId) async {
         return r;
       }).then((result) async {
         var token = json.decode(result.body);
-        return await http
+        return http
             .post(APPLICATION_DETAIL_URL,
                 headers: {
                   "Content-Type": "application/json",
@@ -37,31 +44,29 @@ Future detailRequest(applicationId) async {
                       getVerificationToken().toString(),
                 },
                 body: json.encode({
-                  'ApplicationId': applicationId * 2,
+                  'ApplicationId': applicationId,
                   'sDealerNumber': user.sDealerNumber,
                   'sSalesManInfo': user.sSalesManInfo,
                   'sIMEI': user.sIMEI,
                   'token': token["TokenValor"],
                 }))
             .then((r) {
-          return r.body;
+          var request = json.decode(r.body);
+          return request;
         }).then((result) {
-          var response = json.decode(result);
-          if (response["DetalleSolicitud"] != null) {
-            var output = response["DetalleSolicitud"];
+          if (result["DetalleSolicitud"] != null) {
+            var output = result["DetalleSolicitud"];
             if (output["Comentario"][0] == "") {
               output["Comentario"] = [];
             }
-
             return output;
           }
-          print(response['Description']['Error']);
-          return response['Description']['Error'];
+          print(result['Description']['Error']);
+          return result['Description']['Error'];
         });
       });
       return resp;
     }
   });
-  print(connection);
   return connection;
 }

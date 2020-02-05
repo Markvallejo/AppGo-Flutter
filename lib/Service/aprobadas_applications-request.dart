@@ -4,13 +4,19 @@ import 'package:appgo/Service/Api_Service.dart';
 import 'package:appgo/user/model/user.dart';
 import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
-import 'package:appgo/filtros/list_item.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:appgo/utils/connetivity.dart';
 
-Future aprobadasApplication() async {
+class IApprovedApplicationsRequest {
+  String sDealerNumber;
+  String sSalesManInfo;
+  String sIMEI;
+  String days;
+}
+
+Future aprobadasApplication(IApprovedApplicationsRequest data) async {
   final user = new User();
-  final data = new ListItemDate();
+
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
       return CONNECTION_ERROR;

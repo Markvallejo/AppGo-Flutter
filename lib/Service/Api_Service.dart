@@ -5,6 +5,7 @@ import 'package:appgo/Service/search_request.dart';
 import 'package:appgo/Service/aprobadas_applications-request.dart';
 import 'package:appgo/Service/detail_request.dart';
 import 'package:appgo/Service/documents_request.dart';
+import 'package:appgo/filtros/salesman_item.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -49,26 +50,35 @@ class Service extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int aplicationId = 22066671;
-    var dashboard = detailRequest(aplicationId);
+    // int aplicationId = 22066671;
+    // var dashboard = detailRequest(aplicationId);
+    List data = ["Vendedor", "idVendedor"];
+    var salesman = mapList(data);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
         backgroundColor: Colors.lightBlue,
       ),
-      body: FutureBuilder(
-        future: dashboard,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Text("Documento: ${snapshot.data}");
-          } else if (snapshot.hasError) {
-            print(snapshot.error);
-            return Text("Error: ${snapshot.error}");
-          }
-          return CircularProgressIndicator(
-            backgroundColor: Colors.lightBlue,
-          );
-        },
+      // body: FutureBuilder(
+      //   //  future: dashboard,
+      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.done) {
+      //       return Text("Documento: ${snapshot.data}");
+      //     } else if (snapshot.hasError) {
+      //       print(snapshot.error);
+      //       return Text("Error: ${snapshot.error}");
+      //     }
+
+      //     return CircularProgressIndicator(
+      //       backgroundColor: Colors.lightBlue,
+      //     );
+      //   },
+      // ),
+      body: Container(
+        child: Center(
+          child: Text("Resultado: $salesman"),
+        ),
       ),
     );
   }
