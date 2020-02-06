@@ -28,9 +28,11 @@ class _DashBoard extends State<Dashboard> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    IGetDashboardDataRequest date_start = new IGetDashboardDataRequest();
-    date_start.days = (90).toString();
-    var dashboardSolicitudes = dashboardData(date_start);
+    var date_start = 90;
+
+    IGetDashboardDataRequest date = new IGetDashboardDataRequest();
+    date.days = date_start.toString();
+    var dashboardSolicitudes = dashboardData(date);
 
     final filter = Container(
       width: 18.0,
@@ -173,6 +175,7 @@ class _DashBoard extends State<Dashboard> {
                           numHeld: hOffering,
                           numPendientes: pendientes,
                           numRechazadas: rechazadas,
+                          date_start: date_start,
                         );
                       }
                     }

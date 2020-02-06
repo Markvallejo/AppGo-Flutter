@@ -5,8 +5,9 @@ import 'package:appgo/Service/Api_Service.dart';
 
 class ListAllRequest extends StatefulWidget {
   var categoria;
+  int numSolicitudes;
 
-  ListAllRequest({this.categoria});
+  ListAllRequest({this.categoria, this.numSolicitudes});
   @override
   State<StatefulWidget> createState() {
     return _ListAllRequest();
@@ -22,9 +23,13 @@ class _ListAllRequest extends State<ListAllRequest> {
       future: widget.categoria,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
+          if (widget.numSolicitudes == 0) {
+            return Container(
+              child: DocumentEmpty("No hay Solicitudes"),
+            );
+          }
           if (snapshot.data == CONNECTION_ERROR) {
             return Container(
-              // margin: EdgeInsets.only(top: 30.0),
               child: Center(
                 child: Text(snapshot.data),
               ),
@@ -46,10 +51,6 @@ class _ListAllRequest extends State<ListAllRequest> {
                         .toList(),
                   ),
                 ),
-              );
-            } else {
-              return Container(
-                child: DocumentEmpty("No hay Solicitudes"),
               );
             }
           }

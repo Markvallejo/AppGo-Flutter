@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, // delete debug from view
       title: 'Flutter Demo',
       //home: FiltersTest(),
-      home: SingIn(),
-      //  home: Service(),
+      //home: SingIn(),
+      home: Service(),
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => new SingIn(),
         '/DashBoard': (BuildContext context) => new Dashboard(),

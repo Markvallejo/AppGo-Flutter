@@ -7,14 +7,14 @@ import 'package:appgo/Service/verification_token.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:appgo/utils/connetivity.dart';
 
-class IGetDashboardDataRequest {
+class IGetConversionStatusRequest {
+  num id;
   String sDealerNumber;
   String sSalesManInfo;
   String sIMEI;
-  String days;
 }
 
-Future dashboardData(IGetDashboardDataRequest data) async {
+Future getConversionStatus(IGetConversionStatusRequest data) async {
   final user = new User();
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
@@ -39,35 +39,37 @@ Future dashboardData(IGetDashboardDataRequest data) async {
         var token = json.decode(result.body);
 
         return await http
-            .post(DASHBOARD_URL,
+            .post(CONVERSION_STATUS_URL,
                 headers: {
                   "Content-Type": "application/json",
                   "__RequestVerificationToken":
                       getVerificationToken().toString(),
                 },
                 body: json.encode({
-                  'sDealerNumber': user.sDealerNumber,
-                  'sSalesManInfo': user.sSalesManInfo,
-                  'sIMEI': user.sIMEI,
-                  'days': data.days,
+                  'DealerNumber': user.sDealerNumber,
+                  'SalesManInfo': user.sSalesManInfo,
+                  'IMEI': user.sIMEI,
                   'token': token["TokenValor"],
+                  'StatusConversionId': data.id
                 }))
             .then((r) {
+          print("status: ${r.body}");
           return r.body;
         }).then((result) {
           var response = json.decode(result);
 
-          if (response["TableroVendedor"] != null) {
-            var output = response["TableroVendedor"];
-            //  print("this dashboard data: $output");
-            return output;
+          if (response["StatusConversion"] != null) {
+            var output = response["StatusConversion"];
+            if (output.length > 0) {
+              return output;
+            }
           }
-          // print("This dashboard is null $response");
-          return response["Error"]["Descripcion"];
+          return "Estatus de conversión no válido!!!!!!.";
         });
       });
       return resp;
     }
   });
+  print("result: $connection");
   return connection;
 }

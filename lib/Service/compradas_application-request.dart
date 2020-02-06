@@ -60,7 +60,6 @@ Future compradasApplication(IPurchasedApplicationsRequest data) async {
           var applications = response["ContratosComprados"];
 
           if (applications == null) {
-            // print("No hay solicitudes");
             return null;
           }
           return applications;

@@ -31,16 +31,27 @@ class AppBarSolicitudes extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 )
-              : Text(
-                  "$numSolicitudes Solicitudes de $idVendedor",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: "DIN",
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              : numSolicitudes == 1
+                  ? Text(
+                      "$numSolicitudes Solicitud de $idVendedor",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: "DIN",
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : Text(
+                      "$numSolicitudes Solicitudes de $idVendedor",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: "DIN",
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
         ],
       ),
     );

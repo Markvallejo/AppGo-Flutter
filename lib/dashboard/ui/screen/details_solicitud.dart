@@ -130,6 +130,7 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
                     String estadoProceso = snapshot.data['EstadoEnProceso'];
                     String respuesta = snapshot.data['Respuesta'];
                     String horaRespuesta = snapshot.data['HoraRespuesta'];
+                    List comentario = snapshot.data['Comentario'];
 
                     return Details(
                       nameSolicitud: widget.name,
@@ -138,9 +139,14 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
                       modelo: modelo,
                       numCelular: celular,
                       numTelefono: telefono,
-                      faseProceso: estadoProceso,
+                      faseProceso: estadoProceso
+                          .toString()
+                          .substring(18, estadoProceso.length),
                       respuesta: respuesta,
                       fechaSolicitud: horaRespuesta,
+                      coments: comentario
+                          .toString()
+                          .substring(1, comentario.toString().length - 1),
                     );
                   }
                 }

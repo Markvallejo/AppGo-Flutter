@@ -18,7 +18,7 @@ class ListCardSolicitudes extends StatefulWidget {
   int numHeld;
   int numCalificadas;
   int numAprobadas;
-
+  var date_start;
   ListCardSolicitudes({
     this.numActivas,
     this.numAprobadas,
@@ -28,6 +28,7 @@ class ListCardSolicitudes extends StatefulWidget {
     this.numPendientes,
     this.numRechazadas,
     this.numRecibidas,
+    this.date_start,
   });
   @override
   State<StatefulWidget> createState() {
@@ -79,24 +80,23 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screeHeight = MediaQuery.of(context).size.height;
-    var date_start = 90;
 
     IActiveApplicationsRequest iActive = new IActiveApplicationsRequest();
-    iActive.days = date_start.toString();
+    iActive.days = widget.date_start.toString();
     IPendingApplicationsRequest iPending = new IPendingApplicationsRequest();
-    iPending.days = date_start.toString();
+    iPending.days = widget.date_start.toString();
     IPurchasedApplicationsRequest iPurshased =
         new IPurchasedApplicationsRequest();
-    iPurshased.days = date_start.toString();
+    iPurshased.days = widget.date_start.toString();
     IQualifiedApplicationsRequest iQualified =
         new IQualifiedApplicationsRequest();
-    iQualified.days = date_start.toString();
+    iQualified.days = widget.date_start.toString();
     IHOApplicationsRequest iHO = IHOApplicationsRequest();
-    iHO.days = date_start.toString();
+    iHO.days = widget.date_start.toString();
     IApprovedApplicationsRequest iApproved = new IApprovedApplicationsRequest();
-    iApproved.days = date_start.toString();
+    iApproved.days = widget.date_start.toString();
     IRejectedApplicationsRequest iRejected = IRejectedApplicationsRequest();
-    iRejected.days = date_start.toString();
+    iRejected.days = widget.date_start.toString();
 
     var activasList = activeApplication(iActive);
     var pendientesList = pendientesApplication(iPending);

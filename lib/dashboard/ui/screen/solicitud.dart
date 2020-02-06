@@ -126,7 +126,10 @@ class Solicitud extends StatelessWidget {
       ),
       body: Stack(
         children: <Widget>[
-          ListAllRequest(categoria: categoria),
+          ListAllRequest(
+            categoria: categoria,
+            numSolicitudes: numSolicitudes,
+          ),
           Column(
             children: <Widget>[
               AppBarSolicitudes(

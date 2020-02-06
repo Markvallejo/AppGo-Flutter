@@ -11,6 +11,7 @@ class Details extends StatefulWidget {
   String numCelular;
   String faseProceso;
   String respuesta;
+  String coments;
 
   Details(
       {Key key,
@@ -22,7 +23,8 @@ class Details extends StatefulWidget {
       this.numTelefono,
       this.numCelular,
       this.faseProceso,
-      this.respuesta});
+      this.respuesta,
+      this.coments});
   @override
   State<StatefulWidget> createState() {
     return _Details();
@@ -30,8 +32,6 @@ class Details extends StatefulWidget {
 }
 
 class _Details extends State<Details> {
-  String coments =
-      "Activa: Ver reconsideracion en nueva solicitud nro. 22064450";
   String statusConvertion = "Estatus de Conversión:";
   String statusSolicitud = "Venta no efectuada - Falta de Inventario";
 
@@ -280,7 +280,7 @@ class _Details extends State<Details> {
     );
 
     final resp = Container(
-      margin: EdgeInsets.only(left: 5.0),
+      // margin: EdgeInsets.only(left: 5.0),
       child: Text(
         widget.respuesta,
         style: TextStyle(
@@ -380,27 +380,12 @@ class _Details extends State<Details> {
       ),
     );
 
-    final comentario1 = Container(
+    final comentario = Container(
       width: screenWidth,
       padding: EdgeInsets.all(15.0),
       color: Colors.grey[200],
       child: Text(
-        coments,
-        style: TextStyle(
-            fontFamily: "DIN",
-            color: Colors.black38,
-            fontWeight: FontWeight.bold,
-            fontSize: 17.0),
-        textAlign: TextAlign.left,
-      ),
-    );
-    final comentario2 = Container(
-      width: screenWidth,
-      height: screenHeight * 0.30,
-      padding: EdgeInsets.all(15.0),
-      color: Colors.grey[200],
-      child: Text(
-        "",
+        widget.coments,
         style: TextStyle(
             fontFamily: "DIN",
             color: Colors.black38,
@@ -434,9 +419,8 @@ class _Details extends State<Details> {
           divider2,
           comentarios,
           divider2,
-          comentario1,
+          comentario,
           divider2,
-          //comentario2
         ],
       ),
     );

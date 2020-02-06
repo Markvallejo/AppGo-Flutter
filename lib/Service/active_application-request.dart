@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
 import 'package:appgo/utils/connetivity.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:appgo/filtros/filters_model.dart';
 
 class IActiveApplicationsRequest {
   String sDealerNumber;
@@ -17,7 +16,7 @@ class IActiveApplicationsRequest {
 
 Future activeApplication(IActiveApplicationsRequest data) async {
   final user = new User();
-  // FiltersModel data = new FiltersModel();
+
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
       return CONNECTION_ERROR;
@@ -63,7 +62,6 @@ Future activeApplication(IActiveApplicationsRequest data) async {
           if (applications == null) {
             return null;
           }
-          // print("Solicitudes activas: ${applications[1]}");
           return applications;
         });
       });
