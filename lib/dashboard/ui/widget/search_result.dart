@@ -18,7 +18,9 @@ class _SearchResult extends State<SearchResult> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
 
-    var request = searchRequest(widget.numSolicitud);
+    ISearchApplicationRequest applicationId = ISearchApplicationRequest();
+    applicationId.applicationId = widget.numSolicitud.toString();
+    var request = searchRequest(applicationId);
     return FutureBuilder(
       future: request,
       builder: (BuildContext context, AsyncSnapshot snapshot) {

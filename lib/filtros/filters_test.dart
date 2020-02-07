@@ -15,6 +15,13 @@ class _FiltersTest extends State<FiltersTest> {
   Widget build(BuildContext context) {
     FiltersModel salesman = new FiltersModel();
 
+    var dateinit = new DateTime.now();
+    var dateend = new DateTime.utc(2019, DateTime.december, 20);
+
+    Duration difference = dateinit.difference(dateend);
+    //assert(difference.inDays == 16592);
+
+    print("cantidad de dias: ${difference.inDays}");
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -26,21 +33,22 @@ class _FiltersTest extends State<FiltersTest> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: ListView.builder(
-          itemCount: salesman.dateByItems.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              onTap: () {},
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(salesman.dateByItems[index].name),
-                  Text(salesman.dateByItems[index].selected.toString())
-                ],
-              ),
-            );
-          },
-        ),
+        child: Text("Result: ${difference.inDays} "),
+        // child: ListView.builder(
+        //   itemCount: salesman.dateByItems.length,
+        //   itemBuilder: (context, index) {
+        //     return ListTile(
+        //       onTap: () {},
+        //       title: Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: <Widget>[
+        //           Text(salesman.dateByItems[index].name),
+        //           Text(salesman.dateByItems[index].selected.toString())
+        //         ],
+        //       ),
+        //     );
+        //   },
+        // ),
       ),
     );
   }

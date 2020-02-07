@@ -10,7 +10,10 @@ class DocumentsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var documents = documentsRequest(idDocument);
+    IApplicationDocumentsRequest documentId =
+        new IApplicationDocumentsRequest();
+    documentId.applicationId = idDocument.toString();
+    var documents = documentsRequest(documentId);
     double screenHeight = MediaQuery.of(context).size.height;
 
     return FutureBuilder(

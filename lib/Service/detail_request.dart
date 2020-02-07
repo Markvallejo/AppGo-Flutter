@@ -14,7 +14,7 @@ class IApplicationDetailRequest {
   String applicatinId;
 }
 
-Future detailRequest(applicationId) async {
+Future detailRequest(IApplicationDetailRequest data) async {
   User user = new User();
 
   var connection = await connectionType().then((res) {
@@ -44,7 +44,7 @@ Future detailRequest(applicationId) async {
                       getVerificationToken().toString(),
                 },
                 body: json.encode({
-                  'ApplicationId': applicationId,
+                  'ApplicationId': data.applicatinId,
                   'sDealerNumber': user.sDealerNumber,
                   'sSalesManInfo': user.sSalesManInfo,
                   'sIMEI': user.sIMEI,

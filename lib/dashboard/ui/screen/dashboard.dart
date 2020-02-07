@@ -29,7 +29,6 @@ class _DashBoard extends State<Dashboard> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     var date_start = 90;
-
     IGetDashboardDataRequest date = new IGetDashboardDataRequest();
     date.days = date_start.toString();
     var dashboardSolicitudes = dashboardData(date);
@@ -56,7 +55,7 @@ class _DashBoard extends State<Dashboard> {
           child: OrdenarPorAlfabeto()),
       appBar: PreferredSize(
         preferredSize:
-            Size(double.infinity, 60), // width is infinity and 64 is the height
+            Size(double.infinity, 60), // width is infinity and the height is 64
         child: AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(

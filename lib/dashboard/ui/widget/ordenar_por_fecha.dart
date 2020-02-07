@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appgo/filtros/filters_model.dart';
 import 'package:appgo/dashboard/ui/widget/btnLIsto.dart';
 import 'package:appgo/dashboard/ui/widget/filters.dart';
-import 'package:appgo/Service/dashboard_request.dart';
+import 'package:appgo/dashboard/ui/widget/calendar.dart';
 
 class OrdenarPorFecha extends StatefulWidget {
   @override
@@ -15,10 +15,10 @@ class _OrdenarPorFecha extends State<OrdenarPorFecha> {
   @override
   Widget build(BuildContext context) {
     FiltersModel filter = new FiltersModel();
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double elevation = screenHeight * 0.0357;
-    // IActiveApplicationsRequest day_start = new IActiveApplicationsRequest();
 
     final ordenar = Container(
       margin: EdgeInsets.only(left: 0.0),
@@ -71,26 +71,8 @@ class _OrdenarPorFecha extends State<OrdenarPorFecha> {
                         onTap: () {
                           if (filter.dateByItems[index].id ==
                               filter.dateByItems.last.id) {
-                            Future<DateTime> selectedDate = showDatePicker(
-                              context: context,
-                              locale: Locale('es'),
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2018),
-                              lastDate: DateTime(2030),
-                              builder: (BuildContext context, Widget calendar) {
-                                return Theme(
-                                  data: ThemeData.light(),
-                                  child: calendar,
-                                );
-                              },
-                            ).then((r) {
-                              // var today = DateTime.now().day;
-                              // var date_start = today - 90;
-                              // day_start.days = date_start.toString();
-                              // var date_Selected = r.toString().substring(0, 10);
-                              // var dashboardrequest = dashboardData(day_start);
-                              // return r;
-                            });
+                            Calendar calendar = new Calendar();
+                            return calendar.build(context);
                           } else {
                             print(
                                 "selection ${filter.dateByItems[index].name}");

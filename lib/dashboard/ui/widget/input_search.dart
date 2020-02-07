@@ -17,7 +17,7 @@ class Post {
 class _InputSearch extends State<InputSearch> {
   @override
   Widget build(BuildContext context) {
-    Future<List<Post>> search(String search) async {
+    Future<List<Post>> search(var search) async {
       await Future.delayed(Duration(seconds: 2));
       var cad = new RegExp('[a-zA-Z_*+@#\/\-]', caseSensitive: false);
       var resp = cad.hasMatch(search);

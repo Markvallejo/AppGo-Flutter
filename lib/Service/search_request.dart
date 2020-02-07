@@ -14,7 +14,7 @@ class ISearchApplicationRequest {
   String applicationId;
 }
 
-Future searchRequest(applicationId) async {
+Future searchRequest(ISearchApplicationRequest data) async {
   User user = User();
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
@@ -43,7 +43,7 @@ Future searchRequest(applicationId) async {
                       getVerificationToken().toString(),
                 },
                 body: json.encode({
-                  'ApplicationId': applicationId,
+                  'ApplicationId': data.applicationId,
                   'sDealerNumber': user.sDealerNumber,
                   'sSalesManInfo': user.sSalesManInfo,
                   'sIMEI': user.sIMEI,

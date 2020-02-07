@@ -14,7 +14,7 @@ class IApplicationDocumentsRequest {
   String applicationId;
 }
 
-Future documentsRequest(applicationId) async {
+Future documentsRequest(IApplicationDocumentsRequest data) async {
   User user = new User();
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
@@ -43,7 +43,7 @@ Future documentsRequest(applicationId) async {
                       getVerificationToken().toString(),
                 },
                 body: json.encode({
-                  'ApplicationId': applicationId,
+                  'ApplicationId': data.applicationId,
                   'sDealerNumber': user.sDealerNumber,
                   'sSalesManInfo': user.sSalesManInfo,
                   'sIMEI': user.sIMEI,

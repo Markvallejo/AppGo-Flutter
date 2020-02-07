@@ -24,7 +24,10 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
 
   @override
   Widget build(BuildContext context) {
-    var detailsRequest = detailRequest(widget.numSolicitud);
+    IApplicationDetailRequest num_request = new IApplicationDetailRequest();
+    num_request.applicatinId = widget.numSolicitud.toString();
+    var detailsRequest = detailRequest(num_request);
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     final doc = Container(
