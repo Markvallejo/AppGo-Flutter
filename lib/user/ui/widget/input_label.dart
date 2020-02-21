@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/user/model/user.dart';
-import 'package:appgo/dashboard/ui/screen/dashboard.dart';
 import 'package:appgo/widgets/button_Login.dart';
 import 'package:appgo/Service/salesman_list_request.dart';
+import 'package:appgo/dashboard/ui/screen/dashboard.dart';
 
 class InputLabel extends StatefulWidget {
   @override
@@ -11,7 +11,6 @@ class InputLabel extends StatefulWidget {
 
 class _InputLabel extends State<InputLabel> {
   User user = new User();
-  String dashboard = 'package:appgo/dashboard/ui/screen/dashboard.dart';
   var salesman = salesmanListRequest();
   int maxLines = 1;
   bool validate = false;
@@ -19,7 +18,6 @@ class _InputLabel extends State<InputLabel> {
   FocusNode _focusNodeIdVendedor = new FocusNode();
   FocusNode _focusNodePass = new FocusNode();
 
-  @override
   void iniState() {
     super.initState();
     _focusNodeDistribuidor = FocusNode();
@@ -74,24 +72,40 @@ class _InputLabel extends State<InputLabel> {
           });
     }
 
-    void onPress() {
+    onPress() {
       _controllerDistribuidor.text = 'TEST003';
       _controllerIdVendedor.text = '99998';
       _controllerPass.text = 'Password00';
 
-      if (_controllerDistribuidor.text.isEmpty ||
-          _controllerIdVendedor.text.isEmpty ||
-          _controllerPass.text.isEmpty) {
-        _showAlertDialog("Debes llenar todos los campos");
-      } else if (_controllerDistribuidor.text != user.sSalesManInfo ||
-          _controllerIdVendedor.text != user.sDealerNumber ||
-          _controllerPass.text != user.sPassword) {
-        _showAlertDialog(
-            "Los datos ingresados no son correctos. Intenta nuevamente");
-        validate = true;
-      } else
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            '/DashBoard', (Route<dynamic> route) => false);
+      salesman.then((salesman) {
+        List response = salesman;
+        for (var i = 0; i < response.length; i++) {
+          if (salesman[i]['NombreVendedor'] == user.sSalesManInfo) {
+            if (_controllerDistribuidor.text.isEmpty ||
+                _controllerIdVendedor.text.isEmpty ||
+                _controllerPass.text.isEmpty) {
+              _showAlertDialog("Debes llenar todos los campos");
+            } else if (_controllerDistribuidor.text !=
+                    salesman[i]['NombreVendedor'] ||
+                _controllerIdVendedor.text != user.sDealerNumber ||
+                _controllerPass.text != user.sPassword) {
+              _showAlertDialog(
+                  "Los datos ingresados no son correctos. Intenta nuevamente");
+              validate = true;
+            } else {
+              // Navigator.of(context).pushNamedAndRemoveUntil(
+              //     '/DashBoard', (Route<dynamic> route) => false);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => Dashboard(
+                            salesman: salesman[i]['NombreVendedor'],
+                          )),
+                  ModalRoute.withName('/Dashboard'));
+            }
+          }
+        }
+      });
     }
 
     final labelDistribuidor = Container(

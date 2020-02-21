@@ -21,16 +21,6 @@ class _ButtonLogin extends State<ButtonLogin> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    // onPressButton() {
-    //   if (widget.enter == true) {
-    //     Navigator.push(context,
-    //         MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
-    //   } else {
-    //     Navigator.push(context,
-    //         MaterialPageRoute(builder: (BuildContext context) => Login()));
-    //   }
-    // }
-
     final ButtonLogin = Container(
         margin: widget.enter
             ? EdgeInsets.only(top: screenHeight * 0.08, left: 20.0, right: 20.0)

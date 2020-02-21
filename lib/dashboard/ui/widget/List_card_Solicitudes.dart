@@ -18,7 +18,8 @@ class ListCardSolicitudes extends StatefulWidget {
   int numHeld;
   int numCalificadas;
   int numAprobadas;
-  var date_start;
+  var dateStart;
+  String salesman;
   ListCardSolicitudes({
     this.numActivas,
     this.numAprobadas,
@@ -28,7 +29,8 @@ class ListCardSolicitudes extends StatefulWidget {
     this.numPendientes,
     this.numRechazadas,
     this.numRecibidas,
-    this.date_start,
+    this.dateStart,
+    this.salesman,
   });
   @override
   State<StatefulWidget> createState() {
@@ -82,21 +84,21 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
     double screeHeight = MediaQuery.of(context).size.height;
 
     IActiveApplicationsRequest iActive = new IActiveApplicationsRequest();
-    iActive.days = widget.date_start.toString();
+    iActive.days = widget.dateStart.toString();
     IPendingApplicationsRequest iPending = new IPendingApplicationsRequest();
-    iPending.days = widget.date_start.toString();
+    iPending.days = widget.dateStart.toString();
     IPurchasedApplicationsRequest iPurshased =
         new IPurchasedApplicationsRequest();
-    iPurshased.days = widget.date_start.toString();
+    iPurshased.days = widget.dateStart.toString();
     IQualifiedApplicationsRequest iQualified =
         new IQualifiedApplicationsRequest();
-    iQualified.days = widget.date_start.toString();
+    iQualified.days = widget.dateStart.toString();
     IHOApplicationsRequest iHO = IHOApplicationsRequest();
-    iHO.days = widget.date_start.toString();
+    iHO.days = widget.dateStart.toString();
     IApprovedApplicationsRequest iApproved = new IApprovedApplicationsRequest();
-    iApproved.days = widget.date_start.toString();
+    iApproved.days = widget.dateStart.toString();
     IRejectedApplicationsRequest iRejected = IRejectedApplicationsRequest();
-    iRejected.days = widget.date_start.toString();
+    iRejected.days = widget.dateStart.toString();
 
     var activasList = activeApplication(iActive);
     var pendientesList = pendientesApplication(iPending);
@@ -114,6 +116,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     title: "Pendientes",
                     numSolicitudes: widget.numPendientes,
                     categoria: pendientesList,
+                    salesman: widget.salesman,
                   )));
     }
 
@@ -125,6 +128,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     title: "Calificadas",
                     numSolicitudes: widget.numCalificadas,
                     categoria: calificadasList,
+                    salesman: widget.salesman,
                   )));
     }
 
@@ -136,6 +140,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     title: "Aprobadas",
                     numSolicitudes: widget.numAprobadas,
                     categoria: aprobadasList,
+                    salesman: widget.salesman,
                   )));
     }
 
@@ -147,6 +152,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     title: "Activas",
                     numSolicitudes: widget.numActivas,
                     categoria: activasList,
+                    salesman: widget.salesman,
                   )));
     }
 
@@ -158,6 +164,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     title: "Held Offering",
                     numSolicitudes: widget.numHeld,
                     categoria: hOfferingList,
+                    salesman: widget.salesman,
                   )));
     }
 
@@ -169,6 +176,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     title: "Rechazadas",
                     numSolicitudes: widget.numRechazadas,
                     categoria: rechazadasList,
+                    salesman: widget.salesman,
                   )));
     }
 
@@ -180,6 +188,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     title: "Compradas",
                     numSolicitudes: widget.numCompradas,
                     categoria: compradasList,
+                    salesman: widget.salesman,
                   )));
     }
 

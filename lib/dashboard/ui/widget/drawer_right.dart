@@ -5,14 +5,13 @@ import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
 import 'package:appgo/dashboard/ui/widget/ordenar_por_fecha.dart';
 
 class DrawerRight extends StatefulWidget {
+  var categoria;
   String vendedor;
   String fecha = "7 días";
   String alfabeto = "Nombre A-Z";
   bool resp;
 
-  DrawerRight(
-    this.resp,
-  );
+  DrawerRight({Key key, this.resp, this.categoria, this.vendedor});
   @override
   State<StatefulWidget> createState() {
     return _DrawerRight();
@@ -141,7 +140,6 @@ class _DrawerRight extends State<DrawerRight> {
             ListTile(
                 onTap: () {
                   Navigator.pop(context);
-                  widget.resp = false;
                 },
                 leading: Container(child: ordenarAlfabeto),
                 trailing: new Icon(
@@ -183,9 +181,9 @@ class _DrawerRight extends State<DrawerRight> {
           ])),
     );
 
-    if (widget.resp == false) {
-      //  return OrdenarPorAlfabeto();
-      return OrdenarPorFecha();
+    if (widget.resp == true) {
+      return OrdenarPorAlfabeto();
+      // return OrdenarPorFecha(widget.categoria);
     } else {
       return filter;
     }

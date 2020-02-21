@@ -18,10 +18,12 @@ class Calendar extends StatelessWidget {
     ).then((dateSelected) {
       var today = DateTime.now();
       Duration numberDays = today.difference(dateSelected);
+
       if (numberDays.inDays.isNegative) {
         print("La Fecha seleccionada no es valida");
-      }
-      print("Dias: ${numberDays.inDays}");
+        return null;
+      } else
+        print("Dias: ${numberDays.inDays}");
       return dateSelected;
     });
     return Container(

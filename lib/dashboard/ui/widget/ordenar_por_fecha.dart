@@ -3,8 +3,11 @@ import 'package:appgo/filtros/filters_model.dart';
 import 'package:appgo/dashboard/ui/widget/btnLIsto.dart';
 import 'package:appgo/dashboard/ui/widget/filters.dart';
 import 'package:appgo/dashboard/ui/widget/calendar.dart';
+import 'package:appgo/dashboard/ui/widget/list_all_solicitudes.dart';
 
 class OrdenarPorFecha extends StatefulWidget {
+  var categoria;
+  OrdenarPorFecha(this.categoria);
   @override
   State<StatefulWidget> createState() {
     return _OrdenarPorFecha();
@@ -15,7 +18,6 @@ class _OrdenarPorFecha extends State<OrdenarPorFecha> {
   @override
   Widget build(BuildContext context) {
     FiltersModel filter = new FiltersModel();
-
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double elevation = screenHeight * 0.0357;
@@ -52,7 +54,9 @@ class _OrdenarPorFecha extends State<OrdenarPorFecha> {
             ListTile(
                 contentPadding: EdgeInsets.only(
                     top: screenHeight * 0.041, left: 10.0, right: 16.0),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 title: ordenar,
                 leading: Icon(
                   Icons.chevron_left,
@@ -76,7 +80,6 @@ class _OrdenarPorFecha extends State<OrdenarPorFecha> {
                           } else {
                             print(
                                 "selection ${filter.dateByItems[index].name}");
-                            return null;
                           }
                         },
                         title: Filters(

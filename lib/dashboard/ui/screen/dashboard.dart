@@ -3,13 +3,15 @@ import 'package:appgo/dashboard/ui/widget/app_bar_solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/List_card_Solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_left.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
-import 'package:appgo/user/model/user.dart';
 import 'package:appgo/Service/dashboard_request.dart';
 import 'package:appgo/Service/Api_Service.dart';
 import 'package:appgo/dashboard/ui/widget/search.dart';
 import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
 
 class Dashboard extends StatefulWidget {
+  String salesman;
+
+  Dashboard({Key key, this.salesman});
   @override
   State<StatefulWidget> createState() {
     return _DashBoard();
@@ -17,8 +19,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashBoard extends State<Dashboard> {
-  User user = new User();
-
   String title = "Dashboard";
   String imgSeparador = "assets/images/images_for_dashboard/separator@3x.png";
   String imgFiltrar = "assets/images/images_for_dashboard/icono_filtrar@3x.png";
@@ -28,9 +28,9 @@ class _DashBoard extends State<Dashboard> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    var date_start = 90;
+    var dateStart = 90;
     IGetDashboardDataRequest date = new IGetDashboardDataRequest();
-    date.days = date_start.toString();
+    date.days = dateStart.toString();
     var dashboardSolicitudes = dashboardData(date);
 
     final filter = Container(
@@ -52,10 +52,12 @@ class _DashBoard extends State<Dashboard> {
           data: Theme.of(context).copyWith(
             canvasColor: Colors.transparent,
           ),
-          child: OrdenarPorAlfabeto()),
+          child: DrawerRight(
+            vendedor: date.sSalesManInfo,
+          )),
       appBar: PreferredSize(
         preferredSize:
-            Size(double.infinity, 60), // width is infinity and the height is 64
+            Size(double.infinity, 60), // width is infinity and the height is 60
         child: AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -142,7 +144,7 @@ class _DashBoard extends State<Dashboard> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              AppBarSolicitudes(idVendedor: user.sSalesManInfo),
+              AppBarSolicitudes(idVendedor: widget.salesman),
               FutureBuilder(
                   future: dashboardSolicitudes,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -174,7 +176,8 @@ class _DashBoard extends State<Dashboard> {
                           numHeld: hOffering,
                           numPendientes: pendientes,
                           numRechazadas: rechazadas,
-                          date_start: date_start,
+                          dateStart: dateStart,
+                          salesman: widget.salesman,
                         );
                       }
                     }

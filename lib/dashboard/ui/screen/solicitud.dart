@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
 import 'package:appgo/dashboard/ui/widget/app_bar_solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/list_all_solicitudes.dart';
-import 'package:appgo/user/model/user.dart';
 import 'package:appgo/dashboard/ui/widget/search.dart';
 
 class Solicitud extends StatelessWidget {
-  User user = new User();
   String title;
   int numSolicitudes;
   var categoria;
+  String salesman;
 
-  Solicitud({Key key, this.title, this.numSolicitudes, this.categoria});
+  Solicitud(
+      {Key key,
+      this.title,
+      this.numSolicitudes,
+      this.categoria,
+      this.salesman});
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -35,7 +39,7 @@ class Solicitud extends StatelessWidget {
           canvasColor: Colors.transparent,
         ),
         //child: OrdenarPorAlfabeto()
-        child: DrawerRight(false),
+        child: DrawerRight(vendedor: salesman),
       ),
       appBar: PreferredSize(
         preferredSize:
@@ -134,7 +138,7 @@ class Solicitud extends StatelessWidget {
             children: <Widget>[
               AppBarSolicitudes(
                 numSolicitudes: numSolicitudes,
-                idVendedor: user.sSalesManInfo,
+                idVendedor: salesman,
               ),
             ],
           ),

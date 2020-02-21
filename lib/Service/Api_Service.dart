@@ -1,8 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:appgo/user/model/user.dart';
 import 'package:appgo/Service/get-conversion-status-request.dart';
 import 'package:appgo/Service/calificadas_applications_request.dart';
+import 'package:appgo/Service/pendientes_application-request.dart';
+import 'package:appgo/Service/salesman_list_request.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -41,18 +41,31 @@ final CONVERSION_STATUS_APPLICATIONS_URL =
 final CONNECTION_ERROR = "Verifica tu conexión a internet.";
 final REQUEST_TIMEOUT_ERROR = "Tiempo de espera superado.";
 
-class Service extends StatelessWidget {
-  Future<User> user;
-  Service({Key key, this.user}) : super(key: key);
+class Service extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _Service();
+  }
+}
 
+class _Service extends State<Service> {
   @override
   Widget build(BuildContext context) {
-    int aplicationId = 22065637;
-    IGetConversionStatusRequest data = IGetConversionStatusRequest();
-    data.id = aplicationId;
-    var dashboard = getConversionStatus(data);
-    // List data = ["Vendedor", "idVendedor"];
-    // var salesman = mapList(data);
+    int aplicationId = 22066677;
+    IPendingApplicationsRequest data = IPendingApplicationsRequest();
+    data.days = aplicationId.toString();
+    var dashboard = pendientesApplication(data);
+    var request = salesmanListRequest();
+    List pendientes = [];
+
+    order(List request) {
+      request.sort((a, b) {
+        return a['NombreCompleto']
+            .toString()
+            .compareTo(b['NombreCompleto'].toString());
+      });
+      print(request.map((resp) => resp['NombreCompleto']).toList());
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -60,20 +73,46 @@ class Service extends StatelessWidget {
         backgroundColor: Colors.lightBlue,
       ),
       body: FutureBuilder(
-        future: dashboard,
+        future: request,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            // List coment = snapshot.data["Comentario"];
-            return Container(
-              child: Text(snapshot.data.toString()),
-            );
+            List salesman = snapshot.data;
+            for (var i = 0; i < salesman.length; i++) {
+              print(salesman[i]['NombreVendedor']);
+            }
+            // return Container(
+            //   child: Column(
+            //     children: <Widget>[
+            //       FlatButton(
+            //         onPressed: () {
+            //           setState(() {
+            //             order(pendientes);
+            //           });
+            //         },
+            //         child: Text("Ordenar"),
+            //       ),
+            //       ConstrainedBox(
+            //         constraints: BoxConstraints(
+            //             maxWidth: MediaQuery.of(context).size.width,
+            //             maxHeight: MediaQuery.of(context).size.height * 0.76),
+            //         child: ListView(
+            //           children: pendientes
+            //               .map((request) => Text(request['NombreCompleto']))
+            //               .toList(),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // );
           } else if (snapshot.hasError) {
             print(snapshot.error);
             return Text("Error: ${snapshot.error}");
           }
 
-          return CircularProgressIndicator(
-            backgroundColor: Colors.lightBlue,
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.lightBlue,
+            ),
           );
         },
       ),
