@@ -4,14 +4,20 @@ import 'package:appgo/dashboard/ui/widget/details.dart';
 import 'package:appgo/dashboard/ui/screen/documents.dart';
 import 'package:appgo/Service/detail_request.dart';
 import 'package:appgo/Service/Api_Service.dart';
+import 'package:appgo/dashboard/ui/screen/conversion_status.dart';
 
 class DetailsSolicitud extends StatefulWidget {
   String imgDoc = "assets/images/images_for_dashboard/document@3x.png";
-
   int numSolicitud;
   String name;
+  var dateStar;
 
-  DetailsSolicitud({Key key, this.numSolicitud, this.name});
+  DetailsSolicitud({
+    Key key,
+    this.numSolicitud,
+    this.name,
+    this.dateStar,
+  });
   @override
   State<StatefulWidget> createState() {
     return _DetailsSolicitud();
@@ -21,7 +27,6 @@ class DetailsSolicitud extends StatefulWidget {
 class _DetailsSolicitud extends State<DetailsSolicitud> {
   String title = "Detalle";
   bool details = true;
-
   @override
   Widget build(BuildContext context) {
     IApplicationDetailRequest num_request = new IApplicationDetailRequest();
@@ -30,6 +35,7 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
     final doc = Container(
       width: 18.0,
       decoration: BoxDecoration(
@@ -136,6 +142,7 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
                     List comentario = snapshot.data['Comentario'];
 
                     return Details(
+                      dateStar: widget.dateStar,
                       nameSolicitud: widget.name,
                       numSolicitud: widget.numSolicitud,
                       year: year,

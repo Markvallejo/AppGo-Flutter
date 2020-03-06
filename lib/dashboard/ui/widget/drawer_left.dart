@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/btnCloseSesion.dart';
+import 'package:appgo/dashboard/ui/screen/dashboard.dart';
+import 'package:appgo/dashboard/ui/screen/dashboard_conversion.dart';
+import 'package:appgo/dashboard/ui/screen/news.dart';
+import 'package:appgo/dashboard/ui/screen/Questions.dart';
+import 'package:appgo/dashboard/ui/screen/Guides_&_Boletines.dart';
 
 class DrawerLeft extends StatefulWidget {
   String imgSolicitudes = "assets/images/images_for_DrawerLeft/dashboard.png";
@@ -7,6 +12,9 @@ class DrawerLeft extends StatefulWidget {
   String imgBoletines = "assets/images/images_for_DrawerLeft/boletines.png";
   String imgPreguntas = "assets/images/images_for_DrawerLeft/preguntas.png";
   String imgNoticias = "assets/images/images_for_DrawerLeft/noticias.png";
+
+  String salesman;
+  DrawerLeft({Key key, this.salesman});
   @override
   State<StatefulWidget> createState() {
     return _DrawerLeft();
@@ -43,7 +51,13 @@ class _DrawerLeft extends State<DrawerLeft> {
                   contentPadding:
                       EdgeInsets.only(top: 15.0, left: 16.0, right: 16.0),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => Dashboard(
+                                  salesman: widget.salesman,
+                                )),
+                        ModalRoute.withName('/Dashboard'));
                   },
                   title: new Text(
                     "Dashboard de Solicitudes",
@@ -68,6 +82,11 @@ class _DrawerLeft extends State<DrawerLeft> {
               child: ListTile(
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                DashboardConversion(widget.salesman)));
                   },
                   title: new Text(
                     "Dashboard de Conversion",
@@ -92,6 +111,11 @@ class _DrawerLeft extends State<DrawerLeft> {
               child: ListTile(
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                GuidesAndBoletines(widget.salesman)));
                   },
                   title: new Text(
                     "Boletines, Guías y Más",
@@ -116,6 +140,11 @@ class _DrawerLeft extends State<DrawerLeft> {
               child: ListTile(
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                Question(widget.salesman)));
                   },
                   title: new Text(
                     "Preguntas Frecuentes",
@@ -140,6 +169,11 @@ class _DrawerLeft extends State<DrawerLeft> {
               child: ListTile(
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                News(salesman: widget.salesman)));
                   },
                   title: new Text(
                     "Noticias",

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:appgo/Service/conversion-status-dashboard-request.dart';
+import 'package:appgo/Service/conversion-status-applications-requests.dart';
 import 'package:appgo/Service/get-conversion-status-request.dart';
-import 'package:appgo/Service/calificadas_applications_request.dart';
-import 'package:appgo/Service/pendientes_application-request.dart';
-import 'package:appgo/Service/salesman_list_request.dart';
+import 'package:appgo/Service/getGuides.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -51,12 +51,20 @@ class Service extends StatefulWidget {
 class _Service extends State<Service> {
   @override
   Widget build(BuildContext context) {
-    int aplicationId = 22066677;
-    IPendingApplicationsRequest data = IPendingApplicationsRequest();
-    data.days = aplicationId.toString();
-    var dashboard = pendientesApplication(data);
-    var request = salesmanListRequest();
-    List pendientes = [];
+    IGetConversionStatusDashboardDataRequest data1 =
+        new IGetConversionStatusDashboardDataRequest();
+    data1.days = 90.toString();
+    var convertionStatus = getConversionStatusDashboardData(data1);
+
+    IGetConversionStatusRequest data2 = new IGetConversionStatusRequest();
+    data2.id = 1;
+    var getconvertionstatus = getConversionStatus(data2);
+
+    IConversionStatusApplicationsRequest data =
+        IConversionStatusApplicationsRequest();
+    data.conversionStatusID = 1;
+    data.days = 90.toString();
+    var solicitud = getConversionStatusApplications(data);
 
     order(List request) {
       request.sort((a, b) {
@@ -67,6 +75,8 @@ class _Service extends State<Service> {
       print(request.map((resp) => resp['NombreCompleto']).toList());
     }
 
+    var request = getGuides();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('APPGO'),
@@ -76,9 +86,9 @@ class _Service extends State<Service> {
         future: request,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            List salesman = snapshot.data;
-            for (var i = 0; i < salesman.length; i++) {
-              print(salesman[i]['NombreVendedor']);
+            List guides = snapshot.data;
+            for (var i = 0; i < guides.length; i++) {
+              print("response ${guides[i]}");
             }
             // return Container(
             //   child: Column(

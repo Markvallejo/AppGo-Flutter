@@ -6,8 +6,9 @@ import 'package:appgo/Service/Api_Service.dart';
 class ListAllRequest extends StatefulWidget {
   var categoria;
   int numSolicitudes;
+  var dateStar;
 
-  ListAllRequest({this.categoria, this.numSolicitudes});
+  ListAllRequest({this.categoria, this.numSolicitudes, this.dateStar});
   @override
   State<StatefulWidget> createState() {
     return _ListAllRequest();
@@ -47,6 +48,7 @@ class _ListAllRequest extends State<ListAllRequest> {
                               modelo: solicitud['Modelo'],
                               numSolicitud: solicitud['NumeroSolicitud'],
                               fechaSolicitud: solicitud['FechaCreacion'],
+                              dateStar: widget.dateStar,
                             ))
                         .toList(),
                   ),

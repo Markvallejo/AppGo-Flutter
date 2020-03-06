@@ -7,14 +7,15 @@ import 'package:appgo/Service/verification_token.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:appgo/utils/connetivity.dart';
 
-class IGetConversionStatusRequest {
-  num id;
+class IGetConversionStatusDashboardDataRequest {
   String sDealerNumber;
   String sSalesManInfo;
   String sIMEI;
+  String days;
 }
 
-Future getConversionStatus(IGetConversionStatusRequest data) async {
+Future getConversionStatusDashboardData(
+    IGetConversionStatusDashboardDataRequest data) async {
   final user = new User();
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
@@ -39,7 +40,7 @@ Future getConversionStatus(IGetConversionStatusRequest data) async {
         var token = json.decode(result.body);
 
         return await http
-            .post(CONVERSION_STATUS_URL,
+            .post(CONVERSION_STATUS_DASHBOARD_URL,
                 headers: {
                   "Content-Type": "application/json",
                   "__RequestVerificationToken":
@@ -49,26 +50,25 @@ Future getConversionStatus(IGetConversionStatusRequest data) async {
                   'DealerNumber': user.sDealerNumber,
                   'SalesManInfo': user.sSalesManInfo,
                   'IMEI': user.sIMEI,
+                  'days': data.days,
                   'token': token["TokenValor"],
-                  'StatusConversionId': data.id
                 }))
             .then((r) {
           return r.body;
         }).then((result) {
           var response = json.decode(result);
 
-          if (response["StatusConversion"] != null) {
-            var output = response["StatusConversion"];
-            if (output.length > 0) {
-              return output;
-            }
+          if (response["Solicitudes"] != null) {
+            var output = response["Solicitudes"];
+            return output;
           }
-          return "Estatus de conversión no válido!!!!!!.";
+          return response['error'];
         });
       });
+
       return resp;
     }
   });
-  //print("result del estado: $connection");
+  // print("first status: $connection");
   return connection;
 }

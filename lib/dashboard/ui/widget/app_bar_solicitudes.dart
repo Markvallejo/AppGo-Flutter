@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 
 class AppBarSolicitudes extends StatelessWidget {
   String idVendedor;
+  String title;
   int numSolicitudes;
   bool details;
 
   AppBarSolicitudes(
-      {Key key, this.numSolicitudes, this.idVendedor, this.details});
+      {Key key,
+      this.numSolicitudes,
+      this.idVendedor,
+      this.title,
+      this.details});
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -20,20 +25,10 @@ class AppBarSolicitudes extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          numSolicitudes == null
-              ? Text(
-                  "Solicitudes de $idVendedor",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: "DIN",
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              : numSolicitudes == 1
+          title == null
+              ? numSolicitudes == null
                   ? Text(
-                      "$numSolicitudes Solicitud de $idVendedor",
+                      "Solicitudes de $idVendedor",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: "DIN",
@@ -42,16 +37,37 @@ class AppBarSolicitudes extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     )
-                  : Text(
-                      "$numSolicitudes Solicitudes de $idVendedor",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: "DIN",
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  : numSolicitudes == 1
+                      ? Text(
+                          "$numSolicitudes Solicitud de $idVendedor",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "DIN",
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : Text(
+                          "$numSolicitudes Solicitudes de $idVendedor",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "DIN",
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+              : Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "DIN",
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         ],
       ),
     );

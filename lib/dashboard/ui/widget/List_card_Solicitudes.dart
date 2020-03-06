@@ -117,6 +117,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     numSolicitudes: widget.numPendientes,
                     categoria: pendientesList,
                     salesman: widget.salesman,
+                    dateStar: widget.dateStart,
                   )));
     }
 
@@ -129,6 +130,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     numSolicitudes: widget.numCalificadas,
                     categoria: calificadasList,
                     salesman: widget.salesman,
+                    dateStar: widget.dateStart,
                   )));
     }
 
@@ -141,6 +143,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     numSolicitudes: widget.numAprobadas,
                     categoria: aprobadasList,
                     salesman: widget.salesman,
+                    dateStar: widget.dateStart,
                   )));
     }
 
@@ -153,6 +156,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     numSolicitudes: widget.numActivas,
                     categoria: activasList,
                     salesman: widget.salesman,
+                    dateStar: widget.dateStart,
                   )));
     }
 
@@ -165,6 +169,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     numSolicitudes: widget.numHeld,
                     categoria: hOfferingList,
                     salesman: widget.salesman,
+                    dateStar: widget.dateStart,
                   )));
     }
 
@@ -177,6 +182,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     numSolicitudes: widget.numRechazadas,
                     categoria: rechazadasList,
                     salesman: widget.salesman,
+                    dateStar: widget.dateStart,
                   )));
     }
 
@@ -189,6 +195,7 @@ class _ListCardSolicitudes extends State<ListCardSolicitudes> {
                     numSolicitudes: widget.numCompradas,
                     categoria: compradasList,
                     salesman: widget.salesman,
+                    dateStar: widget.dateStart,
                   )));
     }
 

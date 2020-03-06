@@ -6,6 +6,7 @@ import 'package:appgo/Service/Api_Service.dart';
 import 'package:appgo/dashboard/ui/screen/dashboard.dart';
 import 'package:appgo/filtros/filters_test.dart';
 import 'package:appgo/Service/salesman_list_request.dart';
+import 'package:appgo/dashboard/ui/screen/details_solicitud.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => new SingIn(),
         '/DashBoard': (BuildContext context) => new Dashboard(),
+        '/DetailsSolicitud': (BuildContext context) => new DetailsSolicitud(),
       },
 
       theme: ThemeData(

@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:appgo/Service/Api_Service.dart';
+import 'package:appgo/dashboard/ui/widget/drawer_left.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
 import 'package:appgo/dashboard/ui/widget/app_bar_solicitudes.dart';
-import 'package:appgo/dashboard/ui/widget/list_all_solicitudes.dart';
-import 'package:appgo/dashboard/ui/widget/search.dart';
 
-class Solicitud extends StatelessWidget {
-  String title;
-  int numSolicitudes;
-  var categoria;
+class DashboardConversion extends StatefulWidget {
   String salesman;
-  var dateStar;
+  DashboardConversion(this.salesman);
+  @override
+  State<StatefulWidget> createState() {
+    return _DashboardConversion();
+  }
+}
 
-  Solicitud(
-      {Key key,
-      this.title,
-      this.numSolicitudes,
-      this.categoria,
-      this.salesman,
-      this.dateStar});
+class _DashboardConversion extends State<DashboardConversion> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
-    String imgSeparador = "assets/images/images_for_dashboard/separator@3x.png";
+    String title = "Dashboard de Conversion";
     String imgFiltrar =
         "assets/images/images_for_dashboard/icono_filtrar@3x.png";
 
@@ -36,16 +33,19 @@ class Solicitud extends StatelessWidget {
 
     return Scaffold(
       drawerScrimColor: Colors.transparent,
+      drawer: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.transparent,
+          ),
+          child: DrawerLeft(salesman: widget.salesman)),
       endDrawer: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.transparent,
-        ),
-        //child: OrdenarPorAlfabeto()
-        child: DrawerRight(vendedor: salesman),
-      ),
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.transparent,
+          ),
+          child: DrawerRight(vendedor: widget.salesman)),
       appBar: PreferredSize(
         preferredSize:
-            Size(double.infinity, 60), // width is infinity and 64 is the height
+            Size(double.infinity, 60), // width is infinity and the height is 60
         child: AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -59,15 +59,12 @@ class Solicitud extends StatelessWidget {
           ),
           elevation: 0.0,
           leading: Container(
-            margin: EdgeInsets.only(top: 13.0, right: 5.0),
+            margin: EdgeInsets.only(top: 15.0),
             child: Builder(
               builder: (context) => IconButton(
-                  icon: new Icon(
-                    Icons.chevron_left,
-                    size: 28,
-                  ),
+                  icon: new Icon(Icons.menu),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Scaffold.of(context).openDrawer();
                   }),
             ),
           ),
@@ -86,29 +83,6 @@ class Solicitud extends StatelessWidget {
             ),
           ),
           actions: <Widget>[
-            Container(
-              width: 30.0,
-              margin: EdgeInsets.only(top: 15.0),
-              child: Builder(
-                builder: (context) => IconButton(
-                    icon: new Icon(Icons.search),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => Search()));
-                    }),
-              ),
-            ),
-            Container(
-              width: 2.0,
-              height: 15.0,
-              margin: EdgeInsets.only(top: 15.0, left: 15.0),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.contain, image: AssetImage(imgSeparador)),
-              ),
-            ),
             Container(
               margin: EdgeInsets.only(top: 15.0),
               child: Builder(
@@ -132,16 +106,11 @@ class Solicitud extends StatelessWidget {
       ),
       body: Stack(
         children: <Widget>[
-          ListAllRequest(
-            categoria: categoria,
-            numSolicitudes: numSolicitudes,
-            dateStar: dateStar,
-          ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AppBarSolicitudes(
-                numSolicitudes: numSolicitudes,
-                idVendedor: salesman,
+                idVendedor: widget.salesman,
               ),
             ],
           ),

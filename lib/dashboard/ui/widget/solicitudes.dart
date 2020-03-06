@@ -8,6 +8,7 @@ class Solicitudes extends StatefulWidget {
   String fechaSolicitud;
   int year;
   String status;
+  var dateStar;
 
   Solicitudes(
       {Key key,
@@ -16,7 +17,8 @@ class Solicitudes extends StatefulWidget {
       this.numSolicitud,
       this.fechaSolicitud,
       this.status,
-      this.year});
+      this.year,
+      this.dateStar});
   @override
   State<StatefulWidget> createState() {
     return _Solicitudes();
@@ -142,8 +144,10 @@ class _Solicitudes extends State<Solicitudes> {
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) => DetailsSolicitud(
-                      numSolicitud: widget.numSolicitud,
-                      name: widget.nameSolicitud)));
+                        numSolicitud: widget.numSolicitud,
+                        name: widget.nameSolicitud,
+                        dateStar: widget.dateStar,
+                      )));
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

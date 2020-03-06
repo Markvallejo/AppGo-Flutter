@@ -7,14 +7,16 @@ import 'package:appgo/Service/verification_token.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:appgo/utils/connetivity.dart';
 
-class IGetConversionStatusRequest {
-  num id;
+class IConversionStatusApplicationsRequest {
   String sDealerNumber;
   String sSalesManInfo;
   String sIMEI;
+  String days;
+  int conversionStatusID;
 }
 
-Future getConversionStatus(IGetConversionStatusRequest data) async {
+Future getConversionStatusApplications(
+    IConversionStatusApplicationsRequest data) async {
   final user = new User();
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
@@ -39,7 +41,7 @@ Future getConversionStatus(IGetConversionStatusRequest data) async {
         var token = json.decode(result.body);
 
         return await http
-            .post(CONVERSION_STATUS_URL,
+            .post(CONVERSION_STATUS_APPLICATIONS_URL,
                 headers: {
                   "Content-Type": "application/json",
                   "__RequestVerificationToken":
@@ -49,26 +51,27 @@ Future getConversionStatus(IGetConversionStatusRequest data) async {
                   'DealerNumber': user.sDealerNumber,
                   'SalesManInfo': user.sSalesManInfo,
                   'IMEI': user.sIMEI,
+                  'days': data.days,
+                  'StatusConversionId': data.conversionStatusID,
                   'token': token["TokenValor"],
-                  'StatusConversionId': data.id
                 }))
             .then((r) {
           return r.body;
         }).then((result) {
           var response = json.decode(result);
 
-          if (response["StatusConversion"] != null) {
-            var output = response["StatusConversion"];
-            if (output.length > 0) {
-              return output;
-            }
+          var applications = response['Solicitudes'];
+
+          if (applications == null) {
+            applications = [];
           }
-          return "Estatus de conversión no válido!!!!!!.";
+
+          return applications;
         });
       });
       return resp;
     }
   });
-  //print("result del estado: $connection");
+//  print("resultado de solicitudes: $connection");
   return connection;
 }

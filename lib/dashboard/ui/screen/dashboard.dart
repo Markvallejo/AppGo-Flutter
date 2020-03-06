@@ -47,14 +47,12 @@ class _DashBoard extends State<Dashboard> {
           data: Theme.of(context).copyWith(
             canvasColor: Colors.transparent,
           ),
-          child: DrawerLeft()),
+          child: DrawerLeft(salesman: widget.salesman)),
       endDrawer: Theme(
           data: Theme.of(context).copyWith(
             canvasColor: Colors.transparent,
           ),
-          child: DrawerRight(
-            vendedor: date.sSalesManInfo,
-          )),
+          child: DrawerRight(vendedor: widget.salesman)),
       appBar: PreferredSize(
         preferredSize:
             Size(double.infinity, 60), // width is infinity and the height is 60
@@ -144,7 +142,9 @@ class _DashBoard extends State<Dashboard> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              AppBarSolicitudes(idVendedor: widget.salesman),
+              AppBarSolicitudes(
+                idVendedor: widget.salesman,
+              ),
               FutureBuilder(
                   future: dashboardSolicitudes,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {

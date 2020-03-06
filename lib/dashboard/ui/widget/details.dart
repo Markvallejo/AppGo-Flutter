@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:appgo/dashboard/ui/screen/conversion_status.dart';
+import 'package:appgo/dashboard/ui/widget/document_empty.dart';
 
 class Details extends StatefulWidget {
   bool status;
@@ -12,6 +14,8 @@ class Details extends StatefulWidget {
   String faseProceso;
   String respuesta;
   String coments;
+  String description;
+  var dateStar;
 
   Details(
       {Key key,
@@ -24,7 +28,9 @@ class Details extends StatefulWidget {
       this.numCelular,
       this.faseProceso,
       this.respuesta,
-      this.coments});
+      this.coments,
+      this.description,
+      this.dateStar});
   @override
   State<StatefulWidget> createState() {
     return _Details();
@@ -33,19 +39,21 @@ class Details extends StatefulWidget {
 
 class _Details extends State<Details> {
   String statusConvertion = "Estatus de Conversión:";
-  String statusSolicitud = "Venta no efectuada - Falta de Inventario";
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+
+    String statusConversion;
+
     setState(() {
-      if (statusSolicitud != null) {
+      if (statusConversion != null) {
         widget.status = true;
       } else {
         widget.status = false;
       }
     });
+
     final divider = Divider(
       color: Colors.black38,
       height: 24.0,
@@ -323,9 +331,11 @@ class _Details extends State<Details> {
     );
 
     final estadoSolicitud = Container(
-      child: statusSolicitud != null
+      child: statusConversion != null
           ? Text(
-              statusSolicitud,
+              widget.description.length > 40
+                  ? widget.description.substring(0, 40) + "..."
+                  : widget.description,
               style: TextStyle(
                 fontFamily: "DIN",
                 fontSize: 16,
@@ -340,8 +350,15 @@ class _Details extends State<Details> {
       width: screenWidth,
       padding: EdgeInsets.only(bottom: 10.0, top: 10.0, left: 16.0),
       child: InkWell(
-        onTap: () {
-          print(screenWidth);
+        onTap: () async {
+          statusConversion = await Navigator.push(
+              context,
+              MaterialPageRoute<String>(
+                  builder: (BuildContext context) => StatusConvertion(
+                        dateStart: widget.dateStar,
+                      )));
+
+          return statusConversion;
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -350,7 +367,21 @@ class _Details extends State<Details> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 estadoConversion,
-                estadoSolicitud,
+                Container(
+                  child: statusConversion != null
+                      ? Text(
+                          statusConversion.length > 40
+                              ? statusConversion.substring(0, 40) + "..."
+                              : statusConversion,
+                          style: TextStyle(
+                            fontFamily: "DIN",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black54,
+                          ),
+                        )
+                      : Text(""),
+                ),
               ],
             ),
             Container(
@@ -380,19 +411,27 @@ class _Details extends State<Details> {
       ),
     );
 
+    final empty = Container(
+      height: 100.0,
+      width: 100.0,
+      child: DocumentEmpty("No hay Comentarios"),
+    );
+
     final comentario = Container(
       width: screenWidth,
       padding: EdgeInsets.all(15.0),
       color: Colors.grey[200],
-      child: Text(
-        widget.coments,
-        style: TextStyle(
-            fontFamily: "DIN",
-            color: Colors.black38,
-            fontWeight: FontWeight.bold,
-            fontSize: 17.0),
-        textAlign: TextAlign.left,
-      ),
+      child: widget.coments.isEmpty
+          ? empty
+          : Text(
+              widget.coments,
+              style: TextStyle(
+                  fontFamily: "DIN",
+                  color: Colors.black38,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17.0),
+              textAlign: TextAlign.left,
+            ),
     );
 
     return Container(
@@ -410,12 +449,7 @@ class _Details extends State<Details> {
           divider,
           respuestaSolicitud,
           divider2,
-          widget.status == false
-              ? Container(
-                  width: 0.0,
-                  height: 0.0,
-                )
-              : estado,
+          estado,
           divider2,
           comentarios,
           divider2,
