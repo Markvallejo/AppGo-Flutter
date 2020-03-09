@@ -6,12 +6,14 @@ class Guides extends StatefulWidget {
   var encabezado;
   var fechaDocumento;
   var content;
+  var categoria;
 
   Guides({
     this.idEncabezado,
     this.encabezado,
     this.fechaDocumento,
     this.content,
+    this.categoria,
   });
   @override
   State<StatefulWidget> createState() {
@@ -99,19 +101,21 @@ class _Guides extends State<Guides> {
       ),
     );
 
-    return Container(
-        width: screenWidth,
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        MyWebView(widget.content)));
-          },
-          child: Column(
-            children: <Widget>[contenido, Divider(color: Colors.black45)],
-          ),
-        ));
+    return widget.content != null
+        ? Container(
+            width: screenWidth,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            MyWebView(widget.content, widget.categoria)));
+              },
+              child: Column(
+                children: <Widget>[contenido, Divider(color: Colors.black45)],
+              ),
+            ))
+        : Container();
   }
 }

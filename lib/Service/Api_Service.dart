@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appgo/Service/conversion-status-dashboard-request.dart';
 import 'package:appgo/Service/conversion-status-applications-requests.dart';
 import 'package:appgo/Service/get-conversion-status-request.dart';
-import 'package:appgo/Service/getGuides.dart';
+import 'package:appgo/Service/getResponseTime.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -75,7 +75,7 @@ class _Service extends State<Service> {
       print(request.map((resp) => resp['NombreCompleto']).toList());
     }
 
-    var request = getGuides();
+    var request = getResponseTime();
 
     return Scaffold(
       appBar: AppBar(
@@ -86,10 +86,10 @@ class _Service extends State<Service> {
         future: request,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            List guides = snapshot.data;
-            for (var i = 0; i < guides.length; i++) {
-              print("response ${guides[i]}");
-            }
+            List time = snapshot.data;
+
+            print("Result: $time");
+
             // return Container(
             //   child: Column(
             //     children: <Widget>[

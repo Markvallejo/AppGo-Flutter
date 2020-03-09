@@ -4,13 +4,13 @@ import 'package:appgo/user/model/user.dart';
 import 'dart:convert';
 import 'package:appgo/Service/verification_token.dart';
 
-class IGetGuides {
+class IGetResponseTime {
   String sDealerNumber;
   String sSalesManInfo;
   String sIMEI;
 }
 
-Future getGuides() async {
+Future getResponseTime() async {
   User user = new User();
   var data = await http
       .post(
@@ -30,7 +30,7 @@ Future getGuides() async {
   }).then((result) async {
     var token = json.decode(result.body);
     return await http
-        .post(GUIDES_URL,
+        .post(RESPONSE_TIME_URL,
             headers: {
               "Content-Type": "application/json",
               "__RequestVerificationToken": getVerificationToken().toString(),
@@ -43,10 +43,10 @@ Future getGuides() async {
             }))
         .then((result) {
       var response = json.decode(result.body);
-      if (response['GuidesMaterials'] == null) {
+      if (response["Notifications"] == null) {
         return response["Error"]["Descripcion"];
       }
-      return response['GuidesMaterials'];
+      return response["Notifications"];
     });
   });
   return data;

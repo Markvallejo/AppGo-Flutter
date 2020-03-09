@@ -97,6 +97,7 @@ class _GuidesBoletines extends State<GuidesBoletines> {
                                             fechaDocumento:
                                                 result['FechaDocumento'],
                                             content: result['Contenido'],
+                                            categoria: widget.categoria,
                                           )
                                         : Container(),
                                   )
@@ -117,6 +118,7 @@ class _GuidesBoletines extends State<GuidesBoletines> {
                                             fechaDocumento:
                                                 result['FechaDocumento'],
                                             content: result['Contenido'],
+                                            categoria: widget.categoria,
                                           )
                                         : Container(),
                                   )

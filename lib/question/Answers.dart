@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
-class MyWebView extends StatefulWidget {
-  String url;
-  String title;
-  MyWebView(this.url, this.title);
+class Answers extends StatelessWidget {
+  String encabezado;
+  String contenido;
 
-  @override
-  State<StatefulWidget> createState() {
-    return _MyWebView();
-  }
-}
-
-class _MyWebView extends State<MyWebView> {
+  Answers(this.encabezado, this.contenido);
   @override
   Widget build(BuildContext context) {
+    String title = "Preguntas Frecuentes";
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    final header = Container(
+      margin: EdgeInsets.only(top: 15.0, left: 20.0, right: 15.0),
+      child: Text(
+        encabezado,
+        style: TextStyle(
+            fontFamily: "DIN",
+            fontSize: 15.0,
+            color: Colors.black87,
+            fontWeight: FontWeight.normal),
+      ),
+    );
+
+    final content = Container(
+      margin: EdgeInsets.only(top: 15.0, left: 20.0, right: 15.0),
+      child: Text(
+        contenido,
+        style: TextStyle(
+            fontFamily: "INPro-Bold",
+            fontWeight: FontWeight.normal,
+            fontStyle: FontStyle.normal,
+            color: Colors.black54),
+      ),
+    );
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 60),
@@ -44,9 +63,9 @@ class _MyWebView extends State<MyWebView> {
           title: Center(
             child: Container(
               margin: EdgeInsets.only(top: 15.0),
-              width: MediaQuery.of(context).size.width,
+              width: screenWidth,
               child: Text(
-                widget.title,
+                title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: "INPro-Bold",
@@ -59,7 +78,17 @@ class _MyWebView extends State<MyWebView> {
           ),
         ),
       ),
-      body: WebView(initialUrl: widget.url),
+      body: Container(
+        width: screenWidth,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            header,
+            content,
+          ],
+        ),
+      ),
     );
   }
 }

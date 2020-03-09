@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_left.dart';
+import 'package:appgo/question/question_model.dart';
+import 'package:appgo/question/Answers.dart';
 
 class Question extends StatelessWidget {
   String salesman;
@@ -8,6 +10,8 @@ class Question extends StatelessWidget {
   Widget build(BuildContext context) {
     String title = "Preguntas Frecuentes";
     double screenWidth = MediaQuery.of(context).size.width;
+
+    QuestionModel question = new QuestionModel();
 
     return Scaffold(
       drawerScrimColor: Colors.transparent,
@@ -61,7 +65,42 @@ class Question extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(),
+      body: Container(
+        child: ListView.builder(
+          itemCount: question.sortByQuestion.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: <Widget>[
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => Answers(
+                                question.sortByQuestion[index].encabezado,
+                                question.sortByQuestion[index].contenido)));
+                  },
+                  title: Text(
+                    question.sortByQuestion[index].encabezado,
+                    style: TextStyle(
+                        fontFamily: "DIN",
+                        fontSize: 15.0,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.normal),
+                  ),
+                  trailing: new Icon(
+                    Icons.chevron_right,
+                    color: Colors.lightBlue,
+                  ),
+                ),
+                Divider(
+                  color: Colors.black54,
+                )
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 }

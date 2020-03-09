@@ -125,7 +125,7 @@ class GuidesAndBoletines extends StatelessWidget {
                                         MaterialPageRoute(
                                             builder: (BuildContext context) =>
                                                 GuidesBoletines(
-                                                    title: guides,
+                                                    title: boletines,
                                                     request: guidesAndBoletines,
                                                     categoria: boletines)));
                                   },
