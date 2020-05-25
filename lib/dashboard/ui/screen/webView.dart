@@ -15,10 +15,11 @@ class MyWebView extends StatefulWidget {
 class _MyWebView extends State<MyWebView> {
   @override
   Widget build(BuildContext context) {
+    WebViewController _controller;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 60),
-        // width is infinity and the height is 60
         child: AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -41,25 +42,33 @@ class _MyWebView extends State<MyWebView> {
                   }),
             ),
           ),
-          title: Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 15.0),
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                widget.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: "INPro-Bold",
-                    letterSpacing: 0.8,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                    color: Colors.white),
-              ),
+          centerTitle: true,
+          title: Container(
+            margin: EdgeInsets.only(top: 15.0),
+            child: Text(
+              widget.title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: "INPro-Bold",
+                  letterSpacing: 0.8,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.white),
             ),
           ),
         ),
       ),
-      body: WebView(initialUrl: widget.url),
+      body: Stack(
+        children: <Widget>[
+          WebView(
+            initialUrl: widget.url,
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController webViewController) {
+              _controller = webViewController;
+            },
+          ),
+        ],
+      ),
     );
   }
 }

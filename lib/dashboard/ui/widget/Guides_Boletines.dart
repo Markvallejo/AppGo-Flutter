@@ -49,20 +49,18 @@ class _GuidesBoletines extends State<GuidesBoletines> {
                   }),
             ),
           ),
-          title: Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 15.0),
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                widget.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: "INPro-Bold",
-                    letterSpacing: 0.8,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                    color: Colors.white),
-              ),
+          centerTitle: true,
+          title: Container(
+            margin: EdgeInsets.only(top: 15.0),
+            child: Text(
+              widget.title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: "INPro-Bold",
+                  letterSpacing: 0.8,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.white),
             ),
           ),
         ),

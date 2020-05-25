@@ -14,30 +14,27 @@ class ISalesmanListRequest {
 }
 
 Future salesmanListRequest() async {
-  User user = new User();
+  User user = User();
   var connection = await connectionType().then((res) {
     if (res == ConnectivityResult.none.toString()) {
       return CONNECTION_ERROR;
     } else {
       var data = http
-          .post(
-        GENERATE_TOKEN_URL,
-        headers: {
-          "Content-Type": "application/json",
-          "__RequestVerificationToken": getVerificationToken().toString(),
-        },
-        body: json.encode({
-          'sDealerNumber': user.sDealerNumber,
-          'sSalesManInfo': user.sSalesManInfo,
-          'sIMEI': user.sIMEI
-        }),
-      )
+          .post(GENERATE_TOKEN_URL,
+              headers: {
+                "Content-Type": "application/json",
+                "__RequestVerificationToken": getVerificationToken().toString(),
+              },
+              body: json.encode({
+                'sDealerNumber': user.sDealerNumber,
+                'sSalesManInfo': user.sSalesManInfo,
+                'sIMEI': user.sIMEI,
+              }))
           .then((r) {
         return r;
       }).then((result) async {
         var token = json.decode(result.body);
-        //print(token["TokenValor"]);
-        return await http
+        return http
             .post(SALESMAN_LIST_URL,
                 headers: {
                   "Content-Type": "application/json",
@@ -51,19 +48,19 @@ Future salesmanListRequest() async {
                   'token': token["TokenValor"],
                 }))
             .then((r) {
-          return r.body;
+          return r;
         }).then((result) {
-          var response = json.decode(result);
+          var response = json.decode(result.body);
           if (response["Vendedores"] == null) {
-            print("Salesman Empty: $response");
             return response["Error"]["Descripcion"];
           }
-          //print("Salesman List: $response");
           return response["Vendedores"];
         });
       });
+
       return data;
     }
   });
+
   return connection;
 }

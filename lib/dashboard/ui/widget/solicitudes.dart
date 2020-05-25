@@ -7,7 +7,9 @@ class Solicitudes extends StatefulWidget {
   int numSolicitud;
   String fechaSolicitud;
   int year;
-  String status;
+  String descSC;
+  String marcaSC;
+  String bancoSC;
   var dateStar;
 
   Solicitudes(
@@ -16,7 +18,9 @@ class Solicitudes extends StatefulWidget {
       this.modelo,
       this.numSolicitud,
       this.fechaSolicitud,
-      this.status,
+      this.descSC,
+      this.marcaSC,
+      this.bancoSC,
       this.year,
       this.dateStar});
   @override
@@ -115,7 +119,7 @@ class _Solicitudes extends State<Solicitudes> {
       ),
     );
 
-    final datosSocitud = Row(
+    final datosSolicitud = Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[nuSolicitud, fecha],
     );
@@ -129,7 +133,7 @@ class _Solicitudes extends State<Solicitudes> {
         children: <Widget>[
           name,
           idSolicitud,
-          datosSocitud,
+          datosSolicitud,
         ],
       ),
     );
@@ -138,7 +142,7 @@ class _Solicitudes extends State<Solicitudes> {
       width: screenWidth,
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
       color: Colors.grey[200],
-      child: GestureDetector(
+      child: InkWell(
         onTap: () {
           Navigator.push(
               context,
@@ -147,6 +151,7 @@ class _Solicitudes extends State<Solicitudes> {
                         numSolicitud: widget.numSolicitud,
                         name: widget.nameSolicitud,
                         dateStar: widget.dateStar,
+                        descSC: widget.descSC,
                       )));
         },
         child: Row(

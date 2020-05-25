@@ -2,35 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:appgo/filtros/filters_model.dart';
 import 'package:appgo/dashboard/ui/widget/btnLIsto.dart';
 import 'package:appgo/dashboard/ui/widget/filters.dart';
-import 'package:appgo/dashboard/ui/widget/calendar.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
+import 'package:appgo/Service/salesman_list_request.dart';
 
-class OrdenarPorFecha extends StatefulWidget {
+class OrdenarPorVendedor extends StatefulWidget {
   var resp;
   var salesman;
-  OrdenarPorFecha(this.salesman);
+  OrdenarPorVendedor(this.salesman);
   @override
   State<StatefulWidget> createState() {
-    return _OrdenarPorFecha();
+    return _OrdenarPorVendedor();
   }
 }
 
-class _OrdenarPorFecha extends State<OrdenarPorFecha> {
+class _OrdenarPorVendedor extends State<OrdenarPorVendedor> {
   @override
   Widget build(BuildContext context) {
     FiltersModel filter = new FiltersModel();
+    var salesman = salesmanListRequest();
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double elevation = screenHeight * 0.0357;
 
-    onPress(int index) {
-      if (filter.dateByItems[index].id == filter.dateByItems.last.id) {
-        Calendar calendar = new Calendar();
-        calendar.build(context);
-      } else {
-        print("selection ${filter.salesmanItems[index].name}");
-      }
-    }
+    onPress(int index) {}
 
     back(bool request) {
       setState(() {
@@ -41,7 +36,7 @@ class _OrdenarPorFecha extends State<OrdenarPorFecha> {
     final ordenar = Container(
       margin: EdgeInsets.only(left: 0.0),
       child: Text(
-        "DESDE HACE",
+        "VENDEDOR",
         style: TextStyle(
             letterSpacing: 0.2,
             fontFamily: "DIN",
@@ -51,7 +46,7 @@ class _OrdenarPorFecha extends State<OrdenarPorFecha> {
       ),
     );
 
-    final date = Container(
+    final vendedor = Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
         colors: [Colors.lightBlueAccent[400], Colors.lightBlue[600]],
@@ -83,29 +78,35 @@ class _OrdenarPorFecha extends State<OrdenarPorFecha> {
             ConstrainedBox(
               constraints: BoxConstraints(
                   maxHeight: screenHeight * 0.82, maxWidth: screenWidth * 0.76),
-              child: ListView.builder(
-                itemCount: filter.dateByItems.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: <Widget>[
-                      ListTile(
-                        onTap: () {
-                          onPress(index);
+              child: FutureBuilder(
+                  future: salesman,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    List request = snapshot.data;
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return ListView.builder(
+                        itemCount: request.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: <Widget>[
+                              ListTile(
+                                onTap: () {
+                                  onPress(index);
+                                },
+                                title: Filters(
+                                  filterName: request[index]['NombreVendedor'],
+                                  filterDescription: " ",
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.white60,
+                              ),
+                            ],
+                          );
                         },
-                        title: Filters(
-                          filterName: filter.dateByItems[index].name,
-                          filterDescription:
-                              filter.dateByItems[index].description,
-                          isSelect: filter.dateByItems[index].selected,
-                        ),
-                      ),
-                      Divider(
-                        color: Colors.white60,
-                      ),
-                    ],
-                  );
-                },
-              ),
+                      );
+                    }
+                    return Container();
+                  }),
             ),
           ],
         ),
@@ -113,9 +114,11 @@ class _OrdenarPorFecha extends State<OrdenarPorFecha> {
     );
 
     if (widget.resp == true) {
-      return DrawerRight(vendedor: widget.salesman);
+      return DrawerRight(
+        vendedor: widget.salesman,
+      );
     } else {
-      return date;
+      return vendedor;
     }
   }
 }

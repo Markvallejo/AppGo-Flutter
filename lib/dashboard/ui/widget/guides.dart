@@ -32,7 +32,7 @@ class _Guides extends State<Guides> {
           Text(
             "Titulo:",
             style: TextStyle(
-                fontFamily: "DIN",
+                fontFamily: "INPro-Bold",
                 fontSize: 16.0,
                 color: Colors.black54,
                 fontWeight: FontWeight.normal),
@@ -41,7 +41,7 @@ class _Guides extends State<Guides> {
               ? Text(
                   widget.encabezado,
                   style: TextStyle(
-                      fontFamily: "DIN",
+                      fontFamily: "INPro-Bold",
                       fontSize: 16.0,
                       color: Colors.black87,
                       fontWeight: FontWeight.normal),
@@ -58,7 +58,7 @@ class _Guides extends State<Guides> {
           Text(
             "Fecha:",
             style: TextStyle(
-                fontFamily: "DIN",
+                fontFamily: "INPro-Bold",
                 fontSize: 16.0,
                 color: Colors.black54,
                 fontWeight: FontWeight.normal),
@@ -67,7 +67,7 @@ class _Guides extends State<Guides> {
               ? Text(
                   widget.fechaDocumento,
                   style: TextStyle(
-                      fontFamily: "DIN",
+                      fontFamily: "INPro-Bold",
                       fontSize: 16.0,
                       color: Colors.black87,
                       fontWeight: FontWeight.normal),
@@ -81,7 +81,7 @@ class _Guides extends State<Guides> {
           ? Text(
               widget.content,
               style: TextStyle(
-                  fontFamily: "DIN",
+                  fontFamily: "INPro-Bold",
                   fontSize: 16.0,
                   color: Colors.black87,
                   fontWeight: FontWeight.normal),

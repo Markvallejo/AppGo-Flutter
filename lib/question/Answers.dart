@@ -15,10 +15,10 @@ class Answers extends StatelessWidget {
       child: Text(
         encabezado,
         style: TextStyle(
-            fontFamily: "DIN",
+            fontFamily: "INPro-Bold",
             fontSize: 15.0,
             color: Colors.black87,
-            fontWeight: FontWeight.normal),
+            fontWeight: FontWeight.w500),
       ),
     );
 
@@ -37,7 +37,6 @@ class Answers extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 60),
-        // width is infinity and the height is 60
         child: AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -60,20 +59,18 @@ class Answers extends StatelessWidget {
                   }),
             ),
           ),
-          title: Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 15.0),
-              width: screenWidth,
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: "INPro-Bold",
-                    letterSpacing: 0.8,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                    color: Colors.white),
-              ),
+          centerTitle: true,
+          title: Container(
+            margin: EdgeInsets.only(top: 15.0),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: "INPro-Bold",
+                  letterSpacing: 0.8,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.white),
             ),
           ),
         ),

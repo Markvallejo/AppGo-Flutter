@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
 import 'package:appgo/dashboard/ui/widget/app_bar_solicitudes.dart';
 import 'package:appgo/dashboard/ui/widget/list_all_solicitudes.dart';
-import 'package:appgo/dashboard/ui/widget/search.dart';
+import 'package:appgo/dashboard/ui/screen/search.dart';
 
 class Solicitud extends StatelessWidget {
   String title;
@@ -59,7 +59,7 @@ class Solicitud extends StatelessWidget {
           ),
           elevation: 0.0,
           leading: Container(
-            margin: EdgeInsets.only(top: 13.0, right: 5.0),
+            margin: EdgeInsets.only(top: 13.0),
             child: Builder(
               builder: (context) => IconButton(
                   icon: new Icon(
@@ -71,9 +71,9 @@ class Solicitud extends StatelessWidget {
                   }),
             ),
           ),
-          title: new Container(
+          centerTitle: true,
+          title: Container(
             margin: EdgeInsets.only(top: 15.0),
-            width: screenWidth,
             child: Text(
               title,
               textAlign: TextAlign.center,
@@ -96,7 +96,8 @@ class Solicitud extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => Search()));
+                              builder: (BuildContext context) =>
+                                  Search(dateStar)));
                     }),
               ),
             ),

@@ -14,6 +14,8 @@ class _InputLabel extends State<InputLabel> {
   var salesman = salesmanListRequest();
   int maxLines = 1;
   bool validate = false;
+  bool enter = true;
+  bool indicator = false;
   FocusNode _focusNodeDistribuidor = new FocusNode();
   FocusNode _focusNodeIdVendedor = new FocusNode();
   FocusNode _focusNodePass = new FocusNode();
@@ -64,6 +66,9 @@ class _InputLabel extends State<InputLabel> {
                   ),
                   colorBrightness: Brightness.light,
                   onPressed: () {
+                    setState(() {
+                      indicator = false;
+                    });
                     Navigator.of(context).pop();
                   },
                 )
@@ -76,30 +81,36 @@ class _InputLabel extends State<InputLabel> {
       _controllerDistribuidor.text = 'TEST003';
       _controllerIdVendedor.text = '99998';
       _controllerPass.text = 'Password00';
+      setState(() {
+        indicator = true;
+      });
 
-      salesman.then((salesman) {
-        List response = salesman;
+      salesmanListRequest().catchError((error) {
+        _showAlertDialog(error.toString());
+        return error;
+      });
+
+      salesman.then((resp) {
+        List response = resp;
         for (var i = 0; i < response.length; i++) {
-          if (salesman[i]['NombreVendedor'] == user.sSalesManInfo) {
+          if (response[i]['NombreVendedor'] == user.sSalesManInfo) {
             if (_controllerDistribuidor.text.isEmpty ||
                 _controllerIdVendedor.text.isEmpty ||
                 _controllerPass.text.isEmpty) {
               _showAlertDialog("Debes llenar todos los campos");
             } else if (_controllerDistribuidor.text !=
-                    salesman[i]['NombreVendedor'] ||
+                    response[i]['NombreVendedor'] ||
                 _controllerIdVendedor.text != user.sDealerNumber ||
                 _controllerPass.text != user.sPassword) {
               _showAlertDialog(
                   "Los datos ingresados no son correctos. Intenta nuevamente");
               validate = true;
             } else {
-              // Navigator.of(context).pushNamedAndRemoveUntil(
-              //     '/DashBoard', (Route<dynamic> route) => false);
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) => Dashboard(
-                            salesman: salesman[i]['NombreVendedor'],
+                            salesman: response[i]['NombreVendedor'],
                           )),
                   ModalRoute.withName('/Dashboard'));
             }
@@ -241,17 +252,27 @@ class _InputLabel extends State<InputLabel> {
     );
 
     String login = "ENTRAR";
-    bool enter = true;
+    final circleindicator = Container(
+      padding: EdgeInsets.all(10.0),
+      height: 50.0,
+      width: 50.0,
+      child: CircularProgressIndicator(
+          backgroundColor: Colors.white70,
+          valueColor: AlwaysStoppedAnimation(Colors.lightBlue)),
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         labelDistribuidor,
         labelId,
         labelPass,
+        indicator ? circleindicator : Container(),
         ButtonLogin(
           enter: enter,
           textLogin: login,
           onPress: onPress,
+          indicator: indicator,
         ),
       ],
     );

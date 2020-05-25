@@ -16,7 +16,6 @@ class StatusConvertion extends StatefulWidget {
 class _StatusConvertion extends State<StatusConvertion> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     String title = "Estatus de Conversión";
@@ -53,21 +52,20 @@ class _StatusConvertion extends State<StatusConvertion> {
                   }),
             ),
           ),
-          title: new Container(
-              margin: EdgeInsets.only(top: 15.0, right: 20.0),
-              width: screenWidth,
-              child: Center(
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: "INPro-Bold",
-                      letterSpacing: 0.8,
-                      fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal,
-                      color: Colors.white),
-                ),
-              )),
+          centerTitle: true,
+          title: Container(
+            margin: EdgeInsets.only(top: 15.0),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: "INPro-Bold",
+                  letterSpacing: 0.8,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.white),
+            ),
+          ),
         ),
       ),
       body: Stack(
@@ -91,7 +89,7 @@ class _StatusConvertion extends State<StatusConvertion> {
                         child: ListView(
                             children: request
                                 .map((status) => ListConvertionStatus(
-                                      description: status['Description'],
+                                      descSC: status['Description'],
                                       idStatus: status['StatusConversionId'],
                                       dateStar: widget.dateStart,
                                     ))

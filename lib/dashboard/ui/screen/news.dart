@@ -32,7 +32,6 @@ class _News extends State<News> {
           )),
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 60),
-        // width is infinity and the height is 60
         child: AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -55,20 +54,18 @@ class _News extends State<News> {
                   }),
             ),
           ),
-          title: Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 15.0),
-              width: screenWidth,
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: "INPro-Bold",
-                    letterSpacing: 0.8,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                    color: Colors.white),
-              ),
+          centerTitle: true,
+          title: Container(
+            margin: EdgeInsets.only(top: 15.0),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: "INPro-Bold",
+                  letterSpacing: 0.8,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.white),
             ),
           ),
         ),

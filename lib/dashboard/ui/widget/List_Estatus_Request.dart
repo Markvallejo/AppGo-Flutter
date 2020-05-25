@@ -19,7 +19,7 @@ class ListEstatusRequest extends StatelessWidget {
             child: Text(
               desc,
               style: TextStyle(
-                  fontFamily: "DIN",
+                  fontFamily: "INPro-Bold",
                   fontSize: 16.0,
                   color: Colors.black87,
                   fontWeight: FontWeight.normal),

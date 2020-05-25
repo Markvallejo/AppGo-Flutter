@@ -7,10 +7,14 @@ class Filters extends StatelessWidget {
   Filters({this.filterName, this.filterDescription, this.isSelect});
   @override
   Widget build(BuildContext context) {
+    if (isSelect == null) {
+      isSelect = false;
+    }
     return Container(
-      margin: EdgeInsets.only(right: 70.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: filterDescription.isNotEmpty
+            ? MainAxisAlignment.spaceBetween
+            : MainAxisAlignment.center,
         children: <Widget>[
           Text(
             filterName,

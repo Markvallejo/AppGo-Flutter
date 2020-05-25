@@ -5,8 +5,7 @@ import 'package:appgo/dashboard/ui/widget/drawer_left.dart';
 import 'package:appgo/dashboard/ui/widget/drawer_right.dart';
 import 'package:appgo/Service/dashboard_request.dart';
 import 'package:appgo/Service/Api_Service.dart';
-import 'package:appgo/dashboard/ui/widget/search.dart';
-import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
+import 'package:appgo/dashboard/ui/screen/search.dart';
 
 class Dashboard extends StatefulWidget {
   String salesman;
@@ -78,7 +77,8 @@ class _DashBoard extends State<Dashboard> {
                   }),
             ),
           ),
-          title: new Container(
+          centerTitle: true,
+          title: Container(
             margin: EdgeInsets.only(top: 15.0),
             width: screenWidth,
             child: Text(
@@ -103,7 +103,8 @@ class _DashBoard extends State<Dashboard> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => Search()));
+                              builder: (BuildContext context) =>
+                                  Search(dateStart)));
                     }),
               ),
             ),
@@ -149,24 +150,18 @@ class _DashBoard extends State<Dashboard> {
                   future: dashboardSolicitudes,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.data == CONNECTION_ERROR) {
-                        return Container(
-                          margin: EdgeInsets.only(top: screenHeight * 0.30),
-                          child: Center(
-                            child: Text(snapshot.data),
-                          ),
-                        );
-                      } else {
-                        num activas = snapshot.data['SolicitudesActivas'];
-                        num compradas = snapshot.data['ContratosComprados'];
-                        num aprobadas = snapshot.data['SolicitudesAprobadas'];
-                        num calificadas =
-                            snapshot.data['SolicitudesCalificadas'];
-                        num hOffering = snapshot.data['SolicitudesHO'];
-                        num pendientes = snapshot.data['SolicitudesPendientes'];
-                        num rechazadas = snapshot.data['SolicitudesRechazadas'];
-                        num recibidas = snapshot.data['SolicitudesRecibidas'];
+                      print(snapshot.data);
+                      String error = snapshot.data['Description'];
+                      num activas = snapshot.data['SolicitudesActivas'];
+                      num compradas = snapshot.data['ContratosComprados'];
+                      num aprobadas = snapshot.data['SolicitudesAprobadas'];
+                      num calificadas = snapshot.data['SolicitudesCalificadas'];
+                      num hOffering = snapshot.data['SolicitudesHO'];
+                      num pendientes = snapshot.data['SolicitudesPendientes'];
+                      num rechazadas = snapshot.data['SolicitudesRechazadas'];
+                      num recibidas = snapshot.data['SolicitudesRecibidas'];
 
+                      if (error == null) {
                         return ListCardSolicitudes(
                           numRecibidas: recibidas,
                           numActivas: activas,
@@ -179,8 +174,13 @@ class _DashBoard extends State<Dashboard> {
                           dateStart: dateStart,
                           salesman: widget.salesman,
                         );
+                      } else {
+                        return Container(
+                          child: Text(snapshot.data),
+                        );
                       }
                     }
+
                     if (snapshot.connectionState == ConnectionState.none) {
                       return Container(
                         child: Text(CONNECTION_ERROR),

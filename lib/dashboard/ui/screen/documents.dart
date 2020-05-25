@@ -29,7 +29,7 @@ class Documents extends StatelessWidget {
           ),
           elevation: 0.0,
           leading: Container(
-            margin: EdgeInsets.only(top: 13.0, right: 5.0),
+            margin: EdgeInsets.only(top: 13.0),
             child: Builder(
               builder: (context) => IconButton(
                   icon: new Icon(
@@ -41,9 +41,9 @@ class Documents extends StatelessWidget {
                   }),
             ),
           ),
-          title: new Container(
-            margin: EdgeInsets.only(top: 15.0, right: screenWidth * 0.12),
-            width: screenWidth,
+          centerTitle: true,
+          title: Container(
+            margin: EdgeInsets.only(top: 15.0),
             child: Text(
               title,
               textAlign: TextAlign.center,

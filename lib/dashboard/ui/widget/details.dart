@@ -14,7 +14,9 @@ class Details extends StatefulWidget {
   String faseProceso;
   String respuesta;
   String coments;
-  String description;
+  String descSC;
+  String marcaSC;
+  String bancoSC;
   var dateStar;
 
   Details(
@@ -29,7 +31,9 @@ class Details extends StatefulWidget {
       this.faseProceso,
       this.respuesta,
       this.coments,
-      this.description,
+      this.descSC,
+      this.marcaSC,
+      this.bancoSC,
       this.dateStar});
   @override
   State<StatefulWidget> createState() {
@@ -38,16 +42,13 @@ class Details extends StatefulWidget {
 }
 
 class _Details extends State<Details> {
-  String statusConvertion = "Estatus de Conversión:";
-
   @override
   Widget build(BuildContext context) {
+    String statusConvertion = "Estatus de Conversión:";
     double screenWidth = MediaQuery.of(context).size.width;
 
-    String statusConversion;
-
     setState(() {
-      if (statusConversion != null) {
+      if (widget.descSC != null) {
         widget.status = true;
       } else {
         widget.status = false;
@@ -330,35 +331,36 @@ class _Details extends State<Details> {
       ),
     );
 
-    final estadoSolicitud = Container(
-      child: statusConversion != null
-          ? Text(
-              widget.description.length > 40
-                  ? widget.description.substring(0, 40) + "..."
-                  : widget.description,
-              style: TextStyle(
-                fontFamily: "DIN",
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.black54,
-              ),
-            )
-          : Text(""),
-    );
+    // final estadoSolicitud = Container(
+    //   child: statusConversion != null
+    //       ? Text(
+    //           widget.description.length > 40
+    //               ? widget.description.substring(0, 40) + "..."
+    //               : widget.description,
+    //           style: TextStyle(
+    //             fontFamily: "DIN",
+    //             fontSize: 16,
+    //             fontWeight: FontWeight.w500,
+    //             color: Colors.black54,
+    //           ),
+    //         )
+    //       : Text(""),
+    // );
 
     final estado = Container(
       width: screenWidth,
       padding: EdgeInsets.only(bottom: 10.0, top: 10.0, left: 16.0),
       child: InkWell(
-        onTap: () async {
-          statusConversion = await Navigator.push(
-              context,
-              MaterialPageRoute<String>(
-                  builder: (BuildContext context) => StatusConvertion(
-                        dateStart: widget.dateStar,
-                      )));
-
-          return statusConversion;
+        onTap: () {
+          setState(() async {
+            widget.descSC = await Navigator.push(
+                context,
+                MaterialPageRoute<String>(
+                    builder: (BuildContext context) => StatusConvertion(
+                          dateStart: widget.dateStar,
+                        )));
+            print("Respuesta: ${widget.descSC}");
+          });
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -368,11 +370,11 @@ class _Details extends State<Details> {
               children: <Widget>[
                 estadoConversion,
                 Container(
-                  child: statusConversion != null
+                  child: widget.descSC != null
                       ? Text(
-                          statusConversion.length > 40
-                              ? statusConversion.substring(0, 40) + "..."
-                              : statusConversion,
+                          widget.descSC.length > 40
+                              ? widget.descSC.substring(0, 40) + "..."
+                              : widget.descSC,
                           style: TextStyle(
                             fontFamily: "DIN",
                             fontSize: 16,
@@ -412,13 +414,13 @@ class _Details extends State<Details> {
     );
 
     final empty = Container(
-      height: 100.0,
       width: 100.0,
       child: DocumentEmpty("No hay Comentarios"),
     );
 
     final comentario = Container(
       width: screenWidth,
+      height: MediaQuery.of(context).size.height * 0.20,
       padding: EdgeInsets.all(15.0),
       color: Colors.grey[200],
       child: widget.coments.isEmpty
@@ -435,27 +437,28 @@ class _Details extends State<Details> {
     );
 
     return Container(
-      margin: EdgeInsets.only(top: 45.0),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.070),
       color: Colors.white,
-      child: Column(
-        children: <Widget>[
-          nombre,
-          model,
-          contacto,
-          divider,
-          horaRespuesta,
-          divider,
-          proceso,
-          divider,
-          respuestaSolicitud,
-          divider2,
-          estado,
-          divider2,
-          comentarios,
-          divider2,
-          comentario,
-          divider2,
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            nombre,
+            model,
+            contacto,
+            divider,
+            horaRespuesta,
+            divider,
+            proceso,
+            divider,
+            respuestaSolicitud,
+            divider2,
+            estado,
+            divider2,
+            comentarios,
+            divider2,
+            comentario,
+          ],
+        ),
       ),
     );
   }

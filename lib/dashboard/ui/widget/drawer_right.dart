@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/btnLIsto.dart';
 import 'package:appgo/dashboard/ui/widget/btnCloseSesion.dart';
-import 'package:appgo/dashboard/ui/widget/ordenar_por_alfabeto.dart';
+import 'package:appgo/dashboard/ui/widget/ordenar_por_nombre.dart';
 import 'package:appgo/dashboard/ui/widget/ordenar_por_fecha.dart';
+import 'package:appgo/dashboard/ui/widget/ordenar_por_vendedor.dart';
 
 class DrawerRight extends StatefulWidget {
   var categoria;
   String vendedor;
   String fecha = "7 días";
   String alfabeto = "Nombre A-Z";
+
   bool resp;
+  var filtro;
 
   DrawerRight({Key key, this.resp, this.categoria, this.vendedor});
   @override
@@ -86,7 +89,7 @@ class _DrawerRight extends State<DrawerRight> {
       ),
     );
 
-    final ordenarPorVendedor = Container(
+    final ordenarVendedor = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -111,7 +114,14 @@ class _DrawerRight extends State<DrawerRight> {
       ),
     );
 
-    final filter = Container(
+    listiner(bool request, var filter) {
+      setState(() {
+        widget.filtro = filter;
+        widget.resp = request;
+      });
+    }
+
+    final menu = Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
         colors: [Colors.lightBlueAccent[400], Colors.lightBlue[600]],
@@ -139,7 +149,9 @@ class _DrawerRight extends State<DrawerRight> {
             ),
             ListTile(
                 onTap: () {
-                  Navigator.pop(context);
+                  bool type = true;
+                  Scaffold.geometryOf(context)
+                      .addListener(listiner(type, "Nombre"));
                 },
                 leading: Container(child: ordenarAlfabeto),
                 trailing: new Icon(
@@ -151,7 +163,9 @@ class _DrawerRight extends State<DrawerRight> {
             ),
             ListTile(
                 onTap: () {
-                  Navigator.pop(context);
+                  bool type = true;
+                  Scaffold.geometryOf(context)
+                      .addListener(listiner(type, "fecha"));
                 },
                 leading: Container(child: ordenarPorTiempo),
                 trailing: new Icon(
@@ -163,9 +177,10 @@ class _DrawerRight extends State<DrawerRight> {
             ),
             ListTile(
                 onTap: () {
-                  Navigator.pop(context);
+                  bool type = true;
+                  Scaffold.geometryOf(context).addListener(listiner(type, ""));
                 },
-                leading: Container(child: ordenarPorVendedor),
+                leading: Container(child: ordenarVendedor),
                 trailing: new Icon(
                   Icons.chevron_right,
                   color: Colors.white60,
@@ -182,10 +197,17 @@ class _DrawerRight extends State<DrawerRight> {
     );
 
     if (widget.resp == true) {
-      return OrdenarPorAlfabeto();
+      if (widget.filtro == 'fecha') {
+        return OrdenarPorFecha(widget.vendedor);
+      }
+      if (widget.filtro == 'Nombre') {
+        return OrdenarPorNombre(widget.vendedor);
+      } else {
+        return OrdenarPorVendedor(widget.vendedor);
+      }
       // return OrdenarPorFecha(widget.categoria);
     } else {
-      return filter;
+      return menu;
     }
   }
 }

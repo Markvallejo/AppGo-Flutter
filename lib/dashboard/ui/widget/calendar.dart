@@ -24,18 +24,8 @@ class Calendar extends StatelessWidget {
         return null;
       } else
         print("Dias: ${numberDays.inDays}");
+      Navigator.pop(context, dateSelected);
       return dateSelected;
     });
-    return Container(
-      child: Column(
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              return selectedDate;
-            },
-          ),
-        ],
-      ),
-    );
   }
 }

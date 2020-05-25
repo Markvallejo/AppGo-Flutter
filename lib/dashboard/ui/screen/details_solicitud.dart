@@ -11,12 +11,18 @@ class DetailsSolicitud extends StatefulWidget {
   int numSolicitud;
   String name;
   var dateStar;
+  String descSC;
+  String marcaSC;
+  String bancoSC;
 
   DetailsSolicitud({
     Key key,
     this.numSolicitud,
     this.name,
     this.dateStar,
+    this.descSC,
+    this.marcaSC,
+    this.bancoSC,
   });
   @override
   State<StatefulWidget> createState() {
@@ -60,7 +66,7 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
           ),
           elevation: 0.0,
           leading: Container(
-            margin: EdgeInsets.only(top: 13.0, right: 5.0),
+            margin: EdgeInsets.only(top: 13.0),
             child: Builder(
               builder: (context) => IconButton(
                   icon: new Icon(Icons.chevron_left, size: 28),
@@ -69,9 +75,9 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
                   }),
             ),
           ),
-          title: new Container(
-            margin: EdgeInsets.only(top: 15.0, right: screenWidth * 0.04),
-            width: screenWidth,
+          centerTitle: true,
+          title: Container(
+            margin: EdgeInsets.only(top: 15.0),
             child: Text(
               title,
               textAlign: TextAlign.center,
@@ -154,6 +160,7 @@ class _DetailsSolicitud extends State<DetailsSolicitud> {
                           .substring(18, estadoProceso.length),
                       respuesta: respuesta,
                       fechaSolicitud: horaRespuesta,
+                      descSC: widget.descSC,
                       coments: comentario
                           .toString()
                           .substring(1, comentario.toString().length - 1),

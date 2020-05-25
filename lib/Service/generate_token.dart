@@ -29,7 +29,6 @@ Future generateToken() async {
         return r;
       }).then((result) {
         var token = json.decode(result.body);
-        //print(token["TokenValor"]);
         return token["TokenValor"];
       });
       return response;

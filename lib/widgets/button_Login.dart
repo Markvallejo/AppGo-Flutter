@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:appgo/user/ui/screen/login.dart';
-import 'package:appgo/dashboard/ui/screen/dashboard.dart';
 
 class ButtonLogin extends StatefulWidget {
   String textLogin;
+  bool indicator;
   bool enter;
   final VoidCallback onPress;
 
-  ButtonLogin({Key key, this.textLogin, this.enter, this.onPress});
+  ButtonLogin(
+      {Key key, this.textLogin, this.enter, this.onPress, this.indicator});
 
   @override
   State<StatefulWidget> createState() {
@@ -23,7 +23,11 @@ class _ButtonLogin extends State<ButtonLogin> {
 
     final ButtonLogin = Container(
         margin: widget.enter
-            ? EdgeInsets.only(top: screenHeight * 0.08, left: 20.0, right: 20.0)
+            ? widget.indicator
+                ? EdgeInsets.only(
+                    top: screenHeight * 0.037, left: 20.0, right: 20.0)
+                : EdgeInsets.only(
+                    top: screenHeight * 0.08, left: 20.0, right: 20.0)
             : EdgeInsets.only(
                 top: screenHeight * 0.82, left: 20.0, right: 20.0),
         width: screenWidth * 0.605,

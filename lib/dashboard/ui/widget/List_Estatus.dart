@@ -50,19 +50,14 @@ class ListStatus extends StatelessWidget {
                       Text(
                         descriptionStatus,
                         style: TextStyle(
-                            fontFamily: "DIN",
+                            fontFamily: "INPro-Bold",
                             fontSize: 16.0,
                             color: Colors.black87,
                             fontWeight: FontWeight.normal),
                       ),
-                      Builder(
-                        builder: (context) => IconButton(
-                          icon: new Icon(
-                            Icons.chevron_right,
-                            color: Colors.lightBlue,
-                          ),
-                          onPressed: () {},
-                        ),
+                      Icon(
+                        Icons.chevron_right,
+                        color: Colors.lightBlue,
                       ),
                     ],
                   )
@@ -72,7 +67,7 @@ class ListStatus extends StatelessWidget {
                       Text(
                         descriptionStatus,
                         style: TextStyle(
-                            fontFamily: "DIN",
+                            fontFamily: "INPro-Bold",
                             fontSize: 16.0,
                             color: Colors.black87,
                             fontWeight: FontWeight.normal),

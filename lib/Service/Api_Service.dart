@@ -3,6 +3,8 @@ import 'package:appgo/Service/conversion-status-dashboard-request.dart';
 import 'package:appgo/Service/conversion-status-applications-requests.dart';
 import 'package:appgo/Service/get-conversion-status-request.dart';
 import 'package:appgo/Service/getResponseTime.dart';
+import 'package:appgo/Service/verification_token.dart';
+import 'package:appgo/Service/salesman_list_request.dart';
 
 final STAGE_SERVICES =
     "http://test.gmac-smartlink.com/MobileApp/MobileApplication/";
@@ -51,81 +53,82 @@ class Service extends StatefulWidget {
 class _Service extends State<Service> {
   @override
   Widget build(BuildContext context) {
-    IGetConversionStatusDashboardDataRequest data1 =
-        new IGetConversionStatusDashboardDataRequest();
-    data1.days = 90.toString();
-    var convertionStatus = getConversionStatusDashboardData(data1);
+    // order(List request) {
+    //   request.sort((a, b) {
+    //     return a['NombreCompleto']
+    //         .toString()
+    //         .compareTo(b['NombreCompleto'].toString());
+    //   });
+    //   print(request.map((resp) => resp['NombreCompleto']).toList());
+    // }
 
-    IGetConversionStatusRequest data2 = new IGetConversionStatusRequest();
-    data2.id = 1;
-    var getconvertionstatus = getConversionStatus(data2);
+    // IGetConversionStatusDashboardDataRequest data =
+    //     new IGetConversionStatusDashboardDataRequest();
+    // data.days = 90.toString();
+    // var request = getConversionStatusDashboardData(data);
 
-    IConversionStatusApplicationsRequest data =
-        IConversionStatusApplicationsRequest();
-    data.conversionStatusID = 1;
-    data.days = 90.toString();
-    var solicitud = getConversionStatusApplications(data);
+    var request = salesmanListRequest();
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text('APPGO'),
+    //     backgroundColor: Colors.lightBlue,
+    //   ),
+    //   body: FutureBuilder(
+    //     future: request,
+    //     builder: (BuildContext context, AsyncSnapshot snapshot) {
+    //       if (snapshot.connectionState == ConnectionState.done) {
+    //         print("Result: ${snapshot.data}");
 
-    order(List request) {
-      request.sort((a, b) {
-        return a['NombreCompleto']
-            .toString()
-            .compareTo(b['NombreCompleto'].toString());
-      });
-      print(request.map((resp) => resp['NombreCompleto']).toList());
-    }
+    // return Container(
+    //   child: Column(
+    //     children: <Widget>[
+    //       FlatButton(
+    //         onPressed: () {
+    //           setState(() {
+    //             order(pendientes);
+    //           });
+    //         },
+    //         child: Text("Ordenar"),
+    //       ),
+    //       ConstrainedBox(
+    //         constraints: BoxConstraints(
+    //             maxWidth: MediaQuery.of(context).size.width,
+    //             maxHeight: MediaQuery.of(context).size.height * 0.76),
+    //         child: ListView(
+    //           children: pendientes
+    //               .map((request) => Text(request['NombreCompleto']))
+    //               .toList(),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
+    // } else if (snapshot.hasError) {
+    //   print(snapshot.error);
+    //   return Text("Error: ${snapshot.error}");
+    // }
 
-    var request = getResponseTime();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('APPGO'),
-        backgroundColor: Colors.lightBlue,
-      ),
-      body: FutureBuilder(
-        future: request,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            List time = snapshot.data;
-
-            print("Result: $time");
-
-            // return Container(
-            //   child: Column(
-            //     children: <Widget>[
-            //       FlatButton(
-            //         onPressed: () {
-            //           setState(() {
-            //             order(pendientes);
-            //           });
-            //         },
-            //         child: Text("Ordenar"),
-            //       ),
-            //       ConstrainedBox(
-            //         constraints: BoxConstraints(
-            //             maxWidth: MediaQuery.of(context).size.width,
-            //             maxHeight: MediaQuery.of(context).size.height * 0.76),
-            //         child: ListView(
-            //           children: pendientes
-            //               .map((request) => Text(request['NombreCompleto']))
-            //               .toList(),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // );
-          } else if (snapshot.hasError) {
-            print(snapshot.error);
-            return Text("Error: ${snapshot.error}");
-          }
-
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.lightBlue,
-            ),
-          );
-        },
+    // request.then((r) {
+    //   print("result from salesman: $r");
+    //   return r;
+    // });
+    return Center(
+      child: Column(
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: () async {
+              await request;
+              print("response Salesman Request: $request");
+            },
+          ),
+          CircularProgressIndicator(
+            backgroundColor: Colors.lightBlue,
+          ),
+        ],
       ),
     );
+    //     },
+    //   ),
+    // );
   }
 }

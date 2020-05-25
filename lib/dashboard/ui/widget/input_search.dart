@@ -3,6 +3,8 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:appgo/dashboard/ui/widget/search_result.dart';
 
 class InputSearch extends StatefulWidget {
+  var dateStart;
+  InputSearch(this.dateStart);
   @override
   State<StatefulWidget> createState() {
     return _InputSearch();
@@ -57,12 +59,12 @@ class _InputSearch extends State<InputSearch> {
           ),
           onSearch: search,
           onItemFound: (Post post, int index) {
-            return SearchResult(post.request);
+            return SearchResult(post.request, widget.dateStart);
           },
           onError: (error) {
             return Container(
               child: Center(
-                child: Text("Error, solo se admiten numeros"),
+                child: Text("Error, no se encuentra el numero de solicitud"),
               ),
             );
           },

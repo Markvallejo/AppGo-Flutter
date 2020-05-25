@@ -6,14 +6,14 @@ import 'package:appgo/dashboard/ui/widget/List_Estatus.dart';
 class Status extends StatefulWidget {
   var id;
   var dateStar;
-  var description;
+  var descSC;
   var descriptionStatus;
 
   Status({
     Key key,
     this.id,
     this.dateStar,
-    this.description,
+    this.descSC,
     this.descriptionStatus,
   });
   @override
@@ -25,7 +25,6 @@ class Status extends StatefulWidget {
 class _Status extends State<Status> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     String title = "Estatus de Conversión";
@@ -59,21 +58,20 @@ class _Status extends State<Status> {
                   }),
             ),
           ),
-          title: new Container(
-              margin: EdgeInsets.only(top: 15.0, right: 20.0),
-              width: screenWidth,
-              child: Center(
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: "INPro-Bold",
-                      letterSpacing: 0.8,
-                      fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal,
-                      color: Colors.white),
-                ),
-              )),
+          centerTitle: true,
+          title: Container(
+            margin: EdgeInsets.only(top: 15.0),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: "INPro-Bold",
+                  letterSpacing: 0.8,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.white),
+            ),
+          ),
         ),
       ),
       body: Stack(
@@ -99,7 +97,7 @@ class _Status extends State<Status> {
                                 .map((status) => ListStatus(
                                       descriptionStatus: status['desc'],
                                       idStatus: status['id'],
-                                      description: widget.description,
+                                      description: widget.descSC,
                                       childs: status['childs'],
                                     ))
                                 .toList()),

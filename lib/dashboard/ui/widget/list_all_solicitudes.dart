@@ -48,6 +48,9 @@ class _ListAllRequest extends State<ListAllRequest> {
                               modelo: solicitud['Modelo'],
                               numSolicitud: solicitud['NumeroSolicitud'],
                               fechaSolicitud: solicitud['FechaCreacion'],
+                              descSC: solicitud['descSC'],
+                              bancoSC: solicitud['BancoSC'],
+                              marcaSC: solicitud['MarcaSC'],
                               dateStar: widget.dateStar,
                             ))
                         .toList(),
@@ -59,10 +62,7 @@ class _ListAllRequest extends State<ListAllRequest> {
         }
         if (snapshot.connectionState == ConnectionState.none) {
           return Container(
-            margin: EdgeInsets.only(top: 30.0),
-            child: Center(
-              child: Text("No se encontro Resultados"),
-            ),
+            child: DocumentEmpty("No hay Solicitudes"),
           );
         }
         return Center(

@@ -6,7 +6,8 @@ import 'package:appgo/Service/search_request.dart';
 
 class SearchResult extends StatefulWidget {
   var numSolicitud;
-  SearchResult(this.numSolicitud);
+  var dateStart;
+  SearchResult(this.numSolicitud, this.dateStart);
   @override
   State<StatefulWidget> createState() {
     return _SearchResult();
@@ -41,7 +42,7 @@ class _SearchResult extends State<SearchResult> {
                   numSolicitud: snapshot.data['NumeroSolicitud'],
                   fechaSolicitud: snapshot.data['FechaCreacion'],
                   year: snapshot.data['Anno'],
-                  status: snapshot.data['EstadoSolicitud'],
+                  dateStar: widget.dateStart,
                 ),
               );
             } else {

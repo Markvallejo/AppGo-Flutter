@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/screen/Estatus_Conversion.dart';
 
 class ListConvertionStatus extends StatelessWidget {
-  String description;
+  String descSC;
   int idStatus;
   var dateStar;
 
   ListConvertionStatus({
     Key key,
-    this.description,
+    this.descSC,
     this.idStatus,
     this.dateStar,
   });
@@ -20,26 +20,35 @@ class ListConvertionStatus extends StatelessWidget {
           padding: EdgeInsets.only(left: 10.0),
           child: InkWell(
             onTap: () async {
-              Navigator.pop(context, description);
-              String value = await Navigator.push(context,
-                  MaterialPageRoute<String>(builder: (BuildContext context) {
-                return Status(
-                  id: idStatus,
-                  dateStar: dateStar,
-                  description: description,
-                );
-              }));
+              String value;
+              Navigator.pop(context, descSC);
+              if (value == null) {
+                value = await Navigator.push(context,
+                    MaterialPageRoute<String>(builder: (BuildContext context) {
+                  return Status(
+                    id: idStatus,
+                    dateStar: dateStar,
+                    descSC: descSC,
+                  );
+                })).then((response) {
+                  print("estado de conversion: $response");
+                  Navigator.pop(context, response);
+                  return response;
+                });
+                Navigator.pop(context, value);
+              }
+              Navigator.pop(context, value);
               print("valor: $value");
             },
-            child: description == "Sin Estatus"
+            child: descSC == "Sin Estatus"
                 ? Container()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        description,
+                        descSC,
                         style: TextStyle(
-                            fontFamily: "DIN",
+                            fontFamily: "INPro-Bold",
                             fontSize: 16.0,
                             color: Colors.black87,
                             fontWeight: FontWeight.normal),
@@ -58,9 +67,7 @@ class ListConvertionStatus extends StatelessWidget {
           ),
         ),
         Divider(
-          color: description == "Sin Estatus"
-              ? Colors.transparent
-              : Colors.black45,
+          color: descSC == "Sin Estatus" ? Colors.transparent : Colors.black45,
         ),
       ],
     );

@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:appgo/dashboard/ui/widget/input_search.dart';
 
 class Search extends StatelessWidget {
+  var dateStart;
+  Search(this.dateStart);
   @override
   Widget build(BuildContext context) {
+    String title = "Busqueda";
     double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size(double.infinity, 60), // width is infinity and 64 is the height
+            Size(double.infinity, 60), // width is infinity and 60 is the height
         child: AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -22,39 +26,38 @@ class Search extends StatelessWidget {
           ),
           elevation: 0.0,
           leading: Container(
-            margin: EdgeInsets.only(top: 15.0),
+            margin: EdgeInsets.only(top: 13.0, right: 5.0),
             child: Builder(
               builder: (context) => IconButton(
-                  icon: new Icon(Icons.chevron_left),
+                  icon: new Icon(
+                    Icons.chevron_left,
+                    size: 28.0,
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
             ),
           ),
           title: new Container(
-            margin: EdgeInsets.only(top: 15.0),
-            width: MediaQuery.of(context).size.width,
-            child: Container(
-              margin: EdgeInsets.only(right: screenWidth * 0.20),
-              child: Text(
-                "Buscar Solicitud",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: "INPro-Bold",
-                    letterSpacing: 0.8,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                    color: Colors.white),
-              ),
+            margin: EdgeInsets.only(top: 15.0, right: screenWidth * 0.12),
+            width: screenWidth,
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: "DIN",
+                  letterSpacing: 0.8,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.white),
             ),
           ),
         ),
       ),
-      body: Container(
-        margin: EdgeInsets.only(top: 30.0),
-        child: Center(
-          child: InputSearch(),
-        ),
+      body: Stack(
+        children: <Widget>[
+          InputSearch(dateStart),
+        ],
       ),
     );
   }
